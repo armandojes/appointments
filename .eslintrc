@@ -5,6 +5,7 @@
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-console": "off"
+    "no-console": "off",
+    "import/no-named-as-default-member": "off"
   }
 }

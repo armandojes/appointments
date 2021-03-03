@@ -1,29 +1,34 @@
-/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-unused-vars */
+import forEachObject from './forEachObject';
+
+const transformIntoDate = (data) => {
+  if (Array.isArray(data)) {
+    return data.map((current) => transformIntoDate(current));
+  }
+  if (typeof data === 'object' && !data.toDate) {
+    const objectTransformed = {};
+    forEachObject(data, (value, keyname) => {
+      objectTransformed[keyname] = transformIntoDate(value);
+    });
+    return objectTransformed;
+  }
+  if (typeof data === 'object' && data.toDate) {
+    return data.toDate();
+  }
+  return data;
+};
+
 const snapShotParser = (snapshot) => {
   if (snapshot.docs) {
     return snapshot.docs.map((currentDoc) => {
       const data = currentDoc.data();
       data.id = currentDoc.id;
-      for (const key in data) {
-        if (Object.hasOwnProperty.call(data, key)) {
-          if (data[key] && data[key].toDate) {
-            data[key] = data[key].toDate();
-          }
-        }
-      }
-      return data;
+      return transformIntoDate(data);
     });
   }
   const data = snapshot.data();
   data.id = snapshot.id;
-  for (const key in data) {
-    if (Object.hasOwnProperty.call(data, key)) {
-      if (data[key] && data[key].toDate) {
-        data[key] = data[key].toDate();
-      }
-    }
-  }
-  return data;
+  return transformIntoDate(data);
 };
 
 export default snapShotParser;
