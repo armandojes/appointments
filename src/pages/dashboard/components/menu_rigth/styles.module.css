@@ -1,0 +1,17 @@
+.menuWrapper{
+  width: 100%;
+}
+.link {
+  display: block;
+  color: gray;
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: .2em 0em;
+  margin: .7em 0em;
+  padding-left: 2em;
+  border-left: 4px solid transparent;
+}
+.linkSelected {
+  border-left: 4px solid var(--green);
+  color: var(--green);
+}

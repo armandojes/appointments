@@ -1,0 +1,13 @@
+.flexWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menuContainer {
+  width: 20%;
+  margin-right: 2em;
+}
+
+.contentContainer {
+  flex-grow: 1;
+}
