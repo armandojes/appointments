@@ -5,6 +5,32 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+@media screen and (max-width:1800px) {
+  body {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width:1600px) {
+  body {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width:1400px) {
+  body {
+    font-size: 11px;
+  }
+}
+@media screen and (max-width:1000px) {
+  body {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width:600px) {
+  body {
+    background-color: #fff;
+  }
 }
 
 code {
@@ -14,5 +40,9 @@ code {
 
 :root {
   --green: #0fafab;
-  --blue: #1a355f,
+  --blue: #1a355f;
+  --border-color: rgb(175 188 198 / 40%);
+}
+a {
+  text-decoration: none;
 }

@@ -7,3 +7,16 @@
 .paddingonliLateral {
   padding: 0em 1em;
 }
+
+@media screen and (max-width:768px) {
+  .wrapper {
+    width: 100%;
+    padding: 1em;
+    margin: auto;
+    box-sizing: border-box;
+  }
+  
+  .paddingonliLateral {
+    padding: 0em 1em;
+  }
+}

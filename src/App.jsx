@@ -1,15 +1,17 @@
 import React from 'react';
-
 import './initializeFirebase';
-import './core/models/appointments';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import DashBoard from './pages/dashboard';
+import './core/models/appointments';
+import ThemeProvider from './themeProvider';
 
 const App = () => (
   <BrowserRouter>
-    <Switch>
-      <Route path="/dashboard" component={DashBoard} />
-    </Switch>
+    <ThemeProvider>
+      <Switch>
+        <Route path="/dashboard" component={DashBoard} />
+      </Switch>
+    </ThemeProvider>
   </BrowserRouter>
 );
 
