@@ -2,8 +2,8 @@
 import { Settings } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Empty from '../../../../components/main/empty';
-import Loading from '../../../../components/main/loading';
+import Empty from '../../../../components/empty';
+import Loading from '../../../../components/loading';
 import Text from '../../../../components/main/text';
 import { colors } from '../../../../constants';
 import branchesModel from '../../../../core/models/branches';

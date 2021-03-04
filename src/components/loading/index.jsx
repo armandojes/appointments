@@ -1,8 +1,8 @@
 /* eslint-disable import/order */
 import React from 'react';
-import { colors } from '../../../constants';
+import { colors } from '../../constants';
 import { Box, CircularProgress, Grid } from '@material-ui/core';
-import Text from '../text';
+import Text from '../main/text';
 
 const Loading = () => (
   <Grid component={Box} justify="center" alignItems="center" minHeight="400px" container flexDirection="column">

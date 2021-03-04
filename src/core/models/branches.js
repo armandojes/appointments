@@ -9,6 +9,12 @@ export const list = async () => {
   return branches.length ? branches : null;
 };
 
+export const getSingle = async (branchId) => {
+  const branchdata = await database.getDocument(`branches/${branchId}`);
+  return branchdata;
+};
+
 export default {
   list,
+  getSingle,
 };
