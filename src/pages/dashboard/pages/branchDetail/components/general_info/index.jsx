@@ -54,7 +54,7 @@ const Generalinfo = () => {
       <Text color={colors.blue} fontWeight="bold" fontSize="1.2em" marginBottom="1em">Informacion general</Text>
       <Rows name="id" value={branch.id} />
       <Rows name="Nombre" value={branch.name} />
-      <Rows name="Direccion" value={branch.adress} />
+      <Rows name="Direccion" value={branch.address} />
       <Rows name="Telefono" value={branch.phones.join(', ')} />
     </Card>
   );

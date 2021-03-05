@@ -14,7 +14,22 @@ export const getSingle = async (branchId) => {
   return branchdata;
 };
 
+export const UpdateGeneralInfo = async (branchId, data) => {
+  try {
+    const secureData = {
+      name: data.name,
+      address: data.address,
+      phones: data.phones,
+    };
+    await database.update(`branches/${branchId}`, secureData);
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
+  }
+};
+
 export default {
   list,
   getSingle,
+  UpdateGeneralInfo,
 };

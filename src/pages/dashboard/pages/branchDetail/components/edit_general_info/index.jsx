@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -9,15 +10,18 @@ import useForm from 'src/hooks/useForm';
 import Input from 'src/components/main/input';
 import { Box, CircularProgress, Grid } from '@material-ui/core';
 import { bool, func, object } from 'prop-types';
-import { colors } from '../../../../../../constants';
-import Button from '../../../../../../components/main/button';
+import { colors } from 'src/constants';
+import Button from 'src/components/main/button';
+import branchesModel from 'src/core/models/branches';
 
 const EditGeneralInfoModal = (props) => {
   const { getInputProps, values, setValues } = useForm();
   const [isLoading, setLoading] = useState(false);
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     setLoading(true);
+    await branchesModel.UpdateGeneralInfo(props.data.id, values);
+    setLoading(false);
   };
 
   // update phones as an array
@@ -55,7 +59,7 @@ const EditGeneralInfoModal = (props) => {
           </Box>
           <Box marginBottom=".5em">
             <Text color={colors.blue} mb=".2em">Dirección</Text>
-            <Input {...getInputProps('adress')} />
+            <Input {...getInputProps('address')} />
           </Box>
           <Box marginBottom="2em">
             <Text color={colors.blue} mb=".2em">Teléfonos (separadas por coma)</Text>
