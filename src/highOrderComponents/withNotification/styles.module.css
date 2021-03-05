@@ -18,3 +18,12 @@
   font-size: 1.5em;
   margin-right: .5em;
 }
+
+@media screen and (max-width:600px) {
+  .card {
+    width: 80%;
+    right: 0;
+    left: 0;
+    margin: auto;
+  }
+}

@@ -46,7 +46,10 @@ const EditGeneralInfoModal = (props) => {
 
   // fill form data
   useEffect(() => {
-    setValues({ ...props.data, phonesCrud: props.data.phones.join(', ') });
+    setValues({
+      ...props.data,
+      phonesCrud: props.data.phones ? props.data.phones.join(', ') : '',
+    });
   }, [props.data]);
 
   return (

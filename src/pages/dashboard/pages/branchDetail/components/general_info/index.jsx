@@ -30,7 +30,7 @@ const Generalinfo = () => {
     setIsLoading(false);
   };
 
-  useFetch(() => handlefetch, []);
+  useFetch(handlefetch, []);
 
   const Rows = ({ value, name }) => (
     <Box marginBottom=".7em">
