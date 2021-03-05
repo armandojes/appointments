@@ -9,13 +9,19 @@ import { colors } from 'src/constants';
 import { Box, Grid } from '@material-ui/core';
 import Card from 'src/components/card';
 import { Edit } from '@material-ui/icons';
+import Button from 'src/components/main/button';
 import styles from './styles.module.css';
-import Button from '../../../../../../components/main/button';
+import EditGeneralInfoModal from '../edit_general_info';
 
 const Generalinfo = () => {
   const [branch, setBranch] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
   const { branchId } = useParams();
+
+  const handleModalClose = () => setModalOpen(false);
+
+  const handleModalOpen = () => setModalOpen(true);
 
   useFetch(async () => {
     const branchData = await branchModel.getSingle(branchId);
@@ -40,7 +46,8 @@ const Generalinfo = () => {
 
   return (
     <Card>
-      <Button className={styles.button} variant="contained" color={colors.green}>
+      <EditGeneralInfoModal data={branch} open={isModalOpen} onClose={handleModalClose} />
+      <Button className={styles.button} variant="contained" color={colors.green} onClick={handleModalOpen}>
         <Edit />
         <Text>Editar</Text>
       </Button>

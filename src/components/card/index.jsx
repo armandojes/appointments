@@ -1,4 +1,4 @@
-import { string } from 'prop-types';
+import { array, object, oneOfType, string } from 'prop-types';
 import React from 'react';
 import styles from './styles.module.css';
 
@@ -9,7 +9,7 @@ const Card = ({ children }) => (
 );
 
 Card.propTypes = {
-  children: string.isRequired,
+  children: oneOfType([string, array, object]).isRequired,
 };
 
 export default Card;
