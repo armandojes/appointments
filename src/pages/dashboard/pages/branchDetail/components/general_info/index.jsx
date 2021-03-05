@@ -23,17 +23,14 @@ const Generalinfo = () => {
 
   const handleModalOpen = () => setModalOpen(true);
 
-  useFetch(async () => {
+  const handlefetch = async () => {
+    setIsLoading(true);
     const branchData = await branchModel.getSingle(branchId);
     setBranch(branchData);
     setIsLoading(false);
-  }, []);
+  };
 
-  if (isLoading) {
-    return (
-      <Loading />
-    );
-  }
+  useFetch(() => handlefetch, []);
 
   const Rows = ({ value, name }) => (
     <Box marginBottom=".7em">
@@ -45,18 +42,28 @@ const Generalinfo = () => {
   );
 
   return (
-    <Card>
-      <EditGeneralInfoModal data={branch} open={isModalOpen} onClose={handleModalClose} />
-      <Button className={styles.button} variant="contained" color={colors.green} onClick={handleModalOpen}>
-        <Edit />
-        <Text>Editar</Text>
-      </Button>
-      <Text color={colors.blue} fontWeight="bold" fontSize="1.2em" marginBottom="1em">Informacion general</Text>
-      <Rows name="id" value={branch.id} />
-      <Rows name="Nombre" value={branch.name} />
-      <Rows name="Direccion" value={branch.address} />
-      <Rows name="Telefono" value={branch.phones.join(', ')} />
-    </Card>
+    <>
+      <EditGeneralInfoModal
+        data={branch || {}}
+        open={isModalOpen}
+        onClose={handleModalClose}
+        onSuccess={handlefetch}
+      />
+      {isLoading && (<Loading />)}
+      {!isLoading && (
+        <Card>
+          <Button className={styles.button} variant="contained" color={colors.green} onClick={handleModalOpen}>
+            <Edit />
+            <Text>Editar</Text>
+          </Button>
+          <Text color={colors.blue} fontWeight="bold" fontSize="1.2em" marginBottom="1em">Informacion general</Text>
+          <Rows name="id" value={branch.id} />
+          <Rows name="Nombre" value={branch.name} />
+          <Rows name="Direccion" value={branch.address} />
+          <Rows name="Telefono" value={branch.phones.join(', ')} />
+        </Card>
+      )}
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-alert */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/destructuring-assignment */
@@ -13,6 +14,7 @@ import { bool, func, object } from 'prop-types';
 import { colors } from 'src/constants';
 import Button from 'src/components/main/button';
 import branchesModel from 'src/core/models/branches';
+import withNotifications from '../../../../../../highOrderComponents/withNotification';
 
 const EditGeneralInfoModal = (props) => {
   const { getInputProps, values, setValues } = useForm();
@@ -20,8 +22,17 @@ const EditGeneralInfoModal = (props) => {
 
   const handleUpdate = async () => {
     setLoading(true);
-    await branchesModel.UpdateGeneralInfo(props.data.id, values);
-    setLoading(false);
+    const { status } = await branchesModel.UpdateGeneralInfo(props.data.id, values);
+    if (status === 'success') {
+      setLoading(false);
+      props.onSuccess();
+      props.onClose();
+      props.setNotification({ message: 'Datos actualizados correctamente', type: 'success' });
+    } else {
+      setLoading(false);
+      props.onClose();
+      props.setNotification({ message: 'Error al actializar los datos', type: 'error' });
+    }
   };
 
   // update phones as an array
@@ -35,10 +46,7 @@ const EditGeneralInfoModal = (props) => {
 
   // fill form data
   useEffect(() => {
-    setValues({
-      ...props.data,
-      phonesCrud: props.data.phones.join(', '),
-    });
+    setValues({ ...props.data, phonesCrud: props.data.phones.join(', ') });
   }, [props.data]);
 
   return (
@@ -79,7 +87,9 @@ const EditGeneralInfoModal = (props) => {
 EditGeneralInfoModal.propTypes = {
   open: bool.isRequired,
   onClose: func.isRequired,
+  onSuccess: func.isRequired,
   data: object.isRequired,
+  setNotification: func.isRequired,
 };
 
-export default EditGeneralInfoModal;
+export default withNotifications(EditGeneralInfoModal);

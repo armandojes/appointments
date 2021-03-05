@@ -1,0 +1,20 @@
+.card {
+  position: fixed;
+  left: 2em;
+  bottom: 2em;
+  background: #fff;
+  padding: 1em;
+  border-radius: .5em;
+  box-shadow: 5px 5px 15px #cdcdcd;
+  width: 15em;
+  font-size: 1em;
+  min-height: 2.5em;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+
+.card svg {
+  font-size: 1.5em;
+  margin-right: .5em;
+}
