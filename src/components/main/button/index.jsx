@@ -4,7 +4,7 @@ import React from 'react';
 import { colors } from '../../../constants';
 import styles from './styles.module.css';
 
-const Button = ({ variant, color, children }) => {
+const Button = ({ variant, color, children, className }) => {
   const stylesInline = {
     border: variant === 'outlined' ? `1px solid ${color}` : '',
     background: variant === 'contained' ? color : 'transparent',
@@ -15,7 +15,7 @@ const Button = ({ variant, color, children }) => {
   };
 
   return (
-    <ButtonBase style={stylesInline} className={styles.button}>
+    <ButtonBase style={stylesInline} className={`${styles.button} ${className}`}>
       {children}
     </ButtonBase>
   );
@@ -24,11 +24,13 @@ const Button = ({ variant, color, children }) => {
 Button.defaultProps = {
   variant: 'outlined',
   color: colors.blue,
+  className: '',
 };
 
 Button.propTypes = {
   variant: string,
   color: string,
+  className: string,
   children: oneOfType([string, array, object, element]).isRequired,
 };
 
