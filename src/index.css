@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 16px;
+  font-size: 17px;
 }
 @media screen and (max-width:1800px) {
   body {
@@ -41,7 +41,7 @@ code {
 :root {
   --green: #0fafab;
   --blue: #1a355f;
-  --border-color: rgb(175 188 198 / 40%);
+  --border-color: #cdcdcd;
 }
 a {
   text-decoration: none;

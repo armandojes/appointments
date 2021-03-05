@@ -9,6 +9,7 @@
     "import/no-named-as-default-member": "off",
     "import/no-extraneous-dependencies": "off",
     "object-curly-newline": "off",
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "import/no-unresolved": "off"
   }
 }
