@@ -24,7 +24,6 @@ const Generalinfo = () => {
   const handleModalOpen = () => setModalOpen(true);
 
   const handlefetch = async () => {
-    setIsLoading(true);
     const branchData = await branchModel.getSingle(branchId);
     setBranch(branchData);
     setIsLoading(false);

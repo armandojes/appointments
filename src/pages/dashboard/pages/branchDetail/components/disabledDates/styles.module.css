@@ -22,7 +22,7 @@
 .disabledDateItem svg {
   color: var(--green);
   border-radius: 50%;
-  margin-left: .7em;
+  margin-left: .5em;
   cursor: pointer;
 }
 
@@ -41,4 +41,9 @@
   cursor: pointer;
   background-color: var(--green);
   color: #fff;
+}
+@media screen and (max-width:600px) {
+  .disabledDateItem svg {
+    margin-left: .2em;
+  }
 }

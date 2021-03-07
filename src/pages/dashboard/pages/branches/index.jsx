@@ -2,6 +2,7 @@
 import { Settings } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Box, Grid } from '@material-ui/core';
 import Empty from '../../../../components/empty';
 import Loading from '../../../../components/loading';
 import Text from '../../../../components/main/text';
@@ -26,7 +27,12 @@ const Branches = () => {
       {isLoading && (<Loading />)}
       {!isLoading && (
         <div className={styles.content}>
-          <Text fontSize="1.5em" marginBottom="1em">Sucursales</Text>
+          <Box marginBottom="1em">
+            <Grid container justify="space-between" alignItems="center">
+              <Text fontSize="1.5em">Sucursales</Text>
+              <Button variant="contained" color={colors.green}>Crear sucursal</Button>
+            </Grid>
+          </Box>
           {!branches && (
             <Empty message="Aun no tienes sucursales" />
           )}
