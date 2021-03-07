@@ -66,10 +66,31 @@ export const updateSchedule = async (branchId, dayName, newValue) => {
   }
 };
 
+export const getDisabledDates = async (branchId) => {
+  const fetcher = database.getList(`branches/${branchId}/disabled`, null, null, [['type', '==', 'DATE']]);
+  const disabled = await fetcher.next();
+  return disabled.length ? disabled.map((disabed) => disabed.date) : null;
+};
+
+export const addDisabledDate = async (branchId, date) => {
+  const success = await database.create(`branches/${branchId}/disabled`, { type: 'DATE', date });
+  if (success) return { status: 'success' };
+  return { status: 'error' };
+};
+
+export const deleteDisabledDate = async (branchId, date) => {
+  const success = await database.removeList(`branches/${branchId}/disabled`, [['type', '==', 'DATE'], ['date', '==', date]]);
+  if (success) return { status: 'success' };
+  return { status: 'error' };
+};
+
 export default {
   list,
   getSingle,
   UpdateGeneralInfo,
   updateDayStatus,
   updateSchedule,
+  getDisabledDates,
+  addDisabledDate,
+  deleteDisabledDate,
 };

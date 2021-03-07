@@ -16,3 +16,16 @@ export const formatToHourAndMinute = (date) => {
     return error.toString();
   }
 };
+
+export const getDisplayDate = (date) => {
+  try {
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+
+    const esMonths = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    return `${day}/${esMonths[month]}/${year}`;
+  } catch (error) {
+    return error.toString();
+  }
+};
