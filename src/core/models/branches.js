@@ -28,8 +28,48 @@ export const UpdateGeneralInfo = async (branchId, data) => {
   }
 };
 
+/**
+ * update day status at branch
+ * @param {string} branchId
+ * @param {string} dayName
+ * @param {Boolean} newValue
+ */
+export const updateDayStatus = async (branchId, dayName, newValue) => {
+  try {
+    await database.update(`branches/${branchId}`, {
+      days: { [dayName]: { isEnabled: newValue } },
+    });
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
+  }
+};
+
+/**
+ * update day status at branch
+ * @param {string} branchId
+ * @param {string} dayName
+ * @param {{}} newValue start, end interval
+ */
+export const updateSchedule = async (branchId, dayName, newValue) => {
+  try {
+    await database.update(`branches/${branchId}`, {
+      days: { [dayName]: {
+        start: newValue.start,
+        end: newValue.end,
+        interval: newValue.interval,
+      } },
+    });
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error' };
+  }
+};
+
 export default {
   list,
   getSingle,
   UpdateGeneralInfo,
+  updateDayStatus,
+  updateSchedule,
 };

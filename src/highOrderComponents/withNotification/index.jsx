@@ -14,7 +14,7 @@ const Notification = (props) => {
   };
 
   return (
-    <Fade in={!!props.message && props.type}>
+    <Fade in={!!props.message && !!props.type}>
       <div className={styles.card} style={inlineStyles}>
         {props.type === 'success' && <Check />}
         {props.type === 'error' && <ErrorOutline />}

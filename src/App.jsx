@@ -4,13 +4,16 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import DashBoard from './pages/dashboard';
 import './core/models/appointments';
 import ThemeProvider from './themeProvider';
+import PickersProvider from './MuiPickersUtilsProvider';
 
 const App = () => (
   <BrowserRouter>
     <ThemeProvider>
-      <Switch>
-        <Route path="/dashboard" component={DashBoard} />
-      </Switch>
+      <PickersProvider>
+        <Switch>
+          <Route path="/dashboard" component={DashBoard} />
+        </Switch>
+      </PickersProvider>
     </ThemeProvider>
   </BrowserRouter>
 );
