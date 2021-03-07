@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Input from 'src/components/main/input';
@@ -6,9 +8,9 @@ import { colors } from 'src/constants';
 import Button from 'src/components/main/button';
 import Modal from 'src/components/modal';
 import Text from 'src/components/main/text';
-import { func, bool } from 'prop-types';
+import { func, bool, string } from 'prop-types';
 
-const BranchGeneralInfoForm = ({ open, getInputProps, onClose, onConfirm, isLoading }) => (
+const BranchGeneralInfoForm = ({ open, getInputProps, onClose, onConfirm, isLoading, headerText }) => (
   <Modal open={open}>
     {isLoading && (
     <Grid container alignItems="center" justify="center" style={{ minHeight: '200px' }}>
@@ -18,7 +20,7 @@ const BranchGeneralInfoForm = ({ open, getInputProps, onClose, onConfirm, isLoad
     {!isLoading && (
     <>
       <Box marginBottom="1.5em">
-        <Text fontWeight="bold" color={colors.green} fontSize="1.2em">Informacion General</Text>
+        <Text fontWeight="bold" color={colors.green} fontSize="1.2em">{headerText}</Text>
       </Box>
       <Box marginBottom=".5em">
         <Text color={colors.blue} mb=".2em">Nombre</Text>
@@ -42,12 +44,17 @@ const BranchGeneralInfoForm = ({ open, getInputProps, onClose, onConfirm, isLoad
   </Modal>
 );
 
+BranchGeneralInfoForm.defaultProps = {
+  headerText: 'Informacion general',
+};
+
 BranchGeneralInfoForm.propTypes = {
   getInputProps: func.isRequired,
   isLoading: bool.isRequired,
   open: bool.isRequired,
   onClose: bool.isRequired,
   onConfirm: func.isRequired,
+  headerText: string,
 };
 
 export default BranchGeneralInfoForm;

@@ -11,26 +11,43 @@ import branchesModel from '../../../../core/models/branches';
 import useFetch from '../../../../hooks/useFetch';
 import styles from './styles.module.css';
 import Button from '../../../../components/main/button';
+import AddNewBranch from './components/addNewBranch';
 
 const Branches = () => {
   const [branches, setBranches] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  useFetch(async () => {
+  const handleModalClose = () => setModalOpen(false);
+  const handleModalOpen = () => setModalOpen(true);
+
+  const handleFecth = async () => {
     const branchesList = await branchesModel.list();
     setBranches(branchesList);
     setLoading(false);
-  }, []);
+  };
+
+  useFetch(handleFecth, []);
 
   return (
     <div>
+      <AddNewBranch
+        open={isModalOpen}
+        onClose={handleModalClose}
+        onSuccess={handleFecth}
+      />
       {isLoading && (<Loading />)}
       {!isLoading && (
         <div className={styles.content}>
           <Box marginBottom="1em">
             <Grid container justify="space-between" alignItems="center">
               <Text fontSize="1.5em">Sucursales</Text>
-              <Button variant="contained" color={colors.green}>Crear sucursal</Button>
+              <Button
+                variant="contained"
+                color={colors.green}
+                onClick={handleModalOpen}
+              >Crear sucursal
+              </Button>
             </Grid>
           </Box>
           {!branches && (

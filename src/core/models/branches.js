@@ -84,6 +84,28 @@ export const deleteDisabledDate = async (branchId, date) => {
   return { status: 'error' };
 };
 
+export const createNewBranch = async (data) => {
+  const date = new Date();
+  date.setHours(0);
+  date.setMinutes(0);
+  const success = await database.create('branches', {
+    phones: data.phones,
+    name: data.name,
+    address: data.address,
+    days: {
+      friday: { start: date, end: date, isEnabled: false, interval: 5 },
+      monday: { start: date, end: date, isEnabled: false, interval: 5 },
+      saturday: { start: date, end: date, isEnabled: false, interval: 5 },
+      sunday: { start: date, end: date, isEnabled: false, interval: 5 },
+      thursday: { start: date, end: date, isEnabled: false, interval: 5 },
+      tuesday: { start: date, end: date, isEnabled: false, interval: 5 },
+      wednesday: { start: date, end: date, isEnabled: false, interval: 5 },
+    },
+  });
+  if (success) return { status: 'success' };
+  return { status: 'error' };
+};
+
 export default {
   list,
   getSingle,
@@ -93,4 +115,5 @@ export default {
   getDisabledDates,
   addDisabledDate,
   deleteDisabledDate,
+  createNewBranch,
 };
