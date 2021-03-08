@@ -106,6 +106,13 @@ export const createNewBranch = async (data) => {
   return { status: 'error' };
 };
 
+export const deleteBranche = async (branchId) => {
+  await new Promise((r) => setTimeout(r, 1000));
+  const status = await database.remove(`branches/${branchId}`);
+  if (status) return { status: 'success' };
+  return { status: 'error' };
+};
+
 export default {
   list,
   getSingle,
@@ -116,4 +123,5 @@ export default {
   addDisabledDate,
   deleteDisabledDate,
   createNewBranch,
+  deleteBranche,
 };

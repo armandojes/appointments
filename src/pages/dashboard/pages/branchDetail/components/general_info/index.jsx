@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import branchModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
 import Loading from 'src/components/loading';
@@ -12,12 +13,14 @@ import { Edit } from '@material-ui/icons';
 import Button from 'src/components/main/button';
 import styles from './styles.module.css';
 import EditGeneralInfoModal from '../edit_general_info';
+import withAlert from '../../../../../../highOrderComponents/withAlert';
 
-const Generalinfo = () => {
+const Generalinfo = ({ setAlert }) => {
   const [branch, setBranch] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState(false);
   const { branchId } = useParams();
+  const history = useHistory();
 
   const handleModalClose = () => setModalOpen(false);
 
@@ -40,6 +43,17 @@ const Generalinfo = () => {
     </Box>
   );
 
+  const handleDelete = () => {
+    setAlert({
+      title: '¿Seguro quieres eliminar esta sucursal?',
+      message: 'Tambien eliminara toda la informacion de las citas en esta sucursal',
+      action: async () => {
+        await branchModel.deleteBranche(branchId);
+        history.replace('/dashboard/branches');
+      },
+    });
+  };
+
   return (
     <>
       <EditGeneralInfoModal
@@ -51,10 +65,14 @@ const Generalinfo = () => {
       {isLoading && (<Loading />)}
       {!isLoading && (
         <Card>
-          <Button className={styles.button} variant="contained" color={colors.green} onClick={handleModalOpen}>
-            <Edit />
-            <Text>Editar</Text>
-          </Button>
+          <div className={styles.buttonWrapper}>
+            <Button className={styles.button} color={colors.green} onClick={handleModalOpen}>
+              <Text>Editar</Text>
+            </Button>
+            <Button className={styles.button} color="red" onClick={handleDelete}>
+              <Text>Eliminar</Text>
+            </Button>
+          </div>
           <Text color={colors.blue} fontWeight="bold" fontSize="1.2em" marginBottom="1em">Informacion general</Text>
           <Rows name="id" value={branch.id} />
           <Rows name="Nombre" value={branch.name} />
@@ -66,4 +84,4 @@ const Generalinfo = () => {
   );
 };
 
-export default Generalinfo;
+export default withAlert(Generalinfo);

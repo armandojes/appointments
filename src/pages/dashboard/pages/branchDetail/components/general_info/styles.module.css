@@ -1,4 +1,8 @@
 .button {
+  margin-left: .5em;
+}
+
+.buttonWrapper {
   position: absolute!important;
   right: 1em;
   top: 1em;
