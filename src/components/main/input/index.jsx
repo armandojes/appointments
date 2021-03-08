@@ -5,8 +5,13 @@ import React from 'react';
 import styles from './styles.module.css';
 
 const Input = ({ error, className, ...inputProps }) => {
+  const inlineStyles = {};
+  if (error) {
+    inlineStyles.border = '1px solid red';
+  }
+
   return (
-    <input {...inputProps} className={`${styles.input} ${className}`} />
+    <input {...inputProps} className={`${styles.input} ${className}`} style={inlineStyles} />
   );
 };
 
