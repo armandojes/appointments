@@ -28,11 +28,7 @@ const Alert = ({ title, message, action, isLoading, open, cancel }) => (
         </>
       )}
 
-      {isLoading && (
-        <>
-          <CircularProgress />
-        </>
-      )}
+      {isLoading && (<CircularProgress />)}
     </div>
   </Modal>
 );

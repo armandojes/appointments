@@ -2,6 +2,12 @@
 import firebase from 'firebase';
 import database from './database';
 
+export const deleteEmployment = async (employmentId) => {
+  await new Promise((r) => setTimeout(r, 1000));
+  const response = await firebase.functions().httpsCallable('deleteEmployment')({ employmentId });
+  return response.data;
+};
+
 export const createNewEmployment = async (data) => {
   await new Promise((r) => setTimeout(r, 1000));
   const response = await firebase.functions().httpsCallable('createNewEmployment')(data);
@@ -14,7 +20,15 @@ export const getEmploymentList = async () => {
   return data;
 };
 
+export const updateEmployment = async (userId, data) => {
+  await new Promise((r) => setTimeout(r, 1000));
+  const response = await firebase.functions().httpsCallable('updateEmployment')({ ...data, userId });
+  return response.data;
+};
+
 export default {
   createNewEmployment,
   getEmploymentList,
+  deleteEmployment,
+  updateEmployment,
 };

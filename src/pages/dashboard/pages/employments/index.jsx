@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import { Box, Grid } from '@material-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
@@ -8,38 +6,68 @@ import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
 import useFetch from 'src/hooks/useFetch';
 import emplymentModel from 'src/core/models/employments';
+import { func } from 'prop-types';
 import NewEmployment from './components/newEmployment';
 import Loading from '../../../../components/loading';
 import EmploymentCard from './components/employmentCard';
+import withNotifications from '../../../../highOrderComponents/withNotification';
+import withAlert from '../../../../highOrderComponents/withAlert';
+import UpdateEmployment from './components/updateEmployment';
 
-const Employments = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+const Employments = ({ setNotification, setAlert }) => {
+  const [isModalNewEmploymentOpen, setModalNewEmployment] = useState(false);
+  const [employmentEditing, setEmploymentEditing] = useState(null);
   const [employments, setEmployments] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
-  const handleModalOpen = () => setModalOpen(true);
-  const handleModalClose = () => setModalOpen(false);
+  const handleNewEmploymentModalOpen = () => setModalNewEmployment(true);
+  const handleNewEmploymentModalClose = () => setModalNewEmployment(false);
 
-  useFetch(async () => {
+  const handleFetch = async () => {
     const employmentsList = await emplymentModel.getEmploymentList();
     setEmployments(employmentsList);
     setLoading(false);
-  });
+  };
 
-  const skeleton = [...new Array(3)];
+  const handleDelete = async (employmentId) => {
+    setAlert({
+      title: '¿Seguro quieres eliminar el empleado?',
+      action: async () => {
+        const { status } = await emplymentModel.deleteEmployment(employmentId);
+        if (status === 'success') {
+          setNotification({ type: 'success', message: 'El empleado se elimino correctamente' });
+          handleFetch();
+        } else {
+          setNotification({
+            type: 'error',
+            message: 'Error al eliminar el empleado',
+          });
+        }
+      },
+    });
+  };
+
+  useFetch(handleFetch);
 
   return (
     <>
       <NewEmployment
-        open={isModalOpen}
-        onClose={handleModalClose}
+        open={isModalNewEmploymentOpen}
+        onClose={handleNewEmploymentModalClose}
+        onSuccess={handleFetch}
+      />
+      <UpdateEmployment
+        onClose={() => setEmploymentEditing(null)}
+        open={!!employmentEditing}
+        onSuccess={handleFetch}
+        initialData={employmentEditing || {}}
       />
       <Card>
         <Grid container justify="space-between" alignItems="center">
           <Text color={colors.blue} fontWeight="bold" fontSize="1.2em">
             Empleados
           </Text>
-          <Button variant="contained" color={colors.green} onClick={handleModalOpen}>
+          <Button variant="contained" color={colors.green} onClick={handleNewEmploymentModalOpen}>
             Nuevo empleado
           </Button>
         </Grid>
@@ -58,6 +86,8 @@ const Employments = () => {
                     lastName={employment.lastName}
                     email={employment.email}
                     password={employment.password}
+                    onDelete={() => handleDelete(employment.id)}
+                    onEdit={() => setEmploymentEditing(employment)}
                   />
                 </Box>
               </Grid>
@@ -69,4 +99,9 @@ const Employments = () => {
   );
 };
 
-export default Employments;
+Employments.propTypes = {
+  setNotification: func.isRequired,
+  setAlert: func.isRequired,
+};
+
+export default withAlert(withNotifications(Employments));
