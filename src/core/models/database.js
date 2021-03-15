@@ -55,7 +55,6 @@ export const create = async (path, data, customId = null) => {
  * @param {Boolean|number} limit - limit result
  * @param {Array} orderBy - orderBy
  * @param {Array.<Array>} filters - filters
- * @return {{}} array of items or empty array
  */
 export const getList = (path, limit = null, orderBy = null, filters = []) => {
   const fetcher = {

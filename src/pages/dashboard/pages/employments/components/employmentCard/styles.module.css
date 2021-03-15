@@ -1,0 +1,14 @@
+.card {
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  padding: 2em 1em!important;
+}
+.buttons {
+  font-size: 1em;
+  padding: .5em;
+}
+.buttons svg {
+  color: var(--green);
+  font-size: 1.5em!important;
+}
