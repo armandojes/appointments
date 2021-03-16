@@ -2,13 +2,31 @@
   height: 100%;
   box-sizing: border-box;
   position: relative;
-  padding: 2em 1em!important;
+  padding: 1em 1em 1em 1em!important;
 }
 .buttons {
   font-size: 1em;
   padding: .5em;
+  border: 1px solid var(--blue)!important;
 }
 .buttons svg {
-  color: var(--green);
-  font-size: 1.5em!important;
+  color: var(--blue);
+  font-size: 1.2em!important;
+}
+.branchWrapper {
+  margin: .7em 0em;
+  text-align: center;
+  padding: .5em;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px #cdcdcd;
+  position: relative!important;
+}
+.delete {
+  position: absolute!important;
+  right: .5em;
+  color: var(--green)!important;
+  padding: 0em;
+}
+.delete:hover svg {
+  color: red;
 }

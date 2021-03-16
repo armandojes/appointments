@@ -1,0 +1,60 @@
+.modal {
+  width: 40%;
+  position: relative;
+}
+.cardBranch {
+  border: 1px solid #cdcdcd!important;
+  padding: 1.5em;
+}
+.button {
+  padding: .4em!important;
+  min-width: 60%!important;
+  margin: auto!important;
+  display: block!important;
+  margin-top: 2em!important;
+  font-size: .9em!important;
+  border-radius: 20px!important;
+}
+.body {
+  min-height: 50px;
+  max-height: 80vh;
+}
+.closeIcon {
+  position: absolute!important;
+  right: 1em!important;
+  top: 1em!important;
+  font-size: 1em!important;
+  background-color: var(--blue)!important;
+  padding: .5em!important;
+}
+
+.closeIcon:hover {
+  position: absolute;
+  right: 1em!important;
+  top: 1em!important;
+  font-size: 1em!important;
+  background-color: var(--blue)!important;
+  padding: .5em!important;
+}
+.closeIcon svg {
+  font-size: 1em;
+  color: #fff;
+}
+@media screen and (max-width:1000px) {
+  .modal {
+    width: 60%;
+    position: relative;
+  }
+}
+@media screen and (max-width:800px) {
+  .modal {
+    width: 80%;
+    position: relative;
+  }
+}
+@media screen and (max-width:400px) {
+  .modal {
+    width: 95%;
+    position: relative;
+  }
+}

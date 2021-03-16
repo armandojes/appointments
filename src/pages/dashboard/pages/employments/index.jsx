@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, Grid } from '@material-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
@@ -13,8 +14,10 @@ import EmploymentCard from './components/employmentCard';
 import withNotifications from '../../../../highOrderComponents/withNotification';
 import withAlert from '../../../../highOrderComponents/withAlert';
 import UpdateEmployment from './components/updateEmployment';
+import AddBranchIntoEmployment from './components/addBranch';
 
 const Employments = ({ setNotification, setAlert }) => {
+  const [idUserAdding, setAddingBranch] = useState(null);
   const [isModalNewEmploymentOpen, setModalNewEmployment] = useState(false);
   const [employmentEditing, setEmploymentEditing] = useState(null);
   const [employments, setEmployments] = useState([]);
@@ -47,6 +50,21 @@ const Employments = ({ setNotification, setAlert }) => {
     });
   };
 
+  const handleBranchDelete = (employmentID, branchId) => {
+    setAlert({
+      title: '¿Eliminar acceso del usuario al sucursal?',
+      action: async () => {
+        const { status } = await emplymentModel.deleteBranch(employmentID, branchId);
+        if (status === 'success') {
+          setNotification({ type: 'success', message: 'El acceso del usuario se elimino correctamente' });
+          handleFetch();
+        } else {
+          setNotification({ type: 'error', message: 'Error en la operacion' });
+        }
+      },
+    });
+  };
+
   useFetch(handleFetch);
 
   return (
@@ -61,6 +79,12 @@ const Employments = ({ setNotification, setAlert }) => {
         open={!!employmentEditing}
         onSuccess={handleFetch}
         initialData={employmentEditing || {}}
+      />
+      <AddBranchIntoEmployment
+        open={idUserAdding}
+        onClose={() => setAddingBranch(null)}
+        employmentId={idUserAdding}
+        onSuccess={handleFetch}
       />
       <Card>
         <Grid container justify="space-between" alignItems="center">
@@ -79,7 +103,7 @@ const Employments = ({ setNotification, setAlert }) => {
         <Box marginTop="2em">
           <Grid container>
             {employments.map((employment) => (
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} key={employment.id}>
                 <Box padding=".5em" height="100%" boxSizing="border-box">
                   <EmploymentCard
                     name={employment.name}
@@ -88,6 +112,9 @@ const Employments = ({ setNotification, setAlert }) => {
                     password={employment.password}
                     onDelete={() => handleDelete(employment.id)}
                     onEdit={() => setEmploymentEditing(employment)}
+                    branches={employment.branches || []}
+                    onAdd={() => setAddingBranch(employment.id)}
+                    onBranchDelete={(branchId) => handleBranchDelete(employment.id, branchId)}
                   />
                 </Box>
               </Grid>
