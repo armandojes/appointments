@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import database from './database';
 
 /**
@@ -107,8 +108,10 @@ export const createNewBranch = async (data) => {
 };
 
 export const deleteBranche = async (branchId) => {
-  await new Promise((r) => setTimeout(r, 1000));
   const status = await database.remove(`branches/${branchId}`);
+  await database.updateList('/users', [['type', '==', 'employment']], {
+    branches: firebase.firestore.FieldValue.arrayRemove(branchId),
+  });
   if (status) return { status: 'success' };
   return { status: 'error' };
 };

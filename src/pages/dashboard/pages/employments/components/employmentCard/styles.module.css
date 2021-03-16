@@ -25,7 +25,7 @@
   position: absolute!important;
   right: .5em;
   color: var(--green)!important;
-  padding: 0em;
+  padding: 0em!important;
 }
 .delete:hover svg {
   color: red;
