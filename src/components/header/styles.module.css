@@ -1,0 +1,36 @@
+.header {
+  background-color: var(--blue);
+}
+.headerBody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  height: 5em;
+  padding: 1em 0em;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+
+.line {
+  border-bottom: 3px solid var(--green);
+  margin-left: 3em;
+  margin-right: .8em;
+  margin-top: .4em;
+}
+
+@media screen and (max-width:600px) {
+  .logo {
+    width: 12em;
+  }
+  .link {
+    font-size: .9em;
+  }
+  .headerBody {
+    height: 6em;
+  }
+  .line {
+    margin-right: 0em;
+    margin-top: .1em;
+  }
+}
