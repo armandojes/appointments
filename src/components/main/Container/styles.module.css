@@ -1,17 +1,17 @@
+
 .wrapper {
   width: 65%;
-  padding: 1em;
+  padding: 1.5em;
   margin: auto;
 }
 
 .paddingonliLateral {
-  padding: 0em 1em;
+  padding: 0em 1.5em;
 }
 
 @media screen and (max-width:768px) {
   .wrapper {
     width: 100%;
-    padding: 1em;
     margin: auto;
     box-sizing: border-box;
   }

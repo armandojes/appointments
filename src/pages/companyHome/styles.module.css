@@ -1,0 +1,38 @@
+.bodyWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2em;
+}
+.loginWrapper {
+  width: 30%;
+}
+.registerWrapper {
+  width: 55%;
+}
+
+@media screen and (max-width:1000px) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width:800px) {
+  .container {
+    width: 97%;
+  }
+}
+
+@media screen and (max-width:700px) {
+  .bodyWrapper {
+    flex-wrap: wrap;
+    max-width: 400px;
+    margin: auto;
+  }
+  .loginWrapper {
+    width: 100%;
+  }
+  .registerWrapper {
+    width: 100%;
+    margin-top: 3em;
+  }
+}

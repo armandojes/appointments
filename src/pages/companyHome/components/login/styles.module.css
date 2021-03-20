@@ -1,0 +1,17 @@
+.form {
+  margin-top: 1em;
+  width: 80%;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+@media screen and (max-width:700px) {
+  .form {
+    width: 100%;
+  }
+  .buttonWrapper {
+    display: flex;
+    justify-content: center;
+  }
+}

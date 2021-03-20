@@ -4,11 +4,11 @@ import styles from './styles.module.css';
 
 console.log('styles', styles);
 
-const Container = ({ children, paddingTopDissabled }) => {
+const Container = ({ children, paddingTopDissabled, className }) => {
   const classes = paddingTopDissabled ? `${styles.wrapper} ${styles.paddingonliLateral}` : styles.wrapper;
 
   return (
-    <div className={classes}>
+    <div className={`${classes} ${className}`}>
       {children}
     </div>
   );
@@ -16,11 +16,13 @@ const Container = ({ children, paddingTopDissabled }) => {
 
 Container.defaultProps = {
   paddingTopDissabled: false,
+  className: '',
 };
 
 Container.propTypes = {
   children: oneOfType([array, string, object, node]).isRequired,
   paddingTopDissabled: bool,
+  className: string,
 };
 
 export default Container;

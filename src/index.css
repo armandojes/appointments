@@ -63,3 +63,9 @@ img {
   font-weight: bold;
   src: url(./assets/medium.woff);
 }
+
+@font-face {
+  font-family: 'din';
+  font-weight: 900;
+  src: url(./assets/bold.woff);
+}
