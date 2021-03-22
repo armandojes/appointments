@@ -26,6 +26,13 @@ export const getRequests = async () => {
   return data;
 };
 
+export const deleteRequestCompany = async (compnyId) => {
+  const result = await database.remove(`requestNewCompanies/${compnyId}`);
+  if (result) return { status: 'success' };
+  return { status: 'error' };
+};
+
 export default {
   createRequestForNewCompany,
+  deleteRequestCompany,
 };

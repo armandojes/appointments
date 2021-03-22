@@ -30,7 +30,7 @@ const Requestcard = ({ companyAddress, companyEmail, companyName, companyPhone, 
         <Grid container justify="center">
           <Button onClick={onDelete} color={colors.green} padding=".4em" width="8em">Eliminar</Button>
           <Box pr="1em" />
-          <Button onClick={onAprov} color={colors.green} padding=".4em" width="8em" variant="contained">Aprobar</Button>
+          <Button onClick={onAprov} color={colors.green} padding=".4em" width="8em" variant="contained">Habilitar</Button>
         </Grid>
       </Box>
     </Box>
