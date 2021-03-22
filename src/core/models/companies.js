@@ -3,7 +3,7 @@ import database from './database';
 export const createRequestForNewCompany = async (data) => {
   const compnySchema = {
     companyName: data.companyName,
-    userName: data.userName,
+    userFullName: data.userFullName,
     userEmail: data.userEmail,
     userPhone: data.userPhone,
     companyRazonSocial: data.companyRazonSocial,
