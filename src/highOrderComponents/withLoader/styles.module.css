@@ -1,0 +1,17 @@
+.wrapper {
+  position: fixed;
+  z-index: 999999;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1a355f75;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circularProgress {
+  width: 3.5em!important;
+  height: 3.5em!important;
+  color: var(--blue);
+}

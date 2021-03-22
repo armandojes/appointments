@@ -22,6 +22,12 @@
   border-radius: 50%;
   padding: .3em;
 }
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20em;
+}
 @media screen and (max-width:700px) {
   .form {
     width: 100%;

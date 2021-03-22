@@ -1,18 +1,24 @@
 import database from './database';
 
 export const createRequestForNewCompany = async (data) => {
+  const isEmailUsed = await database.getList('users', false, false, [['email', '==', data.userEmail]]).next();
+  if (isEmailUsed && isEmailUsed.length) return { status: 'error', errorMessage: 'El correo ya se encuentra registrado' };
+
+  const isEmailUsedAtRequest = await database.getList('requestNewCompanies', false, false, [['userEmail', '==', data.userEmail]]).next();
+  if (isEmailUsedAtRequest && isEmailUsedAtRequest.length) return { status: 'error', errorMessage: 'El correo ya se encuentra registrado' };
+
   const compnySchema = {
     companyName: data.companyName,
     userFullName: data.userFullName,
     userEmail: data.userEmail,
-    userPhone: data.userPhone,
+    companyPhone: data.companyPhone,
     companyRazonSocial: data.companyRazonSocial,
     companyAddress: data.companyAddress,
     companyRFC: data.companyRFC,
     companyEmail: data.companyEmail,
   };
   const status = await database.create('/requestNewCompanies', compnySchema);
-  return { status: status ? 'success' : 'error' };
+  return { status: status ? 'success' : 'error', errorMessage: !status ? 'error interno del servidor' : null };
 };
 
 export default {
