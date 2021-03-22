@@ -21,6 +21,11 @@ export const createRequestForNewCompany = async (data) => {
   return { status: status ? 'success' : 'error', errorMessage: !status ? 'error interno del servidor' : null };
 };
 
+export const getRequests = async () => {
+  const data = await database.getList('requestNewCompanies', false, ['createdAt', 'desc']).next();
+  return data;
+};
+
 export default {
   createRequestForNewCompany,
 };

@@ -1,0 +1,10 @@
+.activeLink {
+  border-bottom: 2px solid var(--blue);
+  color: var(--blue)!important;
+  
+}
+.link {
+  color: gray;
+  font-size: 1.2em;
+  font-weight: bold;
+}
