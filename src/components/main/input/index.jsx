@@ -24,7 +24,7 @@ const onlyFloatFilter = (value = '') => {
   return [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'].includes(lastCharacter);
 };
 
-const Input = ({ onChange, error, className, onlyNumbers, onlyFloat, maxLength, variant, ...inputProps }) => {
+const Input = ({ onChange, error, className, onlyNumbers, onlyFloat, maxLength, variant, padding, ...inputProps }) => {
   const handleChange = (e) => {
     if (!e.target.value) return onChange(e);
     if (onlyNumbers && !onlyNumbersFilter(e.target.value)) return null;
@@ -37,6 +37,7 @@ const Input = ({ onChange, error, className, onlyNumbers, onlyFloat, maxLength, 
 
   const inlineStyles = {};
   if (error) inlineStyles.borderColor = 'red';
+  if (padding) inlineStyles.padding = padding;
   const calculatedStyle = variant === 'underline' ? styles.inputUnderLine : styles.input;
 
   return (
@@ -50,6 +51,7 @@ Input.defaultProps = {
   onlyFloat: false,
   maxLength: false,
   variant: 'outlined',
+  padding: null,
 };
 
 Input.propTypes = {
@@ -60,6 +62,7 @@ Input.propTypes = {
   onlyFloat: bool,
   maxLength: number,
   variant: string,
+  padding: string,
 };
 
 export default Input;

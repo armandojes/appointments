@@ -5,9 +5,14 @@ import { func } from 'prop-types';
 import withAlert from 'src/highOrderComponents/withAlert';
 import withNotifications from 'src/highOrderComponents/withNotification';
 import View from './view';
+import CompanyInfoModal from '../../components/createNewCompanyModal';
 
 const CompaniesApproved = ({ setAlert, setNotification }) => {
   const [state, setState] = useState({ loading: true, items: [] });
+  const [isModalOpen, setModal] = useState(false);
+
+  const handleModalClose = () => setModal(false);
+  const handleActiveCreate = () => setModal(true);
 
   const handleFetch = async () => {
     const items = await getApproveds();
@@ -33,11 +38,19 @@ const CompaniesApproved = ({ setAlert, setNotification }) => {
   };
 
   return (
-    <View
-      loading={state.loading}
-      items={state.items}
-      onDelete={handleDeleteWithAlert}
-    />
+    <>
+      <CompanyInfoModal
+        open={isModalOpen}
+        onSuccess={handleFetch}
+        onClose={handleModalClose}
+      />
+      <View
+        loading={state.loading}
+        items={state.items}
+        onDelete={handleDeleteWithAlert}
+        onCreate={handleActiveCreate}
+      />
+    </>
   );
 };
 

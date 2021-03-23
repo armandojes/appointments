@@ -5,9 +5,11 @@ import React from 'react';
 import Empty from 'src/components/empty';
 import Loading from '../../../../../../components/loading';
 import ApprovedCard from '../../components/approvedCard';
+import HeaderCompanies from '../../components/headerPage';
 
-const View = ({ items, loading, onDelete, onEdit }) => (
+const View = ({ items, loading, onDelete, onEdit, onCreate }) => (
   <>
+    <HeaderCompanies onCreate={onCreate} />
     {loading && <Loading />}
     {!loading && !items.length && <Empty message="Aún no hay empresas registradas" />}
     {!loading && !!items.length && (
@@ -40,6 +42,7 @@ View.propTypes = {
   loading: bool.isRequired,
   onDelete: func.isRequired,
   onEdit: func.isRequired,
+  onCreate: func.isRequired,
 };
 
 export default View;

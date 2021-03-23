@@ -55,4 +55,5 @@ export default {
   createRequestForNewCompany,
   deleteRequestCompany,
   deleteAproved,
+  createNewCompany,
 };
