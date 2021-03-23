@@ -7,7 +7,7 @@ import database from './database';
 export const list = async () => {
   const fetcher = database.getList('branches', null, null, []);
   const branches = await fetcher.next();
-  return branches.length ? branches : null;
+  return branches;
 };
 
 export const getSingle = async (branchId) => {

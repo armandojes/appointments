@@ -9,7 +9,7 @@ import Requestcard from '../../components/requestCard';
 const View = ({ loading, items, onDelete, onAprov }) => {
   if (loading) return <Loading />;
 
-  if (loading && items) return <Empty message="Aún no hay solicitudes" />;
+  if (!loading && !items.length) return <Empty message="Aún no hay solicitudes" />;
 
   return (
     <Grid container>

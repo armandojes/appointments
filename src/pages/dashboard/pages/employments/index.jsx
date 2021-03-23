@@ -14,6 +14,7 @@ import withNotifications from '../../../../highOrderComponents/withNotification'
 import withAlert from '../../../../highOrderComponents/withAlert';
 import UpdateEmployment from './components/updateEmployment';
 import AddBranchIntoEmployment from './components/addBranch';
+import Empty from '../../../../components/empty';
 
 const Employments = ({ setNotification, setAlert }) => {
   const [idUserAdding, setAddingBranch] = useState(null);
@@ -97,6 +98,8 @@ const Employments = ({ setNotification, setAlert }) => {
       </Card>
 
       {isLoading && (<Loading />)}
+
+      {!isLoading && !employments.length && (<Empty message="Aún no tienes empleados" />)}
 
       {!isLoading && !!employments.length && (
         <Box marginTop="2em">
