@@ -1,6 +1,4 @@
 /* eslint-disable react/forbid-prop-types */
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import { func, bool, object } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import useForm from 'src/hooks/useForm';

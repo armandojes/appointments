@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { deleteRequestCompany, getRequests } from 'src/core/models/companies';
 import useFetch from 'src/hooks/useFetch';
@@ -5,9 +6,11 @@ import withAlert from 'src/highOrderComponents/withAlert';
 import { func } from 'prop-types';
 import View from './view';
 import withNotifications from '../../../../../../highOrderComponents/withNotification';
+import AprovingCompanyModal from './components/aprovingModal';
 
 const Requests = ({ setAlert, setNotification }) => {
   const [state, setState] = useState({ loading: true, items: [] });
+  const [currentCompanyAproving, setCompanyAproving] = useState(null);
 
   const handleFetch = async () => {
     const list = await getRequests();
@@ -30,12 +33,24 @@ const Requests = ({ setAlert, setNotification }) => {
     });
   };
 
+  const handleApprov = (companyData) => setCompanyAproving(companyData);
+  const handleCloseCurrentCompanyAproving = () => setCompanyAproving(null);
+
   return (
-    <View
-      loading={state.loading}
-      items={state.items}
-      onDelete={handleDeleteWithAlert}
-    />
+    <>
+      <AprovingCompanyModal
+        open={!!currentCompanyAproving}
+        data={currentCompanyAproving}
+        onClose={handleCloseCurrentCompanyAproving}
+        onSuccess={handleFetch}
+      />
+      <View
+        loading={state.loading}
+        items={state.items}
+        onDelete={handleDeleteWithAlert}
+        onAprov={handleApprov}
+      />
+    </>
   );
 };
 

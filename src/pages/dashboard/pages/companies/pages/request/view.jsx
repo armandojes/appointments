@@ -6,7 +6,7 @@ import { Box, Grid } from '@material-ui/core';
 import { array, bool, func } from 'prop-types';
 import Requestcard from '../../components/requestCard';
 
-const View = ({ loading, items, onDelete }) => {
+const View = ({ loading, items, onDelete, onAprov }) => {
   if (loading) return <Loading />;
 
   if (loading && items) return <Empty message="Aún no hay solicitudes" />;
@@ -27,6 +27,7 @@ const View = ({ loading, items, onDelete }) => {
               userEmail={item.userEmail}
               userFullName={item.userFullName}
               onDelete={() => onDelete(item.id)}
+              onAprov={() => onAprov(item)}
             />
           </Box>
         </Grid>
@@ -40,6 +41,7 @@ View.propTypes = {
   loading: bool.isRequired,
   items: array.isRequired,
   onDelete: func.isRequired,
+  onAprov: func.isRequired,
 };
 
 export default View;
