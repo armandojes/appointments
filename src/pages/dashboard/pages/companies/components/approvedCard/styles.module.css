@@ -1,0 +1,13 @@
+.iconWrapper {
+  font-size: 1em!important;
+  border: 1px solid var(--blue)!important;
+  padding: .2em!important;
+  margin-right: 2em!important;
+}
+.iconWrapper:last-of-type {
+  margin-right: 0em!important;
+}
+.iconWrapper svg {
+  color: var(--blue)!important;
+  font-size: 1.5em!important;
+}

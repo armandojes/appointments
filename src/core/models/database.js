@@ -66,11 +66,13 @@ export const getList = (path, limit = null, orderBy = null, filters = []) => {
         let query = firestore.collection(path);
 
         // generate filters
-        for (const currentFilter of filters) {
-          const keyname = currentFilter[0];
-          const type = currentFilter[1];
-          const value = currentFilter[2];
-          query = query.where(keyname, type, value);
+        if (filters) {
+          for (const currentFilter of filters) {
+            const keyname = currentFilter[0];
+            const type = currentFilter[1];
+            const value = currentFilter[2];
+            query = query.where(keyname, type, value);
+          }
         }
 
         // pagination and order

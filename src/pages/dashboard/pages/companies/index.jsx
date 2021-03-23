@@ -4,6 +4,7 @@ import { NavLink, Route, Switch } from 'react-router-dom';
 import Card from '../../../../components/card';
 import Button from '../../../../components/main/button';
 import { colors } from '../../../../constants';
+import CompaniesApproved from './pages/aproved';
 import Requests from './pages/request';
 import styles from './styles.module.css';
 
@@ -26,6 +27,7 @@ const Companies = () => (
     <Box marginTop="1em" />
     <Switch>
       <Route path="/dashboard/companies/requests" component={Requests} />
+      <Route path="/dashboard/companies" component={CompaniesApproved} />
     </Switch>
   </div>
 );

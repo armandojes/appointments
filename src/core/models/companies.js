@@ -1,5 +1,7 @@
-import firebase from 'firebase';
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import database from './database';
+import { callable } from './firebase';
 
 export const createRequestForNewCompany = async (data) => {
   const isEmailUsed = await database.getList('users', false, false, [['email', '==', data.userEmail.toString().toLowerCase()]]).next();
@@ -35,11 +37,22 @@ export const deleteRequestCompany = async (compnyId) => {
 
 // validating on server
 export const createNewCompany = async (data) => {
-  const response = await firebase.functions().httpsCallable('createNewCompany')(data);
+  const response = await callable.httpsCallable('createNewCompany')(data);
+  return response.data;
+};
+
+export const getApproveds = async () => {
+  const list = await database.getList('users', false, false, [['type', '==', 'companyManager']]).next();
+  return list;
+};
+
+export const deleteAproved = async (companyId) => {
+  const response = await callable.httpsCallable('deleteCompany')({ companyId });
   return response.data;
 };
 
 export default {
   createRequestForNewCompany,
   deleteRequestCompany,
+  deleteAproved,
 };

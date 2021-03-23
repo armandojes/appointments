@@ -1,19 +1,19 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
 import firebase from 'firebase';
 import database from './database';
 import branchesmodel from './branches';
+import { callable } from './firebase';
 
 export const deleteEmployment = async (employmentId) => {
   await new Promise((r) => setTimeout(r, 1000));
-  const response = await firebase.functions().httpsCallable('deleteEmployment')({ employmentId });
+  const response = await callable.httpsCallable('deleteEmployment')({ employmentId });
   return response.data;
 };
 
 export const createNewEmployment = async (data) => {
   await new Promise((r) => setTimeout(r, 1000));
-  const response = await firebase.functions().httpsCallable('createNewEmployment')(data);
+  const response = await callable.httpsCallable('createNewEmployment')(data);
   return response.data;
 };
 
@@ -31,7 +31,7 @@ export const getEmploymentList = async () => {
 
 export const updateEmployment = async (userId, data) => {
   await new Promise((r) => setTimeout(r, 1000));
-  const response = await firebase.functions().httpsCallable('updateEmployment')({ ...data, userId });
+  const response = await callable.httpsCallable('updateEmployment')({ ...data, userId });
   return response.data;
 };
 
