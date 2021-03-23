@@ -10,9 +10,19 @@ import CompanyInfoModal from '../../components/createNewCompanyModal';
 const CompaniesApproved = ({ setAlert, setNotification }) => {
   const [state, setState] = useState({ loading: true, items: [] });
   const [isModalOpen, setModal] = useState(false);
+  const [userDataEditing, setUserDataEditin] = useState(null);
 
   const handleModalClose = () => setModal(false);
-  const handleActiveCreate = () => setModal(true);
+
+  const handleActiveCreate = () => {
+    setModal(true);
+    setUserDataEditin(null);
+  };
+
+  const handleActiveUpdate = (data) => {
+    setModal(true);
+    setUserDataEditin(data);
+  };
 
   const handleFetch = async () => {
     const items = await getApproveds();
@@ -43,8 +53,11 @@ const CompaniesApproved = ({ setAlert, setNotification }) => {
         open={isModalOpen}
         onSuccess={handleFetch}
         onClose={handleModalClose}
+        isEditing={!!userDataEditing}
+        data={userDataEditing}
       />
       <View
+        onEdit={handleActiveUpdate}
         loading={state.loading}
         items={state.items}
         onDelete={handleDeleteWithAlert}

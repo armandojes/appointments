@@ -1,21 +1,22 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable arrow-body-style */
 import { Box, CircularProgress, Grid } from '@material-ui/core';
-import { bool, func } from 'prop-types';
-import React, { useState } from 'react';
+import { bool, func, object } from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import Button from 'src/components/main/button';
 import Input from 'src/components/main/input';
 import Text from 'src/components/main/text';
 import Modal from 'src/components/modal';
 import { colors } from 'src/constants';
 import useForm from 'src/hooks/useForm';
-import ErrorMessage from '../../../../../../components/errorMessage';
-import { createNewCompany } from '../../../../../../core/models/companies';
-import withNotifications from '../../../../../../highOrderComponents/withNotification';
-import useErrorMessage from '../../../../../../hooks/useErrorMessage';
+import ErrorMessage from 'src/components/errorMessage';
+import { createNewCompany, updateCompany } from 'src/core/models/companies';
+import withNotifications from 'src/highOrderComponents/withNotification';
+import useErrorMessage from 'src/hooks/useErrorMessage';
 
-const CompanyInfoModal = ({ isEditing, open, onSuccess, onClose, setNotification }) => {
-  const { getInputProps, values } = useForm();
+const CompanyInfoModal = ({ isEditing, open, onSuccess, onClose, setNotification, data }) => {
+  const { getInputProps, values, setValues } = useForm();
   const { errorMessage, setErrorMessage } = useErrorMessage();
   const [isLoading, setLoading] = useState(false);
 
@@ -34,11 +35,41 @@ const CompanyInfoModal = ({ isEditing, open, onSuccess, onClose, setNotification
 
   const handleUpdate = async () => {
     setLoading(true);
+    const response = await updateCompany(data.id, { ...values, repassword: values.password });
+    if (response.status === 'success') {
+      onClose();
+      onSuccess();
+      setNotification({ type: 'success', message: 'Datos actualizados correctamente' });
+    } else {
+      setLoading(false);
+      setErrorMessage(response.errorMessage);
+    }
   };
 
   const handleSave = () => {
     return !isEditing ? handleCreate() : handleUpdate();
   };
+
+  // sync data
+  useEffect(() => {
+    if (data && isEditing) {
+      setValues({
+        companyName: data.company.name,
+        userFullName: data.fullName,
+        userEmail: data.email,
+        password: data.password,
+        companyPhone: data.company.phone,
+        companyRazonSocial: data.company.razonSocial,
+        companyAddress: data.company.address,
+        companyRFC: data.company.rfc,
+        companyEmail: data.company.email,
+      });
+    }
+    return () => {
+      setValues({});
+      setLoading(false);
+    };
+  }, [data, open]);
 
   return (
     <Modal open={open}>
@@ -94,8 +125,13 @@ const CompanyInfoModal = ({ isEditing, open, onSuccess, onClose, setNotification
   );
 };
 
+CompanyInfoModal.defaultProps = {
+  data: null,
+};
+
 CompanyInfoModal.propTypes = {
   isEditing: bool.isRequired,
+  data: object,
   open: bool.isRequired,
   onSuccess: func.isRequired,
   onClose: func.isRequired,

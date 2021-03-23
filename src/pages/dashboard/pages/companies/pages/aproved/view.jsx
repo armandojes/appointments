@@ -27,7 +27,7 @@ const View = ({ items, loading, onDelete, onEdit, onCreate }) => (
                 companyRFC={item.company.rfc}
                 companyRazonSocial={item.company.razonSocial}
                 onDelete={() => onDelete(item.id)}
-                onEdit={() => onEdit(item.id)}
+                onEdit={() => onEdit(item)}
               />
             </Box>
           </Grid>

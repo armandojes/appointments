@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import database from './database';
@@ -51,9 +52,15 @@ export const deleteAproved = async (companyId) => {
   return response.data;
 };
 
+export const updateCompany = async (companyId, newData) => {
+  const response = await callable.httpsCallable('updateCompany')({ ...newData, id: companyId });
+  return response.data;
+};
+
 export default {
   createRequestForNewCompany,
   deleteRequestCompany,
   deleteAproved,
   createNewCompany,
+  updateCompany,
 };
