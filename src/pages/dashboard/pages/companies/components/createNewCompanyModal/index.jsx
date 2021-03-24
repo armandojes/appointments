@@ -80,37 +80,43 @@ const CompanyInfoModal = ({ isEditing, open, onSuccess, onClose, setNotification
       )}
       {!isLoading && (
         <>
-          <Text marginBottom="1em" textAlign="center" color={colors.blue} fontSize="1.2em" fontWeight="bold">
-            {isEditing ? 'Actualizar datos de empresa' : 'Crear nueva empresa'}
-          </Text>
           <ErrorMessage message={errorMessage} marginBottom="1em" />
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="Nombre de la empresa" {...getInputProps('companyName')} maxLength={50} />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>Nombre de la empresa</Text>
+            <Input padding=".4em" {...getInputProps('companyName')} maxLength={50} />
           </Box>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="Nombre del responsable" {...getInputProps('userFullName')} maxLength={50} />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>Nombre del responsable</Text>
+            <Input padding=".4em" {...getInputProps('userFullName')} maxLength={50} />
           </Box>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="Email" {...getInputProps('userEmail')} maxLength={50} />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>Email</Text>
+            <Input padding=".4em" placeholder="" {...getInputProps('userEmail')} maxLength={50} />
           </Box>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="Contraseña" {...getInputProps('password')} maxLength={30} />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>Contraseña</Text>
+            <Input padding=".4em" placeholder="" {...getInputProps('password')} maxLength={30} />
           </Box>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="Telefono" {...getInputProps('companyPhone')} maxLength={10} onlyNumbers />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>Telefono</Text>
+            <Input padding=".4em" placeholder="" {...getInputProps('companyPhone')} maxLength={10} onlyNumbers />
           </Box>
-          <Text color={colors.blue} fontWeight="bold">Datos de facturación:</Text>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="Razón social" {...getInputProps('companyRazonSocial')} maxLength={50} />
+          <Text color={colors.blue} fontWeight="bold" marginBottom=".5em">Datos de facturación:</Text>
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>Razón social</Text>
+            <Input padding=".4em" placeholder="" {...getInputProps('companyRazonSocial')} maxLength={50} />
           </Box>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="Dirección fiscal completa" {...getInputProps('companyAddress')} maxLength={50} />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>Dirección fiscal completa</Text>
+            <Input padding=".4em" placeholder="" {...getInputProps('companyAddress')} maxLength={50} />
           </Box>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="RFC" {...getInputProps('companyRFC')} maxLength={50} />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>RFC</Text>
+            <Input padding=".4em" placeholder="" {...getInputProps('companyRFC')} maxLength={50} />
           </Box>
-          <Box marginBottom=".5em">
-            <Input padding=".5em" placeholder="E-mail" {...getInputProps('companyEmail')} maxLength={50} />
+          <Box marginBottom=".2em">
+            <Text fontWeight="bold" fontSize=".9em" color={colors.blue}>E-mail</Text>
+            <Input padding=".4em" placeholder="" {...getInputProps('companyEmail')} maxLength={50} />
           </Box>
           <Box marginTop="1em">
             <Grid container wrap="nowrap">

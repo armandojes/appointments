@@ -5,6 +5,11 @@
   padding: 3em;
   box-sizing: border-box;
   border-radius: .6em;
+  max-height: 85vh;
+  overflow-y: scroll;
+}
+.card::-webkit-scrollbar {
+  display: none;
 }
 .wrapper {
   display: flex;
