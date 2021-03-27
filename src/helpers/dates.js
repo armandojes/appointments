@@ -1,12 +1,7 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
-function addZero(i) {
-  if (i < 10) {
-    i = `0${i}`;
-  }
-  return i;
-}
+const addZero = (date) => (date < 10 ? `0${date}` : date);
 
 export const formatToHourAndMinute = (date) => {
   try {
@@ -23,7 +18,6 @@ export const getDisplayDate = (date) => {
     const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
-
     const esMonths = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     return `${day}/${esMonths[month]}/${year}`;
   } catch (error) {
@@ -53,7 +47,15 @@ export const makeBlock = (start, end, interval) => {
   }
 
   return blocks.map((block) => ({
-    time: formatToHourAndMinute(block),
+    time: block,
     duration: interval,
+    stringTime: formatToHourAndMinute(block),
   }));
+};
+
+export default {
+  formatToHourAndMinute,
+  getDisplayDate,
+  addMinutes,
+  makeBlock,
 };

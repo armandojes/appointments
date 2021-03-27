@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import firebase from 'firebase';
+import dates from 'src/helpers/dates';
 import { makeBlock } from '../../helpers/dates';
 import database from './database';
 
@@ -159,9 +161,20 @@ export const getScheduleDayDivided = async (branchId, dayName) => {
   const { days = {} } = await getSingle(branchId);
   const daySelected = days[dayName] || {};
   const { start, end, interval = 1, disableds = [] } = daySelected;
-  const blocks = makeBlock(start, end, interval);
-  const blocksWithStatus = blocks.map((block) => ({ ...block, isDisabled: disableds.includes(block.time) }));
-  return blocksWithStatus;
+  let blocks = makeBlock(start, end, interval);
+  const disabledsString = disableds.map((disabled) => dates.formatToHourAndMinute(disabled));
+  blocks = blocks.map((block) => {
+    const currentBlockString = dates.formatToHourAndMinute(block.time);
+    const blockWithStatus = {
+      ...block,
+      isDisabled: disabledsString.includes(currentBlockString),
+    };
+    return blockWithStatus;
+  });
+  console.log('blocks', blocks);
+  console.log('disablds', disableds);
+  console.log('disabledsString', disabledsString);
+  return blocks;
 };
 
 export default {
@@ -177,3 +190,5 @@ export default {
   deleteBranche,
   getScheduleDayDivided,
 };
+
+getScheduleDayDivided('xLfjzViFrKEDgdFoFJtA', 'monday');

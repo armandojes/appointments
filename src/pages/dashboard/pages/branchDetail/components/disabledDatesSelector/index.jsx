@@ -10,7 +10,7 @@ const DisabledDates = ({ schedules, onClick }) => (
     <div className={styles.listContainer}>
       {schedules.map((schedule) => (
         <div className={`${styles.scheduleCard} ${schedule.isDisabled ? styles.scheduleCardDisabled : ''}`} onClick={() => onClick(schedule)}>
-          {schedule.time}
+          {schedule.stringTime}
         </div>
       ))}
     </div>
