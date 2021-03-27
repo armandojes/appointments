@@ -1,0 +1,28 @@
+.scheduleCard {
+  display: block;
+  padding: 1em;
+  font-weight: bold;
+  margin: .2em;
+  box-shadow: 5px 5px 10px #cdcdcd;
+  border-radius: .5em;
+  border: 1px solid var(--green);
+  cursor: pointer;
+  
+}
+.listContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+}
+.scheduleCardDisabled {
+  background-color: #fa3434c4;
+  color: #0d1a2f;
+  font-weight: bold;
+  border: 1px solid #fa3434c4;
+}

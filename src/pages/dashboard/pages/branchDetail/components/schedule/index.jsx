@@ -13,14 +13,19 @@ import mapObjects from '../../../../../../helpers/mapObject';
 import withNotifications from '../../../../../../highOrderComponents/withNotification';
 import orderDays from './orderDays';
 import EditScheduleModal from '../edit_schedule';
+import DisabledSchedulePerDayEditor from '../disabledSchedulePeerDayEditor';
 
 const Schedule = ({ setNotification }) => {
   const [branch, setBranch] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { branchId } = useParams();
-  const [dayEditin, setDayEditin] = useState();
+  const [dayEditinSchedule, setDayEditinSchedule] = useState();
+  const [dayEditingDisableds, setDayEditingDisableds] = useState(null);
 
-  const handleModalClose = () => setDayEditin(null);
+  const handleModalScheduleClose = () => setDayEditinSchedule(null);
+  const handleEditClik = (dayData) => setDayEditinSchedule(dayData);
+  const handleDisabledsClick = (dayData) => setDayEditingDisableds(dayData);
+  const handleModalDisablesClose = () => setDayEditingDisableds(null);
 
   // data fetcher from API
   const handlefetch = async () => {
@@ -29,9 +34,6 @@ const Schedule = ({ setNotification }) => {
     setIsLoading(false);
   };
 
-  // fecth initial Data
-  useFetch(handlefetch, []);
-
   const handleStatusChange = async (dayName, newStatus) => {
     const { status } = await branchModel.updateDayStatus(branchId, dayName, newStatus);
     handlefetch();
@@ -39,16 +41,20 @@ const Schedule = ({ setNotification }) => {
     else setNotification({ type: 'success', message: 'Error al actualizar los datos!' });
   };
 
-  const handleEditClik = (dayData) => {
-    setDayEditin(dayData);
-  };
+  // fecth initial Data
+  useFetch(handlefetch, []);
 
   return (
     <>
+      <DisabledSchedulePerDayEditor
+        data={dayEditingDisableds || {}}
+        open={!!dayEditingDisableds}
+        onClose={handleModalDisablesClose}
+      />
       <EditScheduleModal
-        data={dayEditin || {}}
-        open={!!dayEditin}
-        onClose={handleModalClose}
+        data={dayEditinSchedule || {}}
+        open={!!dayEditinSchedule}
+        onClose={handleModalScheduleClose}
         onSuccess={handlefetch}
       />
       {!isLoading && (
@@ -56,6 +62,7 @@ const Schedule = ({ setNotification }) => {
           <Text color={colors.blue} fontWeight="bold" fontSize="1.2em" marginBottom="1em">Horarios y días hábiles</Text>
           {mapObjects(branch.days, (value, keyname) => (
             <Day
+              onDisabledClick={() => handleDisabledsClick({ ...value, day: keyname, branchId })}
               onEditClick={() => handleEditClik({ ...value, day: keyname, branchId })}
               key={keyname}
               label={keyname}

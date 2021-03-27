@@ -3,6 +3,24 @@
   margin-bottom: .5em;
 }
 .button {
-  margin-left: 1em;
-  padding: .5em!important;
+  font-size: 1em!important;
+  padding: .3em!important;
+}
+
+.buttonEdit {
+  font-size: 1em!important;
+  padding: .3em!important;
+  border-radius: .5em!important;
+  color: var(--green)!important;
+  border: 1px solid var(--green)!important;
+  outline: none!important;
+}
+
+.buttonEdit * {
+  color: var(--green)!important;
+}
+
+.button svg {
+  font-size: 1.6em!important;
+  color: var(--green);
 }

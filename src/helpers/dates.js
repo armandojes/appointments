@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
 function addZero(i) {
@@ -28,4 +29,31 @@ export const getDisplayDate = (date) => {
   } catch (error) {
     return error.toString();
   }
+};
+
+export function addMinutes(date, minutes) {
+  return new Date(date.getTime() + minutes * 60000);
+}
+
+/**
+ * make all schedules
+ * @param {Date} start only ignore date only import time
+ * @param {Date} end only ignore date only import time
+ * @param {number} interval
+ * @returns array of objects
+ */
+export const makeBlock = (start, end, interval) => {
+  let blocks = [start];
+
+  while (true) {
+    const lastBlock = blocks[blocks.length - 1];
+    const currentDate = addMinutes(lastBlock, interval);
+    if (currentDate < end) blocks = [...blocks, currentDate];
+    else break;
+  }
+
+  return blocks.map((block) => ({
+    time: formatToHourAndMinute(block),
+    duration: interval,
+  }));
 };

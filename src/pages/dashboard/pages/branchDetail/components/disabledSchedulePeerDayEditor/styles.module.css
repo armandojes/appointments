@@ -1,0 +1,30 @@
+.modalCard {
+  width: 60vw;
+  position: relative;
+}
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 3em;
+  margin-bottom: 2em;
+  max-width: 30em;
+}
+.buttonWrapper button {
+  width: 50%!important;
+  display: block!important;
+}
+
+@media screen and (max-width:1100px) {
+  .modalCard {
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .modalCard {
+    width: 95vw;
+    padding: .5em;
+  }
+}

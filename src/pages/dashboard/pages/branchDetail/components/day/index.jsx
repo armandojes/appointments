@@ -1,15 +1,15 @@
 /* eslint-disable max-len */
-import { Grid, Switch } from '@material-ui/core';
+import { Box, Grid, IconButton, Switch } from '@material-ui/core';
+import { NotInterested } from '@material-ui/icons';
 import { func, bool, string, instanceOf, number } from 'prop-types';
 import React from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
-import Button from '../../../../../../components/main/button';
 import { colors, days } from '../../../../../../constants';
 import { formatToHourAndMinute } from '../../../../../../helpers/dates';
 import styles from './styles.module.css';
 
-const Day = ({ label, start, end, interval, isEnabled, onStatusChange, onEditClick }) => {
+const Day = ({ label, start, end, interval, isEnabled, onStatusChange, onEditClick, onDisabledClick }) => {
   const inlineStyle = { filter: !isEnabled ? 'grayScale(1)' : 'none' };
 
   return (
@@ -23,10 +23,16 @@ const Day = ({ label, start, end, interval, isEnabled, onStatusChange, onEditCli
             </Text>
           </Grid>
         </Grid>
-        <Grid item>
+        <Box display="flex" alignItems="center">
           <Switch color="primary" defaultChecked={isEnabled} onChange={(event) => onStatusChange(event.target.checked)} />
-          <Button color={colors.green} className={styles.button} onClick={onEditClick}>Editar</Button>
-        </Grid>
+          <IconButton color={colors.green} className={styles.button} onClick={onDisabledClick}>
+            <NotInterested />
+          </IconButton>
+          <Box marginRight=".5em" />
+          <IconButton color={colors.green} className={styles.buttonEdit} onClick={onEditClick}>
+            Editar
+          </IconButton>
+        </Box>
       </Grid>
     </Card>
   );
@@ -40,6 +46,7 @@ Day.propTypes = {
   isEnabled: bool.isRequired,
   onStatusChange: func.isRequired,
   onEditClick: func.isRequired,
+  onDisabledClick: func.isRequired,
 };
 
 export default Day;

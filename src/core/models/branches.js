@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 import firebase from 'firebase';
+import { makeBlock } from '../../helpers/dates';
 import database from './database';
 
 /**
@@ -10,11 +12,20 @@ export const list = async () => {
   return branches;
 };
 
+/**
+ * ge sngle branch data
+ * @param {string} branchId
+ */
 export const getSingle = async (branchId) => {
   const branchdata = await database.getDocument(`branches/${branchId}`);
   return branchdata;
 };
 
+/**
+ *  update general info
+ * @param {string} branchId
+ * @param {{}} data data to update
+ */
 export const UpdateGeneralInfo = async (branchId, data) => {
   try {
     const secureData = {
@@ -47,7 +58,7 @@ export const updateDayStatus = async (branchId, dayName, newValue) => {
 };
 
 /**
- * update day status at branch
+ * update schedule at branch
  * @param {string} branchId
  * @param {string} dayName
  * @param {{}} newValue start, end interval
@@ -67,24 +78,42 @@ export const updateSchedule = async (branchId, dayName, newValue) => {
   }
 };
 
+/**
+ * get disables dates at branch
+ * @param {string} branchId
+ */
 export const getDisabledDates = async (branchId) => {
   const fetcher = database.getList(`branches/${branchId}/disabled`, null, null, [['type', '==', 'DATE']]);
   const disabled = await fetcher.next();
   return disabled.length ? disabled.map((disabed) => disabed.date) : null;
 };
 
+/**
+ * add new disabled date
+ * @param {string} branchId
+ * @param {date} date
+ */
 export const addDisabledDate = async (branchId, date) => {
   const success = await database.create(`branches/${branchId}/disabled`, { type: 'DATE', date });
   if (success) return { status: 'success' };
   return { status: 'error' };
 };
 
+/**
+ * delete disabled dates
+ * @param {*} branchId
+ * @param {*} date
+ */
 export const deleteDisabledDate = async (branchId, date) => {
   const success = await database.removeList(`branches/${branchId}/disabled`, [['type', '==', 'DATE'], ['date', '==', date]]);
   if (success) return { status: 'success' };
   return { status: 'error' };
 };
 
+/**
+ * create new branch
+ * @param {{}} data
+ */
 export const createNewBranch = async (data) => {
   const date = new Date();
   date.setHours(0);
@@ -107,6 +136,11 @@ export const createNewBranch = async (data) => {
   return { status: 'error' };
 };
 
+/**
+ * delete branch
+ * @param {strig} branchId
+ * @returns
+ */
 export const deleteBranche = async (branchId) => {
   const status = await database.remove(`branches/${branchId}`);
   await database.updateList('/users', [['type', '==', 'employment']], {
@@ -114,6 +148,20 @@ export const deleteBranche = async (branchId) => {
   });
   if (status) return { status: 'success' };
   return { status: 'error' };
+};
+
+/**
+ * get schedule vivided per day with status
+ * @param {string} branchId
+ * @param {string} dayName
+ */
+export const getScheduleDayDivided = async (branchId, dayName) => {
+  const { days = {} } = await getSingle(branchId);
+  const daySelected = days[dayName] || {};
+  const { start, end, interval = 1, disableds = [] } = daySelected;
+  const blocks = makeBlock(start, end, interval);
+  const blocksWithStatus = blocks.map((block) => ({ ...block, isDisabled: disableds.includes(block.time) }));
+  return blocksWithStatus;
 };
 
 export default {
@@ -127,4 +175,5 @@ export default {
   deleteDisabledDate,
   createNewBranch,
   deleteBranche,
+  getScheduleDayDivided,
 };
