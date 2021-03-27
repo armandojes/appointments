@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import { Box, CircularProgress, Grid } from '@material-ui/core';
 import { bool, func, string } from 'prop-types';
@@ -8,17 +9,19 @@ import Text from 'src/components/main/text';
 import { colors, days } from 'src/constants';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
+import withNotifications from 'src/highOrderComponents/withNotification';
+import { formatToHourAndMinute } from 'src/helpers/dates';
 import DisplayScheduleStatus from '../disabledDatesSelector';
 import styles from './styles.module.css';
 
-const DisabledSchedulePerDayEditor = ({ open, data, onClose }) => {
+const DisabledSchedulePerDayEditor = ({ open, data, onClose, setNotification }) => {
   const [scheduleList, setScheduleList] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
   const handleFetch = async () => {
     if (open) {
       setLoading(true);
-      const values = await branchesModel.getScheduleDayDivided(data.branchId, data.day);
+      const values = await branchesModel.getDaySchedulesWithStatus(data.branchId, data.day);
       setScheduleList(values);
       setLoading(false);
     }
@@ -28,13 +31,18 @@ const DisabledSchedulePerDayEditor = ({ open, data, onClose }) => {
 
   const handleScheduleClick = ({ time }) => {
     const newScheduleList = scheduleList.map((currentSchedule) => {
-      if (currentSchedule.time === time) {
-        console.log(time);
-        currentSchedule.isDisabled = !currentSchedule.isDisabled;
-      }
+      if (formatToHourAndMinute(currentSchedule.time) === formatToHourAndMinute(time)) currentSchedule.isDisabled = !currentSchedule.isDisabled;
       return currentSchedule;
     });
     setScheduleList(newScheduleList);
+  };
+
+  const handleUpdate = async () => {
+    setLoading(true);
+    const { status } = await branchesModel.updateDayScheduleStatus(data.branchId, data.day, scheduleList);
+    if (status === 'success') setNotification({ type: 'success', message: 'Horarios actualizado correctamente' });
+    setLoading(false);
+    onClose();
   };
 
   return (
@@ -56,7 +64,7 @@ const DisabledSchedulePerDayEditor = ({ open, data, onClose }) => {
           <div className={styles.buttonWrapper}>
             <Button onClick={onClose}>Cerrar</Button>
             <Box marginRight="1em" />
-            <Button variant="contained">Guardar</Button>
+            <Button variant="contained" onClick={handleUpdate}>Guardar</Button>
           </div>
         </>
       )}
@@ -68,6 +76,7 @@ DisabledSchedulePerDayEditor.propTypes = {
   data: string.isRequired,
   open: bool.isRequired,
   onClose: func.isRequired,
+  setNotification: func.isRequired,
 };
 
-export default DisabledSchedulePerDayEditor;
+export default withNotifications(DisabledSchedulePerDayEditor);

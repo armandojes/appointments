@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 import firebase from 'firebase';
 import dates from 'src/helpers/dates';
 import { makeBlock } from '../../helpers/dates';
@@ -60,7 +58,7 @@ export const updateDayStatus = async (branchId, dayName, newValue) => {
 };
 
 /**
- * update schedule at branch
+ * update schedule at branch (start end, interval)
  * @param {string} branchId
  * @param {string} dayName
  * @param {{}} newValue start, end interval
@@ -72,6 +70,7 @@ export const updateSchedule = async (branchId, dayName, newValue) => {
         start: newValue.start,
         end: newValue.end,
         interval: newValue.interval,
+        disableds: [],
       } },
     });
     return { status: 'success' };
@@ -157,7 +156,7 @@ export const deleteBranche = async (branchId) => {
  * @param {string} branchId
  * @param {string} dayName
  */
-export const getScheduleDayDivided = async (branchId, dayName) => {
+export const getDaySchedulesWithStatus = async (branchId, dayName) => {
   const { days = {} } = await getSingle(branchId);
   const daySelected = days[dayName] || {};
   const { start, end, interval = 1, disableds = [] } = daySelected;
@@ -171,10 +170,26 @@ export const getScheduleDayDivided = async (branchId, dayName) => {
     };
     return blockWithStatus;
   });
-  console.log('blocks', blocks);
-  console.log('disablds', disableds);
-  console.log('disabledsString', disabledsString);
   return blocks;
+};
+
+/**
+ * update schedule day with status
+ * @param {string} branchId
+ * @param {string} dayName
+ * @param {Array} schedules all schedules with status
+ */
+export const updateDayScheduleStatus = async (branchId, dayName, schedules) => {
+  const scheduleDisableds = schedules.filter((schedule) => schedule.isDisabled);
+  const timesDisabled = scheduleDisableds.map((schedule) => schedule.time);
+  await database.update(`branches/${branchId}`, {
+    days: {
+      [dayName]: {
+        disableds: timesDisabled,
+      },
+    },
+  });
+  return { status: 'success' };
 };
 
 export default {
@@ -188,7 +203,6 @@ export default {
   deleteDisabledDate,
   createNewBranch,
   deleteBranche,
-  getScheduleDayDivided,
+  getDaySchedulesWithStatus,
+  updateDayScheduleStatus,
 };
-
-getScheduleDayDivided('xLfjzViFrKEDgdFoFJtA', 'monday');
