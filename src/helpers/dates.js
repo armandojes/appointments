@@ -53,9 +53,20 @@ export const makeBlock = (start, end, interval) => {
   }));
 };
 
+/**
+ * get date name by date
+ * @param {Date} date
+ * @returns {string} dayName
+ */
+export const getDayName = (date) => {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  return days[date.getDay()];
+};
+
 export default {
   formatToHourAndMinute,
   getDisplayDate,
   addMinutes,
   makeBlock,
+  getDayName,
 };

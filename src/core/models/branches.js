@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
 import firebase from 'firebase';
 import dates from 'src/helpers/dates';
-import { makeBlock } from '../../helpers/dates';
 import database from './database';
 
 /**
@@ -160,7 +161,7 @@ export const getDaySchedulesWithStatus = async (branchId, dayName) => {
   const { days = {} } = await getSingle(branchId);
   const daySelected = days[dayName] || {};
   const { start, end, interval = 1, disableds = [] } = daySelected;
-  let blocks = makeBlock(start, end, interval);
+  let blocks = dates.makeBlock(start, end, interval);
   const disabledsString = disableds.map((disabled) => dates.formatToHourAndMinute(disabled));
   blocks = blocks.map((block) => {
     const currentBlockString = dates.formatToHourAndMinute(block.time);
@@ -192,6 +193,49 @@ export const updateDayScheduleStatus = async (branchId, dayName, schedules) => {
   return { status: 'success' };
 };
 
+export const getTimesStatusPerDate = async (branchId, date) => {
+  const { disabledTimes = {}, ...branchData } = await getSingle(branchId);
+  const dayName = dates.getDayName(date);
+  const { start, end, interval } = branchData.days[dayName];
+  let blockTimes = dates.makeBlock(start, end, interval);
+  const diesabledTimes = disabledTimes[dates.getDisplayDate(date)] || [];
+  const disabledTimesString = diesabledTimes.map((disabled) => dates.formatToHourAndMinute(disabled));
+  blockTimes = blockTimes.map((block) => {
+    const currentBlockString = dates.formatToHourAndMinute(block.time);
+    const blockWithStatus = {
+      ...block,
+      isDisabled: disabledTimesString.includes(currentBlockString),
+    };
+    return blockWithStatus;
+  });
+  return blockTimes;
+};
+
+/**
+ * update disabled times per date
+ * @param {string} branchId
+ * @param {Date} date
+ * @param {Array} times all times with status
+ */
+export const updateTimesStatusPerDate = async (branchId, date, times) => {
+  const timesDisabledsBlock = times.filter((schedule) => schedule.isDisabled);
+  const timesDisableds = timesDisabledsBlock.map((schedule) => schedule.time);
+  if (!timesDisableds.length) {
+    await database.update(`/branches/${branchId}`, {
+      disabledTimes: {
+        [dates.getDisplayDate(date)]: firebase.firestore.FieldValue.delete(),
+      },
+    });
+    return { status: 'success' };
+  }
+  await database.update(`/branches/${branchId}`, {
+    disabledTimes: {
+      [dates.getDisplayDate(date)]: timesDisableds,
+    },
+  });
+  return { status: 'success' };
+};
+
 export default {
   list,
   getSingle,
@@ -205,4 +249,6 @@ export default {
   deleteBranche,
   getDaySchedulesWithStatus,
   updateDayScheduleStatus,
+  getTimesStatusPerDate,
+  updateTimesStatusPerDate,
 };
