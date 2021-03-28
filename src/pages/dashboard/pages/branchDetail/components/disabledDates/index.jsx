@@ -12,7 +12,7 @@ import Card from 'src/components/card';
 import { func } from 'prop-types';
 import withNotifications from 'src/highOrderComponents/withNotification';
 import { Add, Close } from '@material-ui/icons';
-import { getDisplayDate } from 'src/helpers/dates';
+import { toStringDate } from 'src/helpers/dates';
 import { DatePicker } from '@material-ui/pickers';
 import { Box } from '@material-ui/core';
 import styles from './styles.module.css';
@@ -70,7 +70,7 @@ const DisablesDates = ({ setNotification }) => {
               disablePast
               disableToolbar
               disabledDate
-              shouldDisableDate={(testingDate) => disabledDates.map((d) => getDisplayDate(d)).includes(getDisplayDate(testingDate))}
+              shouldDisableDate={(testingDate) => disabledDates.map((d) => toStringDate(d)).includes(toStringDate(testingDate))}
             />
           </Box>
           <Card>
@@ -79,7 +79,7 @@ const DisablesDates = ({ setNotification }) => {
               {disabledDates.map((disabledDate) => (
                 <div className={styles.disabledDateWrapper} key={disabledDate.toString()}>
                   <div className={styles.disabledDateItem}>
-                    <Text>{getDisplayDate(disabledDate)}</Text>
+                    <Text>{toStringDate(disabledDate)}</Text>
                     <Close onClick={() => handleDeleteDate(disabledDate)} />
                   </div>
                 </div>

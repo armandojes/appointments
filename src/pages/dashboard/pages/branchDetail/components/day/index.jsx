@@ -5,8 +5,8 @@ import { func, bool, string, instanceOf, number } from 'prop-types';
 import React from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
-import { colors, days } from '../../../../../../constants';
-import { formatToHourAndMinute } from '../../../../../../helpers/dates';
+import { colors, days } from 'src/constants';
+import { toStringTime } from 'src/helpers/dates';
 import styles from './styles.module.css';
 
 const Day = ({ label, start, end, interval, isEnabled, onStatusChange, onEditClick, onDisabledClick }) => {
@@ -19,7 +19,7 @@ const Day = ({ label, start, end, interval, isEnabled, onStatusChange, onEditCli
           <Text fontWeight="bold" color={colors.blue}>{days[label]}</Text>
           <Grid container>
             <Text color={colors.green}>
-              De {formatToHourAndMinute(start)} a {formatToHourAndMinute(end)} horas cada {interval} minutos
+              De {toStringTime(start)} a {toStringTime(end)} horas cada {interval} minutos
             </Text>
           </Grid>
         </Grid>

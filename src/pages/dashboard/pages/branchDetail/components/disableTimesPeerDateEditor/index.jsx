@@ -10,7 +10,7 @@ import Modal from 'src/components/modal';
 import { colors, days } from 'src/constants';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
-import { formatToHourAndMinute } from 'src/helpers/dates';
+import { toStringTime } from 'src/helpers/dates';
 import Button from 'src/components/main/button';
 import styles from './styles.module.css';
 import DisplayScheduleStatus from '../disabledDatesSelector';
@@ -29,7 +29,7 @@ const DisableTimesPerDateEditor = ({ open, date, branchId, onClose, setNotificat
 
   const handleScheduleClick = ({ time }) => {
     const newScheduleList = times.map((currentTime) => {
-      if (formatToHourAndMinute(currentTime.time) === formatToHourAndMinute(time)) currentTime.isDisabled = !currentTime.isDisabled;
+      if (toStringTime(currentTime.time) === toStringTime(time)) currentTime.isDisabled = !currentTime.isDisabled;
       return currentTime;
     });
     setTimes(newScheduleList);

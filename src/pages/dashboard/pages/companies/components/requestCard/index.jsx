@@ -6,14 +6,14 @@ import React from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
-import { getDisplayDate } from 'src/helpers/dates';
+import { toStringDate } from 'src/helpers/dates';
 import Button from '../../../../../../components/main/button';
 
 const Requestcard = ({ companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, createdAt, userEmail, userFullName, onDelete, onAprov }) => (
   <Card>
     <Box textAlign="center">
       <Text lineHeight="1.4em" color={colors.green}>Fecha</Text>
-      <Text lineHeight="1.4em" color={colors.blue}>{getDisplayDate(createdAt)}</Text>
+      <Text lineHeight="1.4em" color={colors.blue}>{toStringDate(createdAt)}</Text>
       <Box marginBottom="1.5em" />
       <Text lineHeight="1.4em" color={colors.green}>Datos del usuario</Text>
       <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userFullName}</Text>

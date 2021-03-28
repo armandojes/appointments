@@ -162,9 +162,9 @@ export const getDaySchedulesWithStatus = async (branchId, dayName) => {
   const daySelected = days[dayName] || {};
   const { start, end, interval = 1, disableds = [] } = daySelected;
   let blocks = dates.makeBlock(start, end, interval);
-  const disabledsString = disableds.map((disabled) => dates.formatToHourAndMinute(disabled));
+  const disabledsString = disableds.map((disabled) => dates.toStringTime(disabled));
   blocks = blocks.map((block) => {
-    const currentBlockString = dates.formatToHourAndMinute(block.time);
+    const currentBlockString = dates.toStringTime(block.time);
     const blockWithStatus = {
       ...block,
       isDisabled: disabledsString.includes(currentBlockString),
@@ -198,10 +198,10 @@ export const getTimesStatusPerDate = async (branchId, date) => {
   const dayName = dates.getDayName(date);
   const { start, end, interval } = branchData.days[dayName];
   let blockTimes = dates.makeBlock(start, end, interval);
-  const diesabledTimes = disabledTimes[dates.getDisplayDate(date)] || [];
-  const disabledTimesString = diesabledTimes.map((disabled) => dates.formatToHourAndMinute(disabled));
+  const diesabledTimes = disabledTimes[dates.toStringDate(date)] || [];
+  const disabledTimesString = diesabledTimes.map((disabled) => dates.toStringTime(disabled));
   blockTimes = blockTimes.map((block) => {
-    const currentBlockString = dates.formatToHourAndMinute(block.time);
+    const currentBlockString = dates.toStringTime(block.time);
     const blockWithStatus = {
       ...block,
       isDisabled: disabledTimesString.includes(currentBlockString),
@@ -223,14 +223,14 @@ export const updateTimesStatusPerDate = async (branchId, date, times) => {
   if (!timesDisableds.length) {
     await database.update(`/branches/${branchId}`, {
       disabledTimes: {
-        [dates.getDisplayDate(date)]: firebase.firestore.FieldValue.delete(),
+        [dates.toStringDate(date)]: firebase.firestore.FieldValue.delete(),
       },
     });
     return { status: 'success' };
   }
   await database.update(`/branches/${branchId}`, {
     disabledTimes: {
-      [dates.getDisplayDate(date)]: timesDisableds,
+      [dates.toStringDate(date)]: timesDisableds,
     },
   });
   return { status: 'success' };

@@ -15,8 +15,8 @@ import Button from 'src/components/main/button';
 import branchesModel from 'src/core/models/branches';
 import { Edit } from '@material-ui/icons';
 import { TimePicker } from '@material-ui/pickers';
-import withNotifications from '../../../../../../highOrderComponents/withNotification';
-import { formatToHourAndMinute } from '../../../../../../helpers/dates';
+import withNotifications from 'src/highOrderComponents/withNotification';
+import { toStringTime } from 'src/helpers/dates';
 import styles from './styles.module.css';
 
 const ScheduleEditor = (props) => {
@@ -74,7 +74,7 @@ const ScheduleEditor = (props) => {
               <IconButton className={styles.clockIcon} onClick={() => setStartClockActive(true)}>
                 <Edit />
               </IconButton>
-              <Input value={formatToHourAndMinute(values.start)} disabled />
+              <Input value={toStringTime(values.start)} disabled />
               <Box display="none">
                 <TimePicker
                   value={props.data.start}
@@ -92,7 +92,7 @@ const ScheduleEditor = (props) => {
               <IconButton className={styles.clockIcon} onClick={() => setEndClockActive(true)}>
                 <Edit />
               </IconButton>
-              <Input value={formatToHourAndMinute(values.end)} disabled />
+              <Input value={toStringTime(values.end)} disabled />
               <Box display="none">
                 <TimePicker
                   value={props.data.end}

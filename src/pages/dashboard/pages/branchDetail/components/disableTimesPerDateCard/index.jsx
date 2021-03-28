@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable arrow-body-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Box } from '@material-ui/core';
 import { Add, Close } from '@material-ui/icons';
 import { DatePicker } from '@material-ui/pickers';
@@ -24,7 +22,7 @@ const disableTimesPerDateCard = () => {
 
   const handleCalendarOpen = () => setCalendarOpen(true);
   const handleCaldendarCose = () => setCalendarOpen(false);
-  const handleDateSelectedChange = (date) => setDateSelected(dates.getDisplayDate(date));
+  const handleDateSelectedChange = (date) => setDateSelected(dates.toStringDate(date));
   const handleTimeSelectorClose = () => setDateSelected(null);
 
   const handleFetch = async () => {

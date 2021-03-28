@@ -10,7 +10,7 @@ import { colors, days } from 'src/constants';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
 import withNotifications from 'src/highOrderComponents/withNotification';
-import { formatToHourAndMinute } from 'src/helpers/dates';
+import { toStringTime } from 'src/helpers/dates';
 import DisplayScheduleStatus from '../disabledDatesSelector';
 import styles from './styles.module.css';
 
@@ -31,7 +31,7 @@ const DisabledSchedulePerDayEditor = ({ open, data, onClose, setNotification }) 
 
   const handleScheduleClick = ({ time }) => {
     const newScheduleList = scheduleList.map((currentSchedule) => {
-      if (formatToHourAndMinute(currentSchedule.time) === formatToHourAndMinute(time)) currentSchedule.isDisabled = !currentSchedule.isDisabled;
+      if (toStringTime(currentSchedule.time) === toStringTime(time)) currentSchedule.isDisabled = !currentSchedule.isDisabled;
       return currentSchedule;
     });
     setScheduleList(newScheduleList);
