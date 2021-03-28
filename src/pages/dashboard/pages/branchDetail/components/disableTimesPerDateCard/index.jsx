@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Box } from '@material-ui/core';
@@ -8,22 +10,22 @@ import { useParams } from 'react-router';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
-import branches from '../../../../../../core/models/branches';
-import dates from '../../../../../../helpers/dates';
-import useFetch from '../../../../../../hooks/useFetch';
+import branches from 'src/core/models/branches';
+import dates from 'src/helpers/dates';
+import useFetch from 'src/hooks/useFetch';
 import DisableTimesPerDateEditor from '../disableTimesPeerDateEditor';
 import styles from './styles.module.css';
 
 const disableTimesPerDateCard = () => {
   const { branchId } = useParams();
-  const [dateSelected, setDateSelected] = useState(null);
+  const [stringDate, setStringDateSelected] = useState(null);
   const [datesList, setDatesList] = useState([]);
   const [isCalendarOpen, setCalendarOpen] = useState(false);
 
   const handleCalendarOpen = () => setCalendarOpen(true);
   const handleCaldendarCose = () => setCalendarOpen(false);
-  const handleDateSelectedChange = (date) => setDateSelected(dates.toStringDate(date));
-  const handleTimeSelectorClose = () => setDateSelected(null);
+  const handleDateSelectedChange = (date) => setStringDateSelected(dates.toStringDate(date));
+  const handleTimeSelectorClose = () => setStringDateSelected(null);
 
   const handleFetch = async () => {
     const { disabledTimes = {} } = await branches.getSingle(branchId);
@@ -36,9 +38,10 @@ const disableTimesPerDateCard = () => {
     <Card>
       <DisableTimesPerDateEditor
         onClose={handleTimeSelectorClose}
-        open={!!dateSelected}
-        date={dateSelected || new Date()}
+        open={!!stringDate}
+        stringDate={stringDate || ''}
         branchId={branchId}
+        onSuccess={handleFetch}
       />
       <Box display="none">
         <DatePicker
@@ -52,7 +55,7 @@ const disableTimesPerDateCard = () => {
       <Text fontSize="1.2em" color={colors.blue} fontWeight="bold" marginBottom="1em">Horarios inhábiles por fecha </Text>
       <div className={styles.datesDisabledWrapper}>
         {Object.keys(datesList).map((date) => (
-          <div className={styles.disabledDateWrapper} key={date}>
+          <div className={styles.disabledDateWrapper} key={date} onClick={() => setStringDateSelected(date)}>
             <div className={styles.disabledDateItem}>
               <Text>{date}</Text>
               <Close />

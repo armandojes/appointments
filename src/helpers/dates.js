@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/prefer-default-export */
@@ -62,10 +64,29 @@ export const getDayName = (date) => {
   return days[date.getDay()];
 };
 
+export const stringDateToDate = (stringDate) => {
+  if (!stringDate) return new Date();
+  try {
+    let [dayNumber, month, year] = stringDate.split('/');
+    dayNumber = Number.parseInt(dayNumber, 10);
+    month = Number.parseInt(month, 10) - 1;
+    year = Number.parseInt(year, 10);
+    const date = new Date();
+    console.log('dayNumber, month, year', dayNumber, month, year);
+    date.setDate(dayNumber);
+    date.setMonth(month);
+    date.setFullYear(year);
+    return date;
+  } catch (error) {
+    return new Date();
+  }
+};
+
 export default {
   toStringTime,
   toStringDate,
   addMinutes,
   makeBlock,
   getDayName,
+  stringDateToDate,
 };

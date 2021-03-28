@@ -221,19 +221,19 @@ export const updateTimesStatusPerDate = async (branchId, date, times) => {
   const timesDisabledsBlock = times.filter((schedule) => schedule.isDisabled);
   const timesDisableds = timesDisabledsBlock.map((schedule) => schedule.time);
   if (!timesDisableds.length) {
-    await database.update(`/branches/${branchId}`, {
+    const status = await database.update(`/branches/${branchId}`, {
       disabledTimes: {
         [dates.toStringDate(date)]: firebase.firestore.FieldValue.delete(),
       },
     });
-    return { status: 'success' };
+    return status ? { status: 'success' } : { status: 'error', errorMessage: 'Error, algo salió mal' };
   }
-  await database.update(`/branches/${branchId}`, {
+  const status = await database.update(`/branches/${branchId}`, {
     disabledTimes: {
       [dates.toStringDate(date)]: timesDisableds,
     },
   });
-  return { status: 'success' };
+  return status ? { status: 'success' } : { status: 'error', errorMessage: 'Error, algo salió mal' };
 };
 
 export default {
