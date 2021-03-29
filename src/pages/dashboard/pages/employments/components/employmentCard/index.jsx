@@ -62,7 +62,7 @@ const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, bra
         <Text marginTop="1em" color={colors.green} textAlign="center">Sucursales</Text>
         {branches.map((branch) => (
           <div className={styles.branchWrapper}>
-            {branch.name}
+            {branch ? branch.name : 'undefined'}
             <IconButton className={styles.delete} size="small" onClick={() => onBranchDelete(branch.id)}>
               <Delete />
             </IconButton>

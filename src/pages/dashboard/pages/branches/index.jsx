@@ -12,9 +12,10 @@ import useFetch from '../../../../hooks/useFetch';
 import styles from './styles.module.css';
 import Button from '../../../../components/main/button';
 import AddNewBranch from './components/addNewBranch';
+import Card from '../../../../components/card';
 
 const Branches = () => {
-  const [branches, setBranches] = useState(null);
+  const [branches, setBranches] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -40,20 +41,22 @@ const Branches = () => {
       {!isLoading && (
         <div className={styles.content}>
           <Box marginBottom="1em">
-            <Grid container justify="space-between" alignItems="center">
-              <Text fontSize="1.5em">Sucursales</Text>
-              <Button
-                variant="contained"
-                color={colors.green}
-                onClick={handleModalOpen}
-              >Crear sucursal
-              </Button>
-            </Grid>
+            <Card>
+              <Grid container justify="space-between" alignItems="center">
+                <Text fontSize="1.5em">Sucursales</Text>
+                <Button
+                  variant="contained"
+                  color={colors.green}
+                  onClick={handleModalOpen}
+                >Crear sucursal
+                </Button>
+              </Grid>
+            </Card>
           </Box>
-          {!branches && (
+          {(!branches || !branches.length) && (
             <Empty message="Aun no tienes sucursales" />
           )}
-          {!!branches && branches.map((branch) => (
+          {!!branches && !!branches.length && branches.map((branch) => (
             <Link to={`/dashboard/branches/${branch.id}`} className={styles.itemWrapper}>
               <Text fontWeight="bold" color={colors.blue} flexGrow="1">{branch.name}</Text>
               <Button variant="outlined" color={colors.green}>
