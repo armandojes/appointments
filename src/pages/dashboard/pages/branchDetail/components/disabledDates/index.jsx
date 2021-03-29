@@ -45,6 +45,7 @@ const DisablesDates = ({ setNotification }) => {
   };
 
   const handleDeleteStringDate = async (stringDate) => {
+    setDisabledDates(disabledDates.filter((stringDateTesting) => stringDateTesting !== stringDate)); // optimisic update
     const { status } = await branchModel.deleteDisabledStringDate(branchId, stringDate);
     if (status === 'success') {
       setNotification({ type: 'success', message: 'Fecha eliminado correctamente' });
