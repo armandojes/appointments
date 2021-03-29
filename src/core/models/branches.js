@@ -14,7 +14,7 @@ export const list = async () => {
 };
 
 /**
- * ge sngle branch data
+ * get sngle branch data
  * @param {string} branchId
  */
 export const getSingle = async (branchId) => {
@@ -141,7 +141,6 @@ export const createNewBranch = async (data) => {
 /**
  * delete branch
  * @param {strig} branchId
- * @returns
  */
 export const deleteBranche = async (branchId) => {
   const status = await database.remove(`branches/${branchId}`);
@@ -153,11 +152,11 @@ export const deleteBranche = async (branchId) => {
 };
 
 /**
- * get schedule vivided per day with status
+ * get time status per day
  * @param {string} branchId
  * @param {string} dayName
  */
-export const getDaySchedulesWithStatus = async (branchId, dayName) => {
+export const getTimeStatusPerDay = async (branchId, dayName) => {
   const { days = {} } = await getSingle(branchId);
   const daySelected = days[dayName] || {};
   const { start, end, interval = 1, disableds = [] } = daySelected;
@@ -180,7 +179,7 @@ export const getDaySchedulesWithStatus = async (branchId, dayName) => {
  * @param {string} dayName
  * @param {Array} schedules all schedules with status
  */
-export const updateDayScheduleStatus = async (branchId, dayName, schedules) => {
+export const updateTimesStatusPerDay = async (branchId, dayName, schedules) => {
   const scheduleDisableds = schedules.filter((schedule) => schedule.isDisabled);
   const timesDisabled = scheduleDisableds.map((schedule) => schedule.time);
   await database.update(`branches/${branchId}`, {
@@ -247,8 +246,8 @@ export default {
   deleteDisabledDate,
   createNewBranch,
   deleteBranche,
-  getDaySchedulesWithStatus,
-  updateDayScheduleStatus,
+  getTimeStatusPerDay,
+  updateTimesStatusPerDay,
   getTimesStatusPerDate,
   updateTimesStatusPerDate,
 };

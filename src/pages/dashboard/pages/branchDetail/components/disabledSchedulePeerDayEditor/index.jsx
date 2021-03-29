@@ -21,7 +21,7 @@ const DisabledSchedulePerDayEditor = ({ open, data, onClose, setNotification }) 
   const handleFetch = async () => {
     if (open) {
       setLoading(true);
-      const values = await branchesModel.getDaySchedulesWithStatus(data.branchId, data.day);
+      const values = await branchesModel.getTimeStatusPerDay(data.branchId, data.day);
       setScheduleList(values);
       setLoading(false);
     }
@@ -39,7 +39,7 @@ const DisabledSchedulePerDayEditor = ({ open, data, onClose, setNotification }) 
 
   const handleUpdate = async () => {
     setLoading(true);
-    const { status } = await branchesModel.updateDayScheduleStatus(data.branchId, data.day, scheduleList);
+    const { status } = await branchesModel.updateTimesStatusPerDay(data.branchId, data.day, scheduleList);
     if (status === 'success') setNotification({ type: 'success', message: 'Horarios actualizado correctamente' });
     setLoading(false);
     onClose();
