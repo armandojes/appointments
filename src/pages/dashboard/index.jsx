@@ -7,6 +7,7 @@ import styles from './styles.module.css';
 import BranchDetail from './pages/branchDetail';
 import Employments from './pages/employments';
 import Companies from './pages/companies';
+import Studies from './pages/studies';
 
 const DashBoard = () => (
   <div className={styles.fullWidth}>
@@ -21,6 +22,7 @@ const DashBoard = () => (
             <Route path="/dashboard/branches/:branchId" component={BranchDetail} />
             <Route path="/dashboard/employments" component={Employments} />
             <Route path="/dashboard/companies" component={Companies} />
+            <Route path="/dashboard/studies" component={Studies} />
           </Switch>
         </div>
       </div>
