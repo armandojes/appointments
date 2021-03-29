@@ -71,7 +71,7 @@ export const updateSchedule = async (branchId, dayName, newValue) => {
         start: newValue.start,
         end: newValue.end,
         interval: newValue.interval,
-        disableds: [],
+        disabledTimes: [],
       } },
     });
     return { status: 'success' };
@@ -84,32 +84,35 @@ export const updateSchedule = async (branchId, dayName, newValue) => {
  * get disables dates at branch
  * @param {string} branchId
  */
-export const getDisabledDates = async (branchId) => {
-  const fetcher = database.getList(`branches/${branchId}/disabled`, null, null, [['type', '==', 'DATE']]);
-  const disabled = await fetcher.next();
-  return disabled.length ? disabled.map((disabed) => disabed.date) : null;
+export const getDisabledStringDates = async (branchId) => {
+  const { disabledStringDates = [] } = await database.getDocument(`branches/${branchId}`);
+  return disabledStringDates;
 };
 
 /**
  * add new disabled date
  * @param {string} branchId
- * @param {date} date
+ * @param {string} date
  */
-export const addDisabledDate = async (branchId, date) => {
-  const success = await database.create(`branches/${branchId}/disabled`, { type: 'DATE', date });
+export const addDisabledStringDate = async (branchId, stringDate) => {
+  const success = await database.update(`branches/${branchId}`, {
+    disabledStringDates: firebase.firestore.FieldValue.arrayUnion(stringDate),
+  });
   if (success) return { status: 'success' };
   return { status: 'error' };
 };
 
 /**
  * delete disabled dates
- * @param {*} branchId
- * @param {*} date
+ * @param {string} branchId
+ * @param {string} stringDate
  */
-export const deleteDisabledDate = async (branchId, date) => {
-  const success = await database.removeList(`branches/${branchId}/disabled`, [['type', '==', 'DATE'], ['date', '==', date]]);
-  if (success) return { status: 'success' };
-  return { status: 'error' };
+export const deleteDisabledStringDate = async (branchId, stringDate) => {
+  const status = await database.update(`branches/${branchId}`, {
+    disabledStringDates: firebase.firestore.FieldValue.arrayRemove(stringDate),
+  });
+  if (status) return { status: 'success' };
+  return { status: 'error', errorMessage: 'Error, algo salió mal' };
 };
 
 /**
@@ -159,9 +162,9 @@ export const deleteBranche = async (branchId) => {
 export const getTimeStatusPerDay = async (branchId, dayName) => {
   const { days = {} } = await getSingle(branchId);
   const daySelected = days[dayName] || {};
-  const { start, end, interval = 1, disableds = [] } = daySelected;
+  const { start, end, interval = 1, disabledTimes = [] } = daySelected;
   let blocks = dates.makeBlock(start, end, interval);
-  const disabledsString = disableds.map((disabled) => dates.toStringTime(disabled));
+  const disabledsString = disabledTimes.map((disabled) => dates.toStringTime(disabled));
   blocks = blocks.map((block) => {
     const currentBlockString = dates.toStringTime(block.time);
     const blockWithStatus = {
@@ -185,7 +188,7 @@ export const updateTimesStatusPerDay = async (branchId, dayName, schedules) => {
   await database.update(`branches/${branchId}`, {
     days: {
       [dayName]: {
-        disableds: timesDisabled,
+        disabledTimes: timesDisabled,
       },
     },
   });
@@ -241,9 +244,9 @@ export default {
   UpdateGeneralInfo,
   updateDayStatus,
   updateSchedule,
-  getDisabledDates,
-  addDisabledDate,
-  deleteDisabledDate,
+  getDisabledStringDates,
+  addDisabledStringDate,
+  deleteDisabledStringDate,
   createNewBranch,
   deleteBranche,
   getTimeStatusPerDay,

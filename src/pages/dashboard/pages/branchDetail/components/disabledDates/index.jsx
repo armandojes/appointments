@@ -28,13 +28,13 @@ const DisablesDates = ({ setNotification }) => {
 
   // data fetcher from API
   const handlefetch = async () => {
-    const disabled = await branchModel.getDisabledDates(branchId);
+    const disabled = await branchModel.getDisabledStringDates(branchId);
     setDisabledDates(disabled || []);
     setIsLoading(false);
   };
 
-  const handleAddDisabledDate = async (newDate) => {
-    const { status } = await branchModel.addDisabledDate(branchId, newDate);
+  const handleaddDisabledStringDate = async (newDate) => {
+    const { status } = await branchModel.addDisabledStringDate(branchId, toStringDate(newDate));
     console.log(status);
     if (status === 'success') {
       setNotification({ type: 'success', message: 'Fecha deshábilitado correctamente!' });
@@ -44,9 +44,8 @@ const DisablesDates = ({ setNotification }) => {
     }
   };
 
-  const handleDeleteDate = async (date) => {
-    setDisabledDates((dates) => dates.filter((d) => d !== date));
-    const { status } = await branchModel.deleteDisabledDate(branchId, date);
+  const handleDeleteStringDate = async (stringDate) => {
+    const { status } = await branchModel.deleteDisabledStringDate(branchId, stringDate);
     if (status === 'success') {
       setNotification({ type: 'success', message: 'Fecha eliminado correctamente' });
       handlefetch();
@@ -66,7 +65,7 @@ const DisablesDates = ({ setNotification }) => {
             <DatePicker
               open={isDateSelecterOpen}
               onClose={handleModalClose}
-              onChange={handleAddDisabledDate}
+              onChange={handleaddDisabledStringDate}
               disablePast
               disableToolbar
               disabledDate
@@ -79,8 +78,8 @@ const DisablesDates = ({ setNotification }) => {
               {disabledDates.map((disabledDate) => (
                 <div className={styles.disabledDateWrapper} key={disabledDate.toString()}>
                   <div className={styles.disabledDateItem}>
-                    <Text>{toStringDate(disabledDate)}</Text>
-                    <Close onClick={() => handleDeleteDate(disabledDate)} />
+                    <Text>{disabledDate}</Text>
+                    <Close onClick={() => handleDeleteStringDate(disabledDate)} />
                   </div>
                 </div>
               ))}
