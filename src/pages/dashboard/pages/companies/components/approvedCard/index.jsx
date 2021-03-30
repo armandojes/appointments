@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import { Box, Grid, IconButton } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
@@ -7,9 +6,11 @@ import React from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
+import labBlueSrc from 'src/assets/lab_blue.png';
+import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
 
-const ApprovedCard = ({ companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, userEmail, userFullName, onDelete, onEdit }) => (
+const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, userEmail, userFullName, onDelete, onEdit }) => (
   <Card>
     <Box textAlign="center">
       <Box marginBottom="2em" marginTop="1em">
@@ -19,6 +20,11 @@ const ApprovedCard = ({ companyAddress, companyEmail, companyName, companyPhone,
           </IconButton>
           <IconButton className={styles.iconWrapper} onClick={onEdit}>
             <Edit />
+          </IconButton>
+          <IconButton className={styles.iconWrapper}>
+            <Link to={`/dashboard/studies-for-company/${id}`}>
+              <img src={labBlueSrc} alt="icono de laboratorio" />
+            </Link>
           </IconButton>
         </Grid>
       </Box>
@@ -48,6 +54,7 @@ ApprovedCard.propTypes = {
   userFullName: string.isRequired,
   onDelete: func.isRequired,
   onEdit: func.isRequired,
+  id: string.isRequired,
 };
 
 export default ApprovedCard;

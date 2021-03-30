@@ -28,6 +28,7 @@ const View = ({ items, loading, onDelete, onEdit, onCreate }) => (
                 companyRazonSocial={item.company.razonSocial}
                 onDelete={() => onDelete(item.id)}
                 onEdit={() => onEdit(item)}
+                id={item.id}
               />
             </Box>
           </Grid>
