@@ -2,14 +2,17 @@
 /* eslint-disable arrow-body-style */
 import { func } from 'prop-types';
 import React, { useState } from 'react';
-import { getStudies } from '../../../../core/models/studies';
-import withAlert from '../../../../highOrderComponents/withAlert';
-import useFetch from '../../../../hooks/useFetch';
+import { useHistory } from 'react-router';
+import { deleteStudy, getStudies } from 'src/core/models/studies';
+import withAlert from 'src/highOrderComponents/withAlert';
+import useFetch from 'src/hooks/useFetch';
+import withNotifications from '../../../../highOrderComponents/withNotification';
 import View from './view';
 
-const Studies = ({ setAlert }) => {
+const Studies = ({ setAlert, setNotification }) => {
   const [studies, setStudies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
 
   const handleFetch = async () => {
     setIsLoading(true);
@@ -27,9 +30,18 @@ const Studies = ({ setAlert }) => {
   const handleDeleteItemWithAlert = ({ id }) => {
     setAlert({
       title: '¿Seguro quiere eliminar esta prueba?',
-      message: 'Una vez ejecutada la acción no se podrá recuperar la información',
-      action: async () => {},
+      message: 'Una vez ejecutada la acción no podrás recuperar la información',
+      action: async () => {
+        const response = await deleteStudy(id);
+        await handleFetch();
+        if (response.status === 'success') setNotification({ status: 'success', message: 'Estudio eliminado correctamente' });
+        else setNotification({ status: 'error', message: response.errorMessage });
+      },
     });
+  };
+
+  const handleEditItem = ({ id }) => {
+    history.push(`/dashboard/study-editor/${id}`);
   };
 
   return (
@@ -37,12 +49,14 @@ const Studies = ({ setAlert }) => {
       items={studies}
       isLoading={isLoading}
       onDeleteItem={handleDeleteItemWithAlert}
+      onEditItem={handleEditItem}
     />
   );
 };
 
 Studies.propTypes = {
   setAlert: func.isRequired,
+  setNotification: func.isRequired,
 };
 
-export default withAlert(Studies);
+export default withNotifications(withAlert(Studies));
