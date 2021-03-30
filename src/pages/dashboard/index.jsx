@@ -10,6 +10,7 @@ import Companies from './pages/companies';
 import Studies from './pages/studies';
 import StudyEditor from './pages/studyEditor';
 import StudiesForCompany from './pages/studiesForCompany';
+import CompanyEditor from './pages/companyEditor';
 
 const DashBoard = () => (
   <div className={styles.fullWidth}>
@@ -26,6 +27,7 @@ const DashBoard = () => (
             <Route path="/dashboard/companies" component={Companies} />
             <Route path="/dashboard/studies" component={Studies} />
             <Route path="/dashboard/study-editor/:studyId?" component={StudyEditor} />
+            <Route path="/dashboard/company-editor/:companyId?" component={CompanyEditor} />
             <Route path="/dashboard/studies-for-company/:companyId?" component={StudiesForCompany} />
           </Switch>
         </div>

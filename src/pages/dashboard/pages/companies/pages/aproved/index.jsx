@@ -4,24 +4,19 @@ import companies, { getApproveds } from 'src/core/models/companies';
 import { func } from 'prop-types';
 import withAlert from 'src/highOrderComponents/withAlert';
 import withNotifications from 'src/highOrderComponents/withNotification';
+import { useHistory } from 'react-router';
 import View from './view';
-import CompanyInfoModal from '../../components/createNewCompanyModal';
 
 const CompaniesApproved = ({ setAlert, setNotification }) => {
   const [state, setState] = useState({ loading: true, items: [] });
-  const [isModalOpen, setModal] = useState(false);
-  const [userDataEditing, setUserDataEditin] = useState(null);
+  const history = useHistory();
 
-  const handleModalClose = () => setModal(false);
-
-  const handleActiveCreate = () => {
-    setModal(true);
-    setUserDataEditin(null);
+  const handleCreate = () => {
+    history.push('/dashboard/company-editor');
   };
 
-  const handleActiveUpdate = (data) => {
-    setModal(true);
-    setUserDataEditin(data);
+  const handleUpdate = ({ id }) => {
+    history.push(`/dashboard/company-editor/${id}`);
   };
 
   const handleFetch = async () => {
@@ -49,19 +44,12 @@ const CompaniesApproved = ({ setAlert, setNotification }) => {
 
   return (
     <>
-      <CompanyInfoModal
-        open={isModalOpen}
-        onSuccess={handleFetch}
-        onClose={handleModalClose}
-        isEditing={!!userDataEditing}
-        data={userDataEditing}
-      />
       <View
-        onEdit={handleActiveUpdate}
+        onEdit={handleUpdate}
         loading={state.loading}
         items={state.items}
         onDelete={handleDeleteWithAlert}
-        onCreate={handleActiveCreate}
+        onCreate={handleCreate}
       />
     </>
   );

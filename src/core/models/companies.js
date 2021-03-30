@@ -65,6 +65,12 @@ export const getCompany = async (companyId) => {
   return null;
 };
 
+export const getCompanyWithUser = async (companyId) => {
+  const data = await database.getDocument(`users/${companyId}`);
+  if (data) return data;
+  return null;
+};
+
 /**
  * get all studies with company association status
  * @param {*} companyId
