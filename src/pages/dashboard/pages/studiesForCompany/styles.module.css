@@ -1,0 +1,40 @@
+.studyCard {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  flex-grow: 1;
+  min-height: 4.5em;
+  justify-content: space-between;
+  position: relative;
+}
+.switch {
+  font-size: 1em!important;
+}
+
+.checkbox {
+  width: 1.4em;
+  height: 1.4em;
+  border: 1px solid gray;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox svg {
+  color: var(--green);
+  font-size: 1.3em;
+}
+.checkboxActive {
+  border-color: var(--green);
+  background: var(--green);
+}
+
+.checkboxActive svg {
+  color: #fff;
+}
+.iconLoader {
+  width: 1.5em!important;
+  height: 1.5em!important;
+}

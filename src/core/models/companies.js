@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
+import firebase from 'firebase';
 import database from './database';
 import { callable } from './firebase';
+import studiesModel from './studies';
 
 export const createRequestForNewCompany = async (data) => {
   const isEmailUsed = await database.getList('users', false, false, [['email', '==', data.userEmail.toString().toLowerCase()]]).next();
@@ -57,10 +59,56 @@ export const updateCompany = async (companyId, newData) => {
   return response.data;
 };
 
+export const getCompany = async (companyId) => {
+  const data = await database.getDocument(`users/${companyId}`);
+  if (data && data.company) return data.company;
+  return null;
+};
+
+/**
+ * get all studies with company association status
+ * @param {*} companyId
+ */
+export const getStudiesWithStatus = async (companyId) => {
+  const { studies = [] } = await getCompany(companyId);
+  const allStudies = await studiesModel.getStudies();
+  return allStudies.map((study) => {
+    const studyParsed = {
+      ...study,
+      isAvailable: studies.includes(study.id),
+    };
+    return studyParsed;
+  });
+};
+
+export const addNewStudy = async (companyId, studyId) => {
+  const status = await database.update(`users/${companyId}`, {
+    company: {
+      studies: firebase.firestore.FieldValue.arrayUnion(studyId),
+    },
+  });
+  if (status) return { status: 'success' };
+  return { status: 'error', errorMessage: 'Error, Algo salio mal' };
+};
+
+export const deleteStudy = async (companyId, studyId) => {
+  const status = await database.update(`users/${companyId}`, {
+    company: {
+      studies: firebase.firestore.FieldValue.arrayRemove(studyId),
+    },
+  });
+  if (status) return { status: 'success' };
+  return { status: 'error', errorMessage: 'Error, Algo salio mal' };
+};
+
 export default {
   createRequestForNewCompany,
   deleteRequestCompany,
   deleteAproved,
   createNewCompany,
   updateCompany,
+  getCompany,
+  getStudiesWithStatus,
+  addNewStudy,
+  deleteStudy,
 };

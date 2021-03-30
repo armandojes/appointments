@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import database from './database';
 
 export const getStudies = async () => {
@@ -34,6 +35,11 @@ export const getStudy = async (studyId) => {
 
 export const deleteStudy = async (studyId) => {
   const status = await database.remove(`studies/${studyId}`);
+  await database.updateList('users', null, {
+    company: {
+      studies: firebase.firestore.FieldValue.arrayRemove(studyId),
+    },
+  });
   if (status) return { status: 'success' };
   return { status: 'error', errorMessage: 'Error, algo salió mal' };
 };

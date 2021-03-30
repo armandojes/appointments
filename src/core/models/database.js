@@ -183,12 +183,14 @@ export const updateList = async (path, filters = [], data) => {
     delete data.id;
 
     // generate filters
-    for (const currentFilter of filters) {
-      const keyname = currentFilter[0];
-      const type = currentFilter[1];
-      const value = currentFilter[2];
-      // @ts-ignore
-      query = query.where(keyname, type, value);
+    if (filters) {
+      for (const currentFilter of filters) {
+        const keyname = currentFilter[0];
+        const type = currentFilter[1];
+        const value = currentFilter[2];
+        // @ts-ignore
+        query = query.where(keyname, type, value);
+      }
     }
 
     const snapshot = await query.get();
