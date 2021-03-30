@@ -42,10 +42,10 @@ const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, bra
         </Grid>
       </Box>
       <Text color={colors.blue} fontWeight="bold" textAlign="center">{name}</Text>
-      <Text color={colors.blue} marginBottom=".8em" fontWeight="bold" textAlign="center">{lastName}</Text>
+      <Text color={colors.blue} marginBottom="1em" fontWeight="bold" textAlign="center">{lastName}</Text>
 
-      <Text color={colors.blue} marginBottom=".8em" fontWeight="bold" textAlign="center">{email}</Text>
-      <Text color={colors.green} fontSize=".8em" textAlign="center">Contraseña</Text>
+      <Text color={colors.blue} marginBottom="1em" fontWeight="bold" textAlign="center">{email}</Text>
+      <Text color={colors.green} fontSize="1em" textAlign="center">Contraseña</Text>
       {displayPassword && (
         <Grid container alignItems="center" justify="center">
           <Text color={colors.blue} marginBottom=".3em" fontWeight="bold" textAlign="center">{password}</Text>

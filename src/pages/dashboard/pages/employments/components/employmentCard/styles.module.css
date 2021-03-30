@@ -2,10 +2,10 @@
   height: 100%;
   box-sizing: border-box;
   position: relative;
-  padding: 1em 1em 1em 1em!important;
+  padding: 2em!important;
 }
 .buttons {
-  font-size: 1em;
+  font-size: 1.2em;
   padding: .5em;
   border: 1px solid var(--blue)!important;
 }
@@ -26,7 +26,4 @@
   right: .5em;
   color: var(--green)!important;
   padding: 0em!important;
-}
-.delete:hover svg {
-  color: red;
 }
