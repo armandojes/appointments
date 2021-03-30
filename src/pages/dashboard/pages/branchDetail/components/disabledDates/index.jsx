@@ -58,6 +58,8 @@ const DisablesDates = ({ setNotification }) => {
   // fecth initial Data
   useFetch(handlefetch, []);
 
+  if (isLoading) return null;
+
   return (
     <>
       {!isLoading && (

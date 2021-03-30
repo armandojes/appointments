@@ -18,6 +18,7 @@ import styles from './styles.module.css';
 
 const disableTimesPerDateCard = () => {
   const { branchId } = useParams();
+  const [isLoading, setLoading] = useState(true);
   const [stringDate, setStringDateSelected] = useState(null);
   const [datesList, setDatesList] = useState([]);
   const [isCalendarOpen, setCalendarOpen] = useState(false);
@@ -30,9 +31,12 @@ const disableTimesPerDateCard = () => {
   const handleFetch = async () => {
     const { disabledTimes = {} } = await branches.getSingle(branchId);
     setDatesList(disabledTimes);
+    setLoading(false);
   };
 
   useFetch(handleFetch);
+
+  if (isLoading) return null;
 
   return (
     <Card>

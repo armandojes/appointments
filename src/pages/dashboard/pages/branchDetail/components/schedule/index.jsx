@@ -44,6 +44,8 @@ const Schedule = ({ setNotification }) => {
   // fecth initial Data
   useFetch(handlefetch, []);
 
+  if (isLoading) return null;
+
   return (
     <>
       <DisabledSchedulePerDayEditor
