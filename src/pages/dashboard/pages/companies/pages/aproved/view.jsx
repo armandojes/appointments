@@ -18,6 +18,7 @@ const View = ({ items, loading, onDelete, onEdit, onCreate }) => (
           <Grid item xs={12} sm={6} key={item.id}>
             <Box padding="1em">
               <ApprovedCard
+                userPassword={item.password}
                 userEmail={item.email}
                 userFullName={item.fullName}
                 companyName={item.company.name}

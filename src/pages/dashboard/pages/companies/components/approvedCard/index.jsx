@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import { Box, Grid, IconButton } from '@material-ui/core';
-import { Delete, Edit } from '@material-ui/icons';
+import { Delete, Edit, Visi, Visibility, VisibilitybilityVisibility, VisibilityOff } from '@material-ui/icons';
 import { func, number, string } from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
@@ -10,38 +11,51 @@ import labBlueSrc from 'src/assets/lab_blue.png';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
 
-const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, userEmail, userFullName, onDelete, onEdit }) => (
-  <Card>
-    <Box textAlign="center">
-      <Box marginBottom="2em" marginTop="1em">
-        <Grid container justify="center">
-          <IconButton className={styles.iconWrapper} onClick={onDelete}>
-            <Delete />
-          </IconButton>
-          <IconButton className={styles.iconWrapper} onClick={onEdit}>
-            <Edit />
-          </IconButton>
-          <IconButton className={styles.iconWrapper}>
-            <Link to={`/dashboard/studies-for-company/${id}`}>
-              <img src={labBlueSrc} alt="icono de laboratorio" />
-            </Link>
-          </IconButton>
-        </Grid>
+const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, userEmail, userFullName, onDelete, onEdit, userPassword }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleToggleVisivility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  return (
+    <Card>
+      <Box textAlign="center">
+        <Box marginBottom="2em" marginTop="1em">
+          <Grid container justify="center">
+            <IconButton className={styles.iconWrapper} onClick={handleToggleVisivility}>
+              {!showPassword && <Visibility />}
+              {showPassword && <VisibilityOff />}
+            </IconButton>
+            <IconButton className={styles.iconWrapper} onClick={onDelete}>
+              <Delete />
+            </IconButton>
+            <IconButton className={styles.iconWrapper} onClick={onEdit}>
+              <Edit />
+            </IconButton>
+            <IconButton className={styles.iconWrapper}>
+              <Link to={`/dashboard/studies-for-company/${id}`}>
+                <img src={labBlueSrc} alt="icono de laboratorio" />
+              </Link>
+            </IconButton>
+          </Grid>
+        </Box>
+        <Text lineHeight="1.4em" color={colors.green}>Datos del usuario</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userFullName}</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userEmail}</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{showPassword ? userPassword : '•••••••••••'}</Text>
+        <Box marginBottom="1.5em" />
+        <Text lineHeight="1.4em" color={colors.green}>Datos de la empresa</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyName}</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyEmail}</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyPhone}</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyAddress}</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRFC}</Text>
+        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRazonSocial}</Text>
       </Box>
-      <Text lineHeight="1.4em" color={colors.green}>Datos del usuario</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userFullName}</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userEmail}</Text>
-      <Box marginBottom="1.5em" />
-      <Text lineHeight="1.4em" color={colors.green}>Datos de la empresa</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyName}</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyEmail}</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyPhone}</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyAddress}</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRFC}</Text>
-      <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRazonSocial}</Text>
-    </Box>
-  </Card>
-);
+    </Card>
+  );
+};
 
 ApprovedCard.propTypes = {
   companyAddress: string.isRequired,
@@ -55,6 +69,7 @@ ApprovedCard.propTypes = {
   onDelete: func.isRequired,
   onEdit: func.isRequired,
   id: string.isRequired,
+  userPassword: string.isRequired,
 };
 
 export default ApprovedCard;
