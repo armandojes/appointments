@@ -35,7 +35,7 @@ const View = ({ items, isLoading, onDeleteItem, onEditItem }) => (
     {!!items && !!items.length && !isLoading && (
       <Grid container>
         {items.map((item) => (
-          <Grid item xs={12} sm={4} alignItems="stretch">
+          <Grid item xs={12} sm={4} key={item.id}>
             <Box padding=".5em" display="flex" height="100%" boxSizing="border-box">
               <Card className={styles.studyCard}>
                 <div className={styles.actionContainer}>

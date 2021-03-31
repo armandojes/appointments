@@ -24,7 +24,7 @@ const View = ({ companyName, isLoading, items, onItemStatusToggle }) => (
         <Box paddingTop="2em" />
         <Grid container>
           {items.map((item) => (
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} key={item.id}>
               <Box padding=".5em" minHeight="100%" display="flex" boxSizing="border-box">
                 <Card className={styles.studyCard}>
                   <Text fontWeight="bold" color={colors.blue}>{item.title}</Text>

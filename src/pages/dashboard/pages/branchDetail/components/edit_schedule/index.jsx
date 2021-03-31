@@ -74,7 +74,7 @@ const ScheduleEditor = (props) => {
               <IconButton className={styles.clockIcon} onClick={() => setStartClockActive(true)}>
                 <Edit />
               </IconButton>
-              <Input value={toStringTime(values.start)} disabled />
+              <Input {...getInputProps('start')} value={toStringTime(values.start)} disabled />
               <Box display="none">
                 <TimePicker
                   value={props.data.start}
@@ -92,7 +92,7 @@ const ScheduleEditor = (props) => {
               <IconButton className={styles.clockIcon} onClick={() => setEndClockActive(true)}>
                 <Edit />
               </IconButton>
-              <Input value={toStringTime(values.end)} disabled />
+              <Input {...getInputProps('end')} value={toStringTime(values.end)} disabled />
               <Box display="none">
                 <TimePicker
                   value={props.data.end}

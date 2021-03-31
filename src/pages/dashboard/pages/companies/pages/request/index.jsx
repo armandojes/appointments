@@ -40,7 +40,7 @@ const Requests = ({ setAlert, setNotification }) => {
     <>
       <AprovingCompanyModal
         open={!!currentCompanyAproving}
-        data={currentCompanyAproving}
+        data={currentCompanyAproving || {}}
         onClose={handleCloseCurrentCompanyAproving}
         onSuccess={handleFetch}
       />

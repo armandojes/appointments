@@ -57,7 +57,7 @@ const Branches = () => {
             <Empty message="Aun no tienes sucursales" />
           )}
           {!!branches && !!branches.length && branches.map((branch) => (
-            <Link to={`/dashboard/branches/${branch.id}`} className={styles.itemWrapper}>
+            <Link to={`/dashboard/branches/${branch.id}`} className={styles.itemWrapper} key={branch.id}>
               <Text fontWeight="bold" color={colors.blue} flexGrow="1">{branch.name}</Text>
               <Button variant="outlined" color={colors.green}>
                 <Settings />

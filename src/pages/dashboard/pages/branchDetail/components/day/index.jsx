@@ -25,11 +25,11 @@ const Day = ({ label, start, end, interval, isEnabled, onStatusChange, onEditCli
         </Grid>
         <Box display="flex" alignItems="center">
           <Switch color="primary" defaultChecked={isEnabled} onChange={(event) => onStatusChange(event.target.checked)} />
-          <IconButton color={colors.green} className={styles.button} onClick={onDisabledClick}>
+          <IconButton className={styles.button} onClick={onDisabledClick}>
             <NotInterested />
           </IconButton>
           <Box marginRight=".5em" />
-          <IconButton color={colors.green} className={styles.buttonEdit} onClick={onEditClick}>
+          <IconButton className={styles.buttonEdit} onClick={onEditClick}>
             Editar
           </IconButton>
         </Box>

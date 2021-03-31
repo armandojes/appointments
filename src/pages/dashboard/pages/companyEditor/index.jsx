@@ -85,6 +85,7 @@ function CompanyEditor() {
       errorMessage={errorMessage}
       isLoading={isLoading}
       onSave={handleSave}
+      isEditing={!!companyId}
     />
   );
 }

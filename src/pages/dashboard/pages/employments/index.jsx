@@ -71,7 +71,7 @@ const Employments = ({ setNotification, setAlert }) => {
   return (
     <>
       <NewEmployment
-        open={isModalNewEmploymentOpen}
+        open={!!isModalNewEmploymentOpen}
         onClose={handleNewEmploymentModalClose}
         onSuccess={handleFetch}
       />
@@ -82,9 +82,9 @@ const Employments = ({ setNotification, setAlert }) => {
         initialData={employmentEditing || {}}
       />
       <AddBranchIntoEmployment
-        open={idUserAdding}
+        open={!!idUserAdding}
         onClose={() => setAddingBranch(null)}
-        employmentId={idUserAdding}
+        employmentId={idUserAdding || ''}
         onSuccess={handleFetch}
       />
       <Card>

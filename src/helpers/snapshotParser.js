@@ -2,17 +2,18 @@
 import forEachObject from './forEachObject';
 
 const transformIntoDate = (data) => {
+  if (!data) return data;
   if (Array.isArray(data)) {
     return data.map((current) => transformIntoDate(current));
   }
-  if (data && typeof data === 'object' && !data.toDate) {
+  if (typeof data === 'object' && !data.toDate) {
     const objectTransformed = {};
     forEachObject(data, (value, keyname) => {
       objectTransformed[keyname] = transformIntoDate(value);
     });
     return objectTransformed;
   }
-  if (data && typeof data === 'object' && data.toDate) {
+  if (typeof data === 'object' && data.toDate) {
     return data.toDate();
   }
   return data;

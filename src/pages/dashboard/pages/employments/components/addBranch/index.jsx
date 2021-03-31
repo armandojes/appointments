@@ -56,7 +56,7 @@ const AddBranchIntoEmployment = ({ open, onClose, employmentId, setNotification,
           <Box marginTop="2em">
             <Grid container>
               {state.branches.map((currentBranch) => (
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6} key={currentBranch.id}>
                   <Box padding=".5em">
                     <Card className={styles.cardBranch}>
                       <Text color={colors.green} textAlign="center" fontWeight="bold">{currentBranch.name}</Text>

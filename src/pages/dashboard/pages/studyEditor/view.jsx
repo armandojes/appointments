@@ -11,8 +11,12 @@ import ErrorMessage from 'src/components/errorMessage';
 import Button from 'src/components/main/button';
 import styles from './styles.module.css';
 
-const TextArea = (props) => {
+const TextArea = ({ error, ...props }) => {
   return <textarea {...props} />;
+};
+
+TextArea.propTypes = {
+  error: bool.isRequired,
 };
 
 const View = ({ isEditing, getInputProps, errorMessage, isLoading, onSave, onCancel }) => (
@@ -54,7 +58,7 @@ View.propTypes = {
   isEditing: bool.isRequired,
   getInputProps: func.isRequired,
   errorMessage: string.isRequired,
-  isLoading: string.isRequired,
+  isLoading: bool.isRequired,
   onSave: func.isRequired,
   onCancel: func.isRequired,
 };

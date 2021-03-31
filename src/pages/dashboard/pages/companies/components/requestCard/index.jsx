@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 import { Box, Grid } from '@material-ui/core';
-import { func, number, string } from 'prop-types';
+import { func, instanceOf, number, string } from 'prop-types';
 import React from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
@@ -44,7 +44,7 @@ Requestcard.propTypes = {
   companyPhone: number.isRequired,
   companyRFC: string.isRequired,
   companyRazonSocial: string.isRequired,
-  createdAt: string.isRequired,
+  createdAt: instanceOf(Date).isRequired,
   userEmail: string.isRequired,
   userFullName: string.isRequired,
   onDelete: func.isRequired,

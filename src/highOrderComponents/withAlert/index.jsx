@@ -50,7 +50,7 @@ const withAlert = (WrappedComponent) => {
         <Alert
           {...state}
           action={handleActionTrigger}
-          open={!!state.title || state.message}
+          open={!!state.title || !!state.message}
           cancel={handleCancel}
         />
         <WrappedComponent

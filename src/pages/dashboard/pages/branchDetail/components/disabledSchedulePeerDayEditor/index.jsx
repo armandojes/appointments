@@ -1,7 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import { Box, CircularProgress, Grid } from '@material-ui/core';
-import { bool, func, string } from 'prop-types';
+import { bool, func, object } from 'prop-types';
 import React, { useState } from 'react';
 import Modal from 'src/components/modal';
 import Button from 'src/components/main/button';
@@ -73,7 +74,7 @@ const DisabledSchedulePerDayEditor = ({ open, data, onClose, setNotification }) 
 };
 
 DisabledSchedulePerDayEditor.propTypes = {
-  data: string.isRequired,
+  data: object.isRequired,
   open: bool.isRequired,
   onClose: func.isRequired,
   setNotification: func.isRequired,

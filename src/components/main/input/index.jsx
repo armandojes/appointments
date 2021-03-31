@@ -49,7 +49,7 @@ Input.defaultProps = {
   className: '',
   onlyNumbers: false,
   onlyFloat: false,
-  maxLength: false,
+  maxLength: null,
   variant: 'outlined',
   padding: null,
 };

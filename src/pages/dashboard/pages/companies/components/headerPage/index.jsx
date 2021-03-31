@@ -29,8 +29,12 @@ const HeaderCompanies = ({ onCreate }) => (
   </>
 );
 
+HeaderCompanies.defaultProps = {
+  onCreate: null,
+};
+
 HeaderCompanies.propTypes = {
-  onCreate: func.isRequired,
+  onCreate: func,
 };
 
 export default HeaderCompanies;

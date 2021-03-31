@@ -52,7 +52,7 @@ BranchGeneralInfoForm.propTypes = {
   getInputProps: func.isRequired,
   isLoading: bool.isRequired,
   open: bool.isRequired,
-  onClose: bool.isRequired,
+  onClose: func.isRequired,
   onConfirm: func.isRequired,
   headerText: string,
 };
