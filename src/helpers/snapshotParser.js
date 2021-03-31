@@ -5,14 +5,14 @@ const transformIntoDate = (data) => {
   if (Array.isArray(data)) {
     return data.map((current) => transformIntoDate(current));
   }
-  if (typeof data === 'object' && !data.toDate) {
+  if (data && typeof data === 'object' && !data.toDate) {
     const objectTransformed = {};
     forEachObject(data, (value, keyname) => {
       objectTransformed[keyname] = transformIntoDate(value);
     });
     return objectTransformed;
   }
-  if (typeof data === 'object' && data.toDate) {
+  if (data && typeof data === 'object' && data.toDate) {
     return data.toDate();
   }
   return data;

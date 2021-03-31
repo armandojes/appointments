@@ -3,14 +3,14 @@
 /* eslint-disable no-unused-vars */
 import { Box, Grid, IconButton } from '@material-ui/core';
 import { AddBox, Delete, Edit, Visibility, VisibilityOff } from '@material-ui/icons';
-import { array, func, string } from 'prop-types';
+import { func, string } from 'prop-types';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
 import styles from './styles.module.css';
 
-const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, branches, onAdd, onBranchDelete }) => {
+const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, branchName, onAdd, onBranchDelete }) => {
   const [displayPassword, setDisplayPassword] = useState(false);
 
   const handleShowVisivility = () => setDisplayPassword(true);
@@ -41,10 +41,11 @@ const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, bra
           </IconButton>
         </Grid>
       </Box>
+      <Text marginTop="1em" color={colors.green} textAlign="center">Datos del empleado</Text>
       <Text color={colors.blue} fontWeight="bold" textAlign="center">{name}</Text>
-      <Text color={colors.blue} marginBottom="1em" fontWeight="bold" textAlign="center">{lastName}</Text>
-
-      <Text color={colors.blue} marginBottom="1em" fontWeight="bold" textAlign="center">{email}</Text>
+      <Text color={colors.blue} fontWeight="bold" textAlign="center">{lastName}</Text>
+      <Text color={colors.blue} fontWeight="bold" textAlign="center">{email}</Text>
+      <Box paddingTop="1em" />
       <Text color={colors.green} fontSize="1em" textAlign="center">Contraseña</Text>
       {displayPassword && (
         <Grid container alignItems="center" justify="center">
@@ -59,18 +60,15 @@ const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, bra
         </Grid>
       )}
       <Box>
-        <Text marginTop="1em" color={colors.green} textAlign="center">Sucursales</Text>
-        {branches.map((branch) => (
-          <div className={styles.branchWrapper}>
-            {branch ? branch.name : 'undefined'}
-            <IconButton className={styles.delete} size="small" onClick={() => onBranchDelete(branch.id)}>
-              <Delete />
-            </IconButton>
-          </div>
-        ))}
+        <Text marginTop="1em" color={colors.green} textAlign="center">Sucursal</Text>
+        <Text color={colors.blue} marginBottom=".3em" fontWeight="bold" textAlign="center">{branchName || 'Sin sucursal'}</Text>
       </Box>
     </Card>
   );
+};
+
+EmploymentCard.defaultProps = {
+  branchName: null,
 };
 
 EmploymentCard.propTypes = {
@@ -80,7 +78,7 @@ EmploymentCard.propTypes = {
   password: string.isRequired,
   onDelete: func.isRequired,
   onEdit: func.isRequired,
-  branches: array.isRequired,
+  branchName: string,
   onAdd: func.isRequired,
   onBranchDelete: func.isRequired,
 };

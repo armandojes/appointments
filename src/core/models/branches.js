@@ -147,11 +147,9 @@ export const createNewBranch = async (data) => {
  */
 export const deleteBranche = async (branchId) => {
   const status = await database.remove(`branches/${branchId}`);
-  await database.updateList('/users', [['type', '==', 'employment']], {
-    branches: firebase.firestore.FieldValue.arrayRemove(branchId),
-  });
+  await database.updateList('/users', [['type', '==', 'employment'], ['branchId', '==', branchId]], { branchId: null });
   if (status) return { status: 'success' };
-  return { status: 'error' };
+  return { status: 'error', errorMessage: 'Error algo salió mal' };
 };
 
 /**

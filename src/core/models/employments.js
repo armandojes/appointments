@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
-import firebase from 'firebase';
 import database from './database';
-import branchesmodel from './branches';
+import branchesModel from './branches';
 import { callable } from './firebase';
 
 export const deleteEmployment = async (employmentId) => {
@@ -19,14 +18,13 @@ export const createNewEmployment = async (data) => {
 
 export const getEmploymentList = async () => {
   const fetcher = database.getList('users', false, ['name', 'desc'], [['type', '==', 'employment']]);
-  let data = await fetcher.next();
-  data = await Promise.all(data.map(async (currentData) => {
-    if (currentData.branches && currentData.branches.length) {
-      currentData.branches = await Promise.all(currentData.branches.map((branchId) => branchesmodel.getSingle(branchId)));
-    }
-    return currentData;
+  const data = await fetcher.next();
+  console.log('data', data);
+  const dataParsed = await Promise.all(data.map(async (singleEmployment) => {
+    if (singleEmployment.branchId) singleEmployment.branch = await branchesModel.getSingle(singleEmployment.branchId);
+    return singleEmployment;
   }));
-  return data;
+  return dataParsed;
 };
 
 export const updateEmployment = async (userId, data) => {
@@ -41,17 +39,13 @@ export const getSingle = async (employmentId) => {
 };
 
 export const addBranch = async (employmentId, branchId) => {
-  const status = await database.update(`/users/${employmentId}`, {
-    branches: firebase.firestore.FieldValue.arrayUnion(branchId),
-  });
+  const status = await database.update(`/users/${employmentId}`, { branchId });
   if (status) return { status: 'success' };
   return { status: 'error' };
 };
 
-export const deleteBranch = async (employmentId, branchId) => {
-  const status = await database.update(`/users/${employmentId}`, {
-    branches: firebase.firestore.FieldValue.arrayRemove(branchId),
-  });
+export const deleteBranch = async (employmentId) => {
+  const status = await database.update(`/users/${employmentId}`, { branchId: null });
   if (status) return { status: 'success' };
   return { status: 'error' };
 };

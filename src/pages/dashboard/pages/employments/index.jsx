@@ -28,6 +28,7 @@ const Employments = ({ setNotification, setAlert }) => {
 
   const handleFetch = async () => {
     const employmentsList = await emplymentModel.getEmploymentList();
+    console.log('employmentsList', employmentsList);
     setEmployments(employmentsList);
     setLoading(false);
   };
@@ -114,9 +115,9 @@ const Employments = ({ setNotification, setAlert }) => {
                     password={employment.password}
                     onDelete={() => handleDelete(employment.id)}
                     onEdit={() => setEmploymentEditing(employment)}
-                    branches={employment.branches || []}
                     onAdd={() => setAddingBranch(employment.id)}
                     onBranchDelete={(branchId) => handleBranchDelete(employment.id, branchId)}
+                    branchName={employment.branch ? employment.branch.name : ''}
                   />
                 </Box>
               </Grid>

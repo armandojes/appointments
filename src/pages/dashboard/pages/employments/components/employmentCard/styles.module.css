@@ -6,12 +6,12 @@
 }
 .buttons {
   font-size: 1.2em;
-  padding: .5em;
+  padding: .3em!important;
   border: 1px solid var(--blue)!important;
 }
 .buttons svg {
   color: var(--blue);
-  font-size: 1.2em!important;
+  font-size: 1.4em!important;
 }
 .branchWrapper {
   margin: .7em 0em;
