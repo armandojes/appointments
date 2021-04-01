@@ -1,0 +1,36 @@
+.wrapper {
+  background-color: var(--green);
+  padding: .5em;
+  border-radius: 12em;
+  min-width: 8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  font-size: 1.8em!important;
+  cursor: pointer;
+}
+.menu {
+  margin-top: 3em;
+  outline: none;
+  border: none;
+}
+
+.menu *{
+  outline: none;
+  border: none;
+}
+.menuItem {
+  margin-bottom: 1em!important;
+  cursor: pointer;
+  color: var(--blue);
+  font-weight: bold;
+  display: block;
+}
+.menuItem:hover {
+  color: var(--green);
+}
+.menuItem:last-child {
+  margin-bottom: 0em!important;
+}

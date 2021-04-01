@@ -105,7 +105,7 @@ const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading }) 
             <Text fontWeight="bold" color={colors.green}>*Todos los campos son obligatorios.</Text>
           </Box>
           <Box marginTop="4em" marginBottom="2em">
-            <Grid container justify="center" alignItems center>
+            <Grid container justify="center" alignItems="center">
               <div className={styles.contactWrapper}>
                 <Phone className={styles.contactIcon} />
                 Tel. 442 213 0898

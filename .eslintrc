@@ -10,6 +10,8 @@
     "import/no-extraneous-dependencies": "off",
     "object-curly-newline": "off",
     "react/jsx-one-expression-per-line": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "react/jsx-props-no-spreading": "off",
+    "max-len": "off"
   }
 }

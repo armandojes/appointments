@@ -7,18 +7,21 @@ import ThemeProvider from './themeProvider';
 import PickersProvider from './MuiPickersUtilsProvider';
 import Header from './components/header';
 import companyHome from './pages/companyHome';
+import SessionProvider from './session/provider';
 
 const App = () => (
   <BrowserRouter>
-    <ThemeProvider>
-      <PickersProvider>
-        <Header />
-        <Switch>
-          <Route path="/dashboard" component={DashBoard} />
-          <Route path="/company-home" component={companyHome} />
-        </Switch>
-      </PickersProvider>
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider>
+        <PickersProvider>
+          <Header />
+          <Switch>
+            <Route path="/dashboard" component={DashBoard} />
+            <Route path="/company-home" component={companyHome} />
+          </Switch>
+        </PickersProvider>
+      </ThemeProvider>
+    </SessionProvider>
   </BrowserRouter>
 );
 

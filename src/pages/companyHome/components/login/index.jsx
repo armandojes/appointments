@@ -1,27 +1,39 @@
 /* eslint-disable arrow-body-style */
-import { Box } from '@material-ui/core';
-import React from 'react';
-import Button from 'src/components/main/button';
-import Input from 'src/components/main/input';
-import Text from 'src/components/main/text';
-import { colors } from 'src/constants';
-import styles from './styles.module.css';
+import React, { useState } from 'react';
+import useForm from 'src/hooks/useForm';
+import { loginWithEmailAndPAssword } from '../../../../core/models/auth';
+import validators from '../../../../helpers/validators';
+import useErrorMessage from '../../../../hooks/useErrorMessage';
+import LoginView from './loginView';
 
 const Login = () => {
+  const { getInputProps, handleValidateForm, values } = useForm();
+  const { errorMessage, setErrorMessage } = useErrorMessage();
+  const [isLoading, setLoading] = useState(false);
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const errors = handleValidateForm({
+      email: validators.email,
+      password: validators.password,
+    });
+    if (Object.values(errors).length) return setErrorMessage(Object.values(errors)[0]);
+    setLoading(true);
+    const response = await loginWithEmailAndPAssword({ email: values.email, password: values.password });
+    if (response.status === 'error') {
+      setErrorMessage(response.errorMessage);
+      setLoading(false);
+    }
+    return null;
+  };
+
   return (
-    <div>
-      <Text fontSize="2.2em" color={colors.blue} fontWeight="900">Bienvenido</Text>
-      <Text fontSize="" color={colors.green} fontWeight="bold">Si ya tienes cuenta activa, ingresa aquí:</Text>
-      <form className={styles.form}>
-        <Input variant="underline" type="text" placeholder="User" />
-        <Box paddingTop=".5em" />
-        <Input variant="underline" type="text" placeholder="password" />
-        <Box paddingTop="1.5em" />
-        <div className={styles.buttonWrapper}>
-          <Button width="10em" variant="contained" color={colors.blue} borderRadius="2em">Entrar</Button>
-        </div>
-      </form>
-    </div>
+    <LoginView
+      getInputProps={getInputProps}
+      onLogin={handleLogin}
+      errorMessage={errorMessage}
+      isLoading={isLoading}
+    />
   );
 };
 

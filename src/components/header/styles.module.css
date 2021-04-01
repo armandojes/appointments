@@ -18,9 +18,20 @@
 
 .line {
   border-bottom: 3px solid var(--green);
-  margin-left: 3em;
-  margin-right: .8em;
+  margin-left: 20%;
+  margin-right: .5%;
   margin-top: .4em;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.menuIcon {
+  font-size: 2.5em!important;
+  cursor: pointer;
+  color: var(--green);
 }
 
 @media screen and (max-width:600px) {

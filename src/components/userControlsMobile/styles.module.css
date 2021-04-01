@@ -1,0 +1,23 @@
+.headerClose {
+  border-bottom: 1px solid #cdcdcd;
+  padding-bottom: .5em;
+  margin-bottom: 2em;
+}
+.wrapper {
+  width: 80vw;
+  padding: 1em;
+  box-sizing: border-box;
+  height: 100vh;
+  font-size: 1.2em;
+}
+.iconCloseMenu {
+  font-size: 2em;
+  color: var(--green);
+  margin-top: .1em;
+}
+.menuItem {
+  display: block;
+  padding-bottom: 1em;
+  margin-left: 2em;
+  font-weight: bold;
+}
