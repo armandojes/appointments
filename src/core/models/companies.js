@@ -107,6 +107,12 @@ export const deleteStudy = async (companyId, studyId) => {
   return { status: 'error', errorMessage: 'Error, Algo salio mal' };
 };
 
+export const getAvailableStudies = async (companyId) => {
+  const { studies = [] } = await getCompany(companyId);
+  const allStudies = await studiesModel.getStudies();
+  return allStudies.filter((study) => studies.includes(study.id));
+};
+
 export default {
   createRequestForNewCompany,
   deleteRequestCompany,
@@ -117,4 +123,5 @@ export default {
   getStudiesWithStatus,
   addNewStudy,
   deleteStudy,
+  getAvailableStudies,
 };

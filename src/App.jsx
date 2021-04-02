@@ -8,6 +8,7 @@ import PickersProvider from './MuiPickersUtilsProvider';
 import Header from './components/header';
 import companyHome from './pages/companyHome';
 import SessionProvider from './session/provider';
+import NewAppointment from './pages/createAppointment';
 
 const App = () => (
   <BrowserRouter>
@@ -18,6 +19,7 @@ const App = () => (
           <Switch>
             <Route path="/dashboard" component={DashBoard} />
             <Route path="/company-home" component={companyHome} />
+            <Route path="/new-appointment" component={NewAppointment} />
           </Switch>
         </PickersProvider>
       </ThemeProvider>

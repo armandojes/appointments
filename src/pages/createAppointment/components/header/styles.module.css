@@ -1,0 +1,90 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.left {
+  display: flex;
+  align-items: flex-end;
+}
+.title {
+  font-size: 2.4em;
+  font-weight: 900;
+  color: var(--blue);
+  margin-bottom: -.2em;
+  line-height: .9em;
+}
+.step {
+  color: var(--green);
+  font-size: 1.5em;
+  font-weight: 900;
+  margin-bottom: -.2em;
+}
+.icon {
+  width: 6em;
+  margin-right: 1em;
+}
+
+.companyText {
+  color: var(--green);
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: right;
+  margin-bottom: -.6em;
+}
+
+.companyName {
+  text-align: right;
+  font-size: 2.4em;
+  font-weight: 900;
+  color: var(--blue);
+  margin-bottom: -.2em;
+}
+.companyManagerText {
+  font-size: 1.1em;
+  color: var(--blue);
+  text-align: right;
+}
+.companyManagerName {
+  font-size: 1.1em;
+  color: var(--green);
+  text-align: right;
+}
+
+@media screen and (max-width:600px) {
+  .wrapper {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+  .companyText {
+    display: inline;
+    font-size: 1.5em;
+    margin-right: .5em;
+  }
+  .companyName {
+    display: inline;
+    font-size: 1.5em;
+  }
+  .companyManagerText {
+    text-align: center;
+  }
+  .companyManagerName {
+    text-align: center;
+  }
+  .icon {
+    width: 4.5em;
+    margin-right: 1em;
+  }
+  .left {
+    text-align: left;
+    margin-top: 2em;
+  }
+  .title {
+    font-size: 1.7em;
+    margin-bottom: 0em;
+  }
+  .step {
+    font-size: 1.4em;
+    margin-bottom: 0em;
+  }
+}

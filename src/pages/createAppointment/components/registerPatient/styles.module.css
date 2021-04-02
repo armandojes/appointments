@@ -1,0 +1,72 @@
+.body {
+  width: 70%;
+  margin: auto;
+  margin-top: 3em;
+}
+.textBold {
+  font-size: 1.2em;
+  margin-top: 1em;
+  font-weight: 900;
+  color: var(--blue);
+  margin-bottom: 1em;
+}
+.studyWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.itemWrapper {
+  width: 33.3%;
+  padding: .5em;
+  box-sizing: border-box;
+}
+.checkbox {
+  min-width: 1.3em;
+  min-height: 1.3em;
+  border: 1px solid var(--green);
+  border-radius: .3em;
+  margin-right: .5em;
+  cursor: pointer;
+}
+.checkboxSelected {
+  background-color: var(--green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkboxSelected svg {
+  color: white;
+  font-size: 1.2em;
+}
+.item {
+  display: flex;
+  align-items: center;
+}
+.itemTitle {
+  color: gray;
+}
+.itemTitleSlected {
+  color: var(--blue);
+}
+
+.inputText {
+  width: 95%;
+}
+
+@media screen and (max-width:1000px) {
+  .body {
+    width: 100%;
+  }
+  .inputText {
+    width: 100%;
+  }
+  .itemWrapper {
+    width: 50%;
+  }
+}
+@media screen and (max-width:400px) {
+  .itemWrapper {
+    width: 100%;
+  }
+}

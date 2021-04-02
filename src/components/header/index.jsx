@@ -1,4 +1,4 @@
-import { Box, Hidden, SwipeableDrawer } from '@material-ui/core';
+import { Box, Hidden } from '@material-ui/core';
 import React from 'react';
 import logoSrc from 'src/assets/logo.png';
 import useSession from '../../session/useSession';
@@ -42,7 +42,6 @@ const Header = () => {
 
         </div>
       </Container>
-      <SwipeableDrawer />
     </header>
   );
 };
