@@ -11,7 +11,7 @@
   font-size: 2.4em;
   font-weight: 900;
   color: var(--blue);
-  margin-bottom: -.2em;
+  margin-bottom: -0em;
   line-height: .9em;
 }
 .step {
@@ -21,7 +21,8 @@
   margin-bottom: -.2em;
 }
 .icon {
-  width: 6em;
+  height: 6em;
+  width: auto;
   margin-right: 1em;
 }
 
@@ -72,7 +73,7 @@
     text-align: center;
   }
   .icon {
-    width: 4.5em;
+    height: 4.7em;
     margin-right: 1em;
   }
   .left {

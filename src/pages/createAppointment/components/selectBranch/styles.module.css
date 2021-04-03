@@ -1,0 +1,54 @@
+.listWrapper {
+  display: flex;
+  align-items: stretch;
+  margin-top: 3em;
+  flex-wrap: wrap;
+}
+.itemWrapper {
+  width: 50%;
+  padding: 1.5em;
+  box-sizing: border-box;
+}
+.item {
+  display: flex;
+  align-items: flex-start;
+}
+.itemTitle {
+  font-size: 1.2em;
+  font-weight: 900;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+.textGray {
+  color: gray;
+  margin-top: 1em;
+}
+.checkbox {
+  margin-top: .3em;
+  min-width: 1.3em;
+  min-height: 1.3em;
+  border: 1px solid var(--green);
+  border-radius: .3em;
+  margin-right: .5em;
+  cursor: pointer;
+}
+.checkboxSelected {
+  background-color: var(--green);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkboxSelected svg {
+  color: white;
+  font-size: 1.2em;
+}
+@media screen and (max-width:600px) {
+  .itemWrapper {
+    width: 100%;
+    padding: 1em;
+  }
+  .textGray {
+    color: gray;
+    margin-top: .2em;
+  }
+}
