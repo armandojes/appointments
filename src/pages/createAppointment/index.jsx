@@ -46,6 +46,10 @@ const NewAppointment = () => {
     }));
   };
 
+  const handleTimeSelect = (time) => {
+    setValues((preValues) => ({ ...preValues, time }));
+  };
+
   return (
     <>
       <NewAppointmentView
@@ -56,6 +60,8 @@ const NewAppointment = () => {
         branches={values.branches}
         onBranchClick={handleBranchClick}
         branch={values.branch}
+        onTimeSelect={handleTimeSelect}
+        time={values.time || ''}
       />
     </>
   );
