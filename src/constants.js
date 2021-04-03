@@ -14,3 +14,10 @@ export const days = {
   saturday: 'Sábado',
   sunday: 'Domingo',
 };
+
+export const payoutData = {
+  bankName: 'Banamex',
+  account: '1386005',
+  branch: '7010',
+  clabe: '002680701013860051',
+};

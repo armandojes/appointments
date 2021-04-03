@@ -50,9 +50,18 @@ const NewAppointment = () => {
     setValues((preValues) => ({ ...preValues, time }));
   };
 
+  const handlePaoutTypeChange = (event) => {
+    const value = event.currentTarget.id;
+    setValues((prevValues) => ({
+      ...prevValues,
+      payoutType: value,
+    }));
+  };
+
   return (
     <>
       <NewAppointmentView
+        payoutType={values.payoutType || ''}
         isLoading={values.isLoading}
         studies={values.studies}
         onStudyClick={handleStudyClick}
@@ -62,6 +71,7 @@ const NewAppointment = () => {
         branch={values.branch}
         onTimeSelect={handleTimeSelect}
         time={values.time || ''}
+        onPayouTypeChange={handlePaoutTypeChange}
       />
     </>
   );

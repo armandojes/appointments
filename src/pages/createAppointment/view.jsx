@@ -4,10 +4,11 @@ import React from 'react';
 import Loading from '../../components/loading';
 import Container from '../../components/main/Container';
 import DateSelector from './components/dateSelector';
+import Payout from './components/payout';
 import RegisterPatient from './components/registerPatient';
 import SelectBranch from './components/selectBranch';
 
-const NewAppointmentView = ({ studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, time }) => (
+const NewAppointmentView = ({ studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, time, payoutType, onPayouTypeChange, onConfirm }) => (
   <>
     {isLoading && <Loading />}
     {!isLoading && (
@@ -17,6 +18,13 @@ const NewAppointmentView = ({ studies, isLoading, onStudyClick, getInputProps, b
         <SelectBranch items={branches} onItemClick={onBranchClick} branch={branch} />
         <Hidden xsDown><Box marginBottom="5em" /></Hidden>
         <DateSelector onTimeSelect={onTimeSelect} time={time} />
+        <Hidden xsDown><Box marginBottom="5em" /></Hidden>
+        <Payout
+          getInputProps={getInputProps}
+          payoutType={payoutType}
+          onPayouTypeChange={onPayouTypeChange}
+          onTimeSelect={onConfirm}
+        />
       </Container>
     )}
   </>
@@ -32,6 +40,9 @@ NewAppointmentView.propTypes = {
   branch: string.isRequired,
   onTimeSelect: func.isRequired,
   time: string.isRequired,
+  payoutType: string.isRequired,
+  onPayouTypeChange: func.isRequired,
+  onConfirm: func.isRequired,
 };
 
 export default NewAppointmentView;
