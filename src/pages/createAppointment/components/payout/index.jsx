@@ -11,7 +11,7 @@ import styles from './styles.module.css';
 
 const Payout = ({ payoutType, getInputProps, onPayouTypeChange, onConfirm }) => (
   <>
-    <Header icon={payouIconSrc} title="Notificación de pago" />
+    <Header icon={payouIconSrc} title="Notificación de pago" step={4} />
     <div className={styles.body}>
 
       <div className={styles.itemWrapper} onClick={onPayouTypeChange} role="button" id="transfer">

@@ -85,8 +85,13 @@ export const updateSchedule = async (branchId, dayName, newValue) => {
  * @param {string} branchId
  */
 export const getDisabledStringDates = async (branchId) => {
-  const { disabledStringDates = [] } = await database.getDocument(`branches/${branchId}`);
-  return disabledStringDates;
+  try {
+    const { disabledStringDates = [] } = await database.getDocument(`branches/${branchId}`);
+    return disabledStringDates;
+  } catch (error) {
+    console.log('getDisabledStringDatesError', error.toString());
+    return [];
+  }
 };
 
 /**

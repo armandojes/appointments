@@ -11,7 +11,7 @@ const SelectBranch = ({ items, onItemClick, branch }) => (
     <Header title="Selecciona la sucursal*" step={2} icon={ubicationIconSrc} />
     <div className={styles.listWrapper}>
       {items.map((currentItem) => (
-        <div role="button" className={styles.itemWrapper} onClick={onItemClick} id={currentItem.id}>
+        <div role="button" className={styles.itemWrapper} onClick={onItemClick} id={currentItem.id} key={currentItem.id}>
           <div className={styles.item}>
             <div className={`${styles.checkbox} ${branch === currentItem.id ? styles.checkboxSelected : ''}`}>
               {branch === currentItem.id && <Check />}

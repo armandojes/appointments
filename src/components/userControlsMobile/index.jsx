@@ -18,7 +18,7 @@ const UserControlsMobile = () => {
   return (
     <>
       <Menu onClick={handleMenuOpen} />
-      <SwipeableDrawer open={isMenuOpen} onOpen={handleMenuOpen} onClose={handleMenuClose} anchor="right">
+      <SwipeableDrawer open={!!isMenuOpen} onOpen={handleMenuOpen} onClose={handleMenuClose} anchor="right">
         <div className={styles.wrapper} onClick={handleMenuClose}>
           <Box display="flex" justifyContent="center" alignItems="center" className={styles.headerClose}>
             Cerrar menu

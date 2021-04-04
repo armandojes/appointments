@@ -17,9 +17,10 @@ const useForm = (initialState = {}, rules = {}) => {
   /**
    * validate form and update inputErrors
    * @param {{}} scopedRules use scoped rules if exist before use global rules
+   * @param {Boolean} disabledLayouErrors not paint border input in red
    * @returns {{}} object of errors
    */
-  const handleValidateForm = (scopedRules) => {
+  const handleValidateForm = (scopedRules, disabledLayouErrors = false) => {
     const currentUssingRules = scopedRules || rules;
     const errors = {};
     for (const inputName in currentUssingRules) {
@@ -27,7 +28,7 @@ const useForm = (initialState = {}, rules = {}) => {
       const inputErrorMessage = validator(values[inputName], values);
       if (inputErrorMessage) errors[inputName] = inputErrorMessage;
     }
-    setInputErrors(errors);
+    if (!disabledLayouErrors) setInputErrors(errors);
     return errors;
   };
 

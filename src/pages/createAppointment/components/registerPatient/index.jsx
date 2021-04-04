@@ -11,7 +11,7 @@ const RegisterPatient = ({ studies, onStudyClick, getInputProps }) => (
   <>
     <Box padding="2em 0em">
       <Header
-        step={5}
+        step={1}
         title="Registro de paciente"
         icon={registerIconSrc}
         companyName="Asics Space"

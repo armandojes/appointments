@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable import/order */
 import React, { useState } from 'react';
@@ -7,7 +9,8 @@ import styles from './styles.module.css';
 import { DatePicker } from '@material-ui/pickers';
 import { Box, Menu } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
-import { func, string } from 'prop-types';
+import { array, func, instanceOf, string } from 'prop-types';
+import dates from '../../../../helpers/dates';
 
 const times = [
   '11:15',
@@ -21,7 +24,7 @@ const times = [
   '11:15',
 ];
 
-const DateSelector = ({ onTimeSelect, time }) => {
+const DateSelector = ({ onTimeSelect, stringTime, disabledDates, onDateSelect, date }) => {
   const [anchorSelect, setAnchorSelect] = useState(null);
 
   const handleOpenMenu = (event) => setAnchorSelect(event.currentTarget);
@@ -32,13 +35,13 @@ const DateSelector = ({ onTimeSelect, time }) => {
       <Menu
         open={!!anchorSelect}
         anchorEl={anchorSelect}
-        anchorOrigin={{ horizontal: 'left' }}
+        anchorOrigin={{ horizontal: 'left', vertical: 'center' }}
         onClose={handleClose}
         BackdropProps={{ className: styles.backdropSelectOpen }}
         onClick={handleClose}
       >
-        {times.map((currentTime) => (
-          <div onClick={() => onTimeSelect(currentTime)} className={styles.option}>{currentTime} Hrs.</div>
+        {times.map((currentTime, index) => (
+          <div key={index} onClick={() => onTimeSelect(currentTime)} className={styles.option}>{currentTime} Hrs.</div>
         ))}
       </Menu>
       <Header title="Registra tu cita" icon={caldendarIconSrc} step={3} />
@@ -49,13 +52,15 @@ const DateSelector = ({ onTimeSelect, time }) => {
 
           <div className={styles.sectionWrapper}>
             <div className={styles.titleSection}>Día</div>
-
             <div className={styles.calendarWrapper}>
               <DatePicker
+                shouldDisableDate={(currentDate) => disabledDates.includes(dates.toStringDate(currentDate))}
                 variant="static"
                 disableToolbar
                 className={styles.caldendar}
                 disablePast
+                onChange={onDateSelect}
+                value={date}
               />
             </div>
 
@@ -63,7 +68,7 @@ const DateSelector = ({ onTimeSelect, time }) => {
           <div className={styles.sectionWrapper}>
             <div className={styles.titleSection}>Día</div>
             <div className={styles.selectShaddow} onClick={handleOpenMenu}>
-              {time}
+              {stringTime}
               <ArrowDropDown className={styles.arrow} />
             </div>
             <Box color="#fff">16:10 Hrs.</Box>
@@ -77,7 +82,10 @@ const DateSelector = ({ onTimeSelect, time }) => {
 
 DateSelector.propTypes = {
   onTimeSelect: func.isRequired,
-  time: string.isRequired,
+  stringTime: string.isRequired,
+  disabledDates: array.isRequired,
+  onDateSelect: func.isRequired,
+  date: instanceOf(Date).isRequired,
 };
 
 export default DateSelector;
