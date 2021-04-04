@@ -125,9 +125,7 @@ export const deleteDisabledStringDate = async (branchId, stringDate) => {
  * @param {{}} data
  */
 export const createNewBranch = async (data) => {
-  const date = new Date();
-  date.setHours(0);
-  date.setMinutes(0);
+  const date = '9:00';
   const success = await database.create('branches', {
     phones: data.phones,
     name: data.name,
@@ -167,12 +165,12 @@ export const getTimeStatusPerDay = async (branchId, dayName) => {
   const daySelected = days[dayName] || {};
   const { start, end, interval = 1, disabledTimes = [] } = daySelected;
   let blocks = dates.makeBlock(start, end, interval);
-  const disabledsString = disabledTimes.map((disabled) => dates.toStringTime(disabled));
+
   blocks = blocks.map((block) => {
-    const currentBlockString = dates.toStringTime(block.time);
+    const currentBlockString = block.stringTime;
     const blockWithStatus = {
       ...block,
-      isDisabled: disabledsString.includes(currentBlockString),
+      isDisabled: disabledTimes.includes(currentBlockString),
     };
     return blockWithStatus;
   });
@@ -187,7 +185,7 @@ export const getTimeStatusPerDay = async (branchId, dayName) => {
  */
 export const updateTimesStatusPerDay = async (branchId, dayName, schedules) => {
   const scheduleDisableds = schedules.filter((schedule) => schedule.isDisabled);
-  const timesDisabled = scheduleDisableds.map((schedule) => schedule.time);
+  const timesDisabled = scheduleDisableds.map((schedule) => schedule.stringTime);
   await database.update(`branches/${branchId}`, {
     days: {
       [dayName]: {
@@ -204,12 +202,11 @@ export const getTimesStatusPerDate = async (branchId, date) => {
   const { start, end, interval } = branchData.days[dayName];
   let blockTimes = dates.makeBlock(start, end, interval);
   const diesabledTimes = disabledTimes[dates.toStringDate(date)] || [];
-  const disabledTimesString = diesabledTimes.map((disabled) => dates.toStringTime(disabled));
   blockTimes = blockTimes.map((block) => {
-    const currentBlockString = dates.toStringTime(block.time);
+    const currentBlockString = block.stringTime;
     const blockWithStatus = {
       ...block,
-      isDisabled: disabledTimesString.includes(currentBlockString),
+      isDisabled: diesabledTimes.includes(currentBlockString),
     };
     return blockWithStatus;
   });
@@ -224,7 +221,7 @@ export const getTimesStatusPerDate = async (branchId, date) => {
  */
 export const updateTimesStatusPerDate = async (branchId, date, times) => {
   const timesDisabledsBlock = times.filter((schedule) => schedule.isDisabled);
-  const timesDisableds = timesDisabledsBlock.map((schedule) => schedule.time);
+  const timesDisableds = timesDisabledsBlock.map((schedule) => schedule.stringTime);
   if (!timesDisableds.length) {
     const status = await database.update(`/branches/${branchId}`, {
       disabledTimes: {

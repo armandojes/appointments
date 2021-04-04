@@ -31,30 +31,6 @@ export function addMinutes(date, minutes) {
 }
 
 /**
- * make all schedules
- * @param {Date} start only ignore date only import time
- * @param {Date} end only ignore date only import time
- * @param {number} interval
- * @returns array of objects
- */
-export const makeBlock = (start, end, interval) => {
-  let blocks = [start];
-
-  while (true) {
-    const lastBlock = blocks[blocks.length - 1];
-    const currentDate = addMinutes(lastBlock, interval);
-    if (currentDate < end) blocks = [...blocks, currentDate];
-    else break;
-  }
-
-  return blocks.map((block) => ({
-    time: block,
-    duration: interval,
-    stringTime: toStringTime(block),
-  }));
-};
-
-/**
  * get date name by date
  * @param {Date} date
  * @returns {string} dayName
@@ -82,6 +58,45 @@ export const stringDateToDate = (stringDate) => {
   }
 };
 
+export const strngTimeToDate = (stringTime) => {
+  try {
+    let [hours, minutes] = stringTime.split(':');
+    hours = parseInt(hours, 10);
+    minutes = parseInt(minutes, 10);
+    const date = new Date();
+    date.setMinutes(minutes);
+    date.setHours(hours);
+    return date;
+  } catch (e) {
+    return new Date();
+  }
+};
+
+/**
+ * make all schedules
+ * @param {string} stringStart
+ * @param {string} stringEnd
+ * @param {number} interval
+ * @returns array of objects
+ */
+export const makeBlock = (stringStart, stringEnd, interval) => {
+  const start = strngTimeToDate(stringStart);
+  const end = strngTimeToDate(stringEnd);
+  let blocks = [start];
+
+  while (true) {
+    const lastBlock = blocks[blocks.length - 1];
+    const currentDate = addMinutes(lastBlock, interval);
+    if (currentDate < end) blocks = [...blocks, currentDate];
+    else break;
+  }
+
+  return blocks.map((block) => ({
+    duration: interval,
+    stringTime: toStringTime(block),
+  }));
+};
+
 export default {
   toStringTime,
   toStringDate,
@@ -89,4 +104,5 @@ export default {
   makeBlock,
   getDayName,
   stringDateToDate,
+  strngTimeToDate,
 };

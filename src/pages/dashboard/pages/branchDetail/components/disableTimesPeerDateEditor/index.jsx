@@ -30,9 +30,9 @@ const DisableTimesPerDateEditor = ({ open, stringDate, branchId, onClose, setNot
     }
   };
 
-  const handleScheduleClick = ({ time }) => {
+  const handleScheduleClick = ({ stringTime }) => {
     const newScheduleList = times.map((currentTime) => {
-      if (toStringTime(currentTime.time) === toStringTime(time)) currentTime.isDisabled = !currentTime.isDisabled;
+      if (currentTime.stringTime === stringTime) currentTime.isDisabled = !currentTime.isDisabled;
       return currentTime;
     });
     setTimes(newScheduleList);

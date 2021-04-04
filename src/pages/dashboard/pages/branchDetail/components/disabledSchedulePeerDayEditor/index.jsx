@@ -11,7 +11,6 @@ import { colors, days } from 'src/constants';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
 import withNotifications from 'src/highOrderComponents/withNotification';
-import { toStringTime } from 'src/helpers/dates';
 import DisplayScheduleStatus from '../disabledDatesSelector';
 import styles from './styles.module.css';
 
@@ -30,9 +29,9 @@ const DisabledSchedulePerDayEditor = ({ open, data, onClose, setNotification }) 
 
   useFetch(handleFetch, [data.branchId, data.day, open]);
 
-  const handleScheduleClick = ({ time }) => {
+  const handleScheduleClick = ({ stringTime }) => {
     const newScheduleList = scheduleList.map((currentSchedule) => {
-      if (toStringTime(currentSchedule.time) === toStringTime(time)) currentSchedule.isDisabled = !currentSchedule.isDisabled;
+      if (currentSchedule.stringTime === stringTime) currentSchedule.isDisabled = !currentSchedule.isDisabled;
       return currentSchedule;
     });
     setScheduleList(newScheduleList);

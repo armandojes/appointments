@@ -16,7 +16,7 @@ import branchesModel from 'src/core/models/branches';
 import { Edit } from '@material-ui/icons';
 import { TimePicker } from '@material-ui/pickers';
 import withNotifications from 'src/highOrderComponents/withNotification';
-import { toStringTime } from 'src/helpers/dates';
+import dates, { stringDateToDate } from 'src/helpers/dates';
 import styles from './styles.module.css';
 
 const ScheduleEditor = (props) => {
@@ -26,11 +26,11 @@ const ScheduleEditor = (props) => {
   const [isEndClockActive, setEndClockActive] = useState(false);
 
   const handleStartChange = (newVaue) => {
-    setValues((currentValues) => ({ ...currentValues, start: newVaue }));
+    setValues((currentValues) => ({ ...currentValues, start: dates.toStringTime(newVaue) }));
   };
 
   const handleEndChange = (newVaue) => {
-    setValues((currentValues) => ({ ...currentValues, end: newVaue }));
+    setValues((currentValues) => ({ ...currentValues, end: dates.toStringTime(newVaue) }));
   };
 
   const handleUpdate = async () => {
@@ -74,10 +74,10 @@ const ScheduleEditor = (props) => {
               <IconButton className={styles.clockIcon} onClick={() => setStartClockActive(true)}>
                 <Edit />
               </IconButton>
-              <Input {...getInputProps('start')} value={toStringTime(values.start)} disabled />
+              <Input {...getInputProps('start')} value={values.start} disabled />
               <Box display="none">
                 <TimePicker
-                  value={props.data.start}
+                  value={dates.strngTimeToDate(values.start || '')}
                   open={isStartClockActive}
                   onClose={() => setStartClockActive(false)}
                   onChange={handleStartChange}
@@ -92,10 +92,10 @@ const ScheduleEditor = (props) => {
               <IconButton className={styles.clockIcon} onClick={() => setEndClockActive(true)}>
                 <Edit />
               </IconButton>
-              <Input {...getInputProps('end')} value={toStringTime(values.end)} disabled />
+              <Input {...getInputProps('end')} value={values.end} disabled />
               <Box display="none">
                 <TimePicker
-                  value={props.data.end}
+                  value={dates.strngTimeToDate(values.end)}
                   open={isEndClockActive}
                   onClose={() => setEndClockActive(false)}
                   onChange={handleEndChange}
