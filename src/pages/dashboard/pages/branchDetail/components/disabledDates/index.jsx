@@ -72,7 +72,7 @@ const DisablesDates = ({ setNotification }) => {
               disablePast
               disableToolbar
               disabledDate
-              shouldDisableDate={(testingDate) => disabledDates.map((d) => toStringDate(d)).includes(toStringDate(testingDate))}
+              shouldDisableDate={(testingDate) => disabledDates.includes(toStringDate(testingDate))}
             />
           </Box>
           <Card>
