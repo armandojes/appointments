@@ -80,6 +80,7 @@ export const saveAppointment = async (values) => {
     total: studiesParsed.reduce((acum, { price }) => acum + price, 0),
     appointmentDate: composeDatebyStrings(values.stringDate, values.stringTime),
     interval,
+    company: values.company,
   };
 
   const operationResult = await database.create('appointments', secureData);
