@@ -200,13 +200,11 @@ const NewAppointment = () => {
     if (values.branch && values.stringDate) {
       if (values.errorMessageAtStep3) setValues((prev) => ({ ...prev, errorMessageAtStep3: '' }));
       const availableTimes = await getAvailableTimes(values.branch, values.stringDate);
-      setValues((prevValues) => ({ ...prevValues, times: availableTimes }));
-      if (!availableTimes.length) {
-        setValues((preValues) => ({
-          ...preValues,
-          errorMessageAtStep3: 'No hay citas disponibles para la fecha seleccionada',
-        }));
-      }
+      setValues((prevValues) => ({
+        ...prevValues,
+        times: availableTimes,
+        availableTimes,
+        errorMessageAtStep3: availableTimes.length ? '' : 'No hay citas disponibles para la fecha seleccionada' }));
     }
   }, [values.stringDate, values.branch]);
 
