@@ -61,7 +61,7 @@ export const saveAppointment = async (values) => {
   if (!availableTimes.includes(values.stringTime)) return { status: 'error', errorMessage: 'La hora seleccionada ya no esta disponible, porfavor elija otro horario' };
 
   const { studies = [] } = values;
-  const studiesParsed = studies.map(({ id, price, title }) => ({ id, price, title }));
+  const studiesParsed = studies.map(({ id, price, title, indications }) => ({ id, price, title, indications }));
   const interval = await getIntervalByDate(values.branch, values.stringDate);
   const secureData = {
     branch: values.branch,
