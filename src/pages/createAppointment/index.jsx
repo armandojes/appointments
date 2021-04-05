@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { getAvailableStudies } from 'src/core/models/companies';
 import branchesModel from 'src/core/models/branches';
@@ -7,7 +8,7 @@ import useSession from 'src/session/useSession';
 import { useHistory } from 'react-router';
 import NewAppointmentView from './view';
 import validators from '../../helpers/validators';
-import dates, { stringDateToDate, toStringDate } from '../../helpers/dates';
+import dates, { getDayName, stringDateToDate, toStringDate } from '../../helpers/dates';
 import { getAvailableTimes, saveAppointment } from '../../core/models/appointments';
 
 const step1Validators = {
@@ -48,6 +49,8 @@ const NewAppointment = () => {
     stringTime: '', // time selected by user
     times: [], // available times filtered
   });
+
+  const currentBranchSelect = values.branches.find((branch) => branch.id === values.branch);
 
   const handleStudyClick = (event) => {
     const idClicked = event.currentTarget.id;
@@ -95,6 +98,14 @@ const NewAppointment = () => {
 
   const setCurrentStep = (step) => {
     setValues((preValues) => ({ ...preValues, currentStep: step }));
+  };
+
+  const handleShouldDisableDate = (date) => {
+    if (values.disabledDates.includes(toStringDate(date))) return true;
+    const currentDayName = getDayName(date);
+    const { isEnabled } = currentBranchSelect.days[currentDayName];
+    if (!isEnabled) return true;
+    return false;
   };
 
   const handleConfirm = async () => {
@@ -206,7 +217,7 @@ const NewAppointment = () => {
         errorMessageAtStep2={values.errorMessageAtStep2}
         errorMessageAtStep3={values.errorMessageAtStep3}
         errorMessageAtStep4={values.errorMessageAtStep4}
-        disabledDates={values.disabledDates}
+        shouldDisableDate={handleShouldDisableDate}
         payoutType={values.payoutType || ''}
         isLoading={values.isLoading}
         studies={values.studies}

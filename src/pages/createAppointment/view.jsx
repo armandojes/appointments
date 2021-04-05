@@ -11,7 +11,7 @@ import RegisterPatient from './components/registerPatient';
 import SelectBranch from './components/selectBranch';
 import styles from './styles.module.css';
 
-const NewAppointmentView = ({ error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, disabledDates }) => (
+const NewAppointmentView = ({ error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, shouldDisableDate }) => (
   <>
     {!isLoading && error && (
       <Container>
@@ -54,7 +54,7 @@ const NewAppointmentView = ({ error, errorMessageAtStep1, errorMessageAtStep2, e
               times={times}
               onTimeSelect={onTimeSelect}
               stringTime={stringTime}
-              disabledDates={disabledDates}
+              shouldDisableDate={shouldDisableDate}
               onDateSelect={onDateSelect}
               date={date}
             />
@@ -91,7 +91,7 @@ NewAppointmentView.propTypes = {
   onPayouTypeChange: func.isRequired,
   onConfirm: func.isRequired,
   currentStep: number.isRequired,
-  disabledDates: array.isRequired,
+  shouldDisableDate: func.isRequired,
   onDateSelect: func.isRequired,
   date: instanceOf(Date).isRequired,
   times: array.isRequired,

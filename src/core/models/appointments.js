@@ -64,6 +64,7 @@ export const saveAppointment = async (values) => {
   const studiesParsed = studies.map(({ id, price, title, indications }) => ({ id, price, title, indications }));
   const interval = await getIntervalByDate(values.branch, values.stringDate);
   const secureData = {
+    status: 'pending',
     branch: values.branch,
     patientBirthDate: values.patientBirthDate,
     patientName: values.patientName,
