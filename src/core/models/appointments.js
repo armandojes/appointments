@@ -36,6 +36,9 @@ export const getAvailableTimes = async (branchId, stringDate) => {
   const disabledTimesAtDate = disabledTimesPerDate[stringDate] || [];
   times = times.filter((currentTime) => !disabledTimesAtDate.includes(currentTime.stringTime));
 
+  // filter by dayName disabled
+  if (!branchData.days[dayName].isEnabled) times = [];
+
   // filter by prev appointments
   const prevAppointment = await getAppointmentsByDate(branchId, stringDate);
   let munutesUsed = [];
