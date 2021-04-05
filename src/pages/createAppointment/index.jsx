@@ -93,7 +93,9 @@ const NewAppointment = () => {
     }));
   };
 
-  const setCurrentStep = (step) => setValues((preValues) => ({ ...preValues, currentStep: step }));
+  const setCurrentStep = (step) => {
+    setValues((preValues) => ({ ...preValues, currentStep: step }));
+  };
 
   const handleConfirm = async () => {
     const errorsStep1 = handleValidateForm(step1Validators);
@@ -125,6 +127,7 @@ const NewAppointment = () => {
       ...values,
       studies: values.studies.filter((std) => std.isSelected),
     });
+
     if (response.status === 'success') {
       history.push(`/appointment/${response.id}`);
       return null;
