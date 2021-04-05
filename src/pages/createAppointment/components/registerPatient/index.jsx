@@ -1,13 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import registerIconSrc from 'src/assets/icono_registro.png';
 import { Box } from '@material-ui/core';
-import { array, func } from 'prop-types';
+import { array, func, string } from 'prop-types';
 import { Check } from '@material-ui/icons';
 import styles from './styles.module.css';
 import Input from '../../../../components/main/input';
 import Header from '../header';
+import ErrorMessage from '../../../../components/errorMessage';
 
-const RegisterPatient = ({ studies, onStudyClick, getInputProps }) => (
+const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage }) => (
   <>
     <Box padding="2em 0em">
       <Header
@@ -18,6 +20,7 @@ const RegisterPatient = ({ studies, onStudyClick, getInputProps }) => (
         companyManager="Armando de jesus santiz lopez"
       />
       <div className={styles.body}>
+        <ErrorMessage message={errorMessage} marginBottom="1em" />
         <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre del paciente" />
         <Input className={styles.inputText} {...getInputProps('patientBirthDate')} variant="underline" placeholder="Fecha de nacimiento DD/MM/AAAA (opcional)" />
         <div className={styles.textBold}>Estudios a realizarse*:</div>
@@ -45,6 +48,7 @@ RegisterPatient.propTypes = {
   studies: array.isRequired,
   onStudyClick: func.isRequired,
   getInputProps: func.isRequired,
+  errorMessage: string.isRequired,
 };
 
 export default RegisterPatient;

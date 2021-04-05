@@ -10,24 +10,15 @@ import { DatePicker } from '@material-ui/pickers';
 import { Box, Menu } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 import { array, func, instanceOf, string } from 'prop-types';
-import dates from '../../../../helpers/dates';
+import dates from 'src/helpers/dates';
+import ErrorMessage from 'src/components/errorMessage';
 
-const times = [
-  '11:15',
-  '11:15',
-  '11:15',
-  '11:15',
-  '11:15',
-  '11:15',
-  '11:15',
-  '11:15',
-  '11:15',
-];
-
-const DateSelector = ({ onTimeSelect, stringTime, disabledDates, onDateSelect, date }) => {
+const DateSelector = ({ onTimeSelect, stringTime, disabledDates, onDateSelect, date, times, errorMessage }) => {
   const [anchorSelect, setAnchorSelect] = useState(null);
 
-  const handleOpenMenu = (event) => setAnchorSelect(event.currentTarget);
+  const handleOpenMenu = (event) => {
+    if (times.length) setAnchorSelect(event.currentTarget);
+  };
   const handleClose = () => setAnchorSelect(null);
 
   return (
@@ -46,6 +37,7 @@ const DateSelector = ({ onTimeSelect, stringTime, disabledDates, onDateSelect, d
       </Menu>
       <Header title="Registra tu cita" icon={caldendarIconSrc} step={3} />
       <div className={styles.body}>
+        <ErrorMessage message={errorMessage} marginBottom="1em" />
         <div className={styles.subtitle}>Sucursal: Unidad Arcos</div>
         <div className={styles.title}>Elige el día y la hora de tu cita</div>
         <div className={styles.wrapperFlex}>
@@ -86,6 +78,8 @@ DateSelector.propTypes = {
   disabledDates: array.isRequired,
   onDateSelect: func.isRequired,
   date: instanceOf(Date).isRequired,
+  times: array.isRequired,
+  errorMessage: string.isRequired,
 };
 
 export default DateSelector;

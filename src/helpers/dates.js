@@ -26,20 +26,6 @@ export const toStringDate = (date) => {
   }
 };
 
-export function addMinutes(date, minutes) {
-  return new Date(date.getTime() + minutes * 60000);
-}
-
-/**
- * get date name by date
- * @param {Date} date
- * @returns {string} dayName
- */
-export const getDayName = (date) => {
-  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-  return days[date.getDay()];
-};
-
 export const stringDateToDate = (stringDate) => {
   if (!stringDate) return new Date();
   try {
@@ -48,10 +34,13 @@ export const stringDateToDate = (stringDate) => {
     month = Number.parseInt(month, 10) - 1;
     year = Number.parseInt(year, 10);
     const date = new Date();
-    console.log('dayNumber, month, year', dayNumber, month, year);
     date.setDate(dayNumber);
     date.setMonth(month);
     date.setFullYear(year);
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
     return date;
   } catch (error) {
     return new Date();
@@ -66,10 +55,34 @@ export const strngTimeToDate = (stringTime) => {
     const date = new Date();
     date.setMinutes(minutes);
     date.setHours(hours);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
     return date;
   } catch (e) {
     return new Date();
   }
+};
+
+export const composeDatebyStrings = (stringDate, srtringTime) => {
+  const date = stringDateToDate(stringDate);
+  const time = strngTimeToDate(srtringTime);
+  date.setHours(time.getHours());
+  date.setMinutes(time.getMinutes());
+  return date;
+};
+
+export function addMinutes(date, minutes) {
+  return new Date(date.getTime() + minutes * 60000);
+}
+
+/**
+ * get date name by date
+ * @param {Date} date
+ * @returns {string} dayName
+ */
+export const getDayName = (date) => {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  return days[date.getDay()];
 };
 
 /**
@@ -95,6 +108,26 @@ export const makeBlock = (stringStart, stringEnd, interval) => {
     duration: interval,
     stringTime: toStringTime(block),
   }));
+};
+
+/**
+ * make array of minurtes by init and end
+ * @param {string} stringTime
+ * @param {number} interval
+ */
+export const fillTime = (stringTime, interval) => {
+  const start = strngTimeToDate(stringTime);
+  const end = addMinutes(start, interval);
+  let vector = [start];
+
+  while (true) {
+    const lastBlock = vector[vector.length - 1];
+    const currentDate = addMinutes(lastBlock, 1);
+    if (currentDate < end) vector = [...vector, currentDate];
+    else break;
+  }
+
+  return vector.map((v) => toStringTime(v));
 };
 
 export default {

@@ -1,8 +1,15 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import firebase from 'firebase';
-import dates from 'src/helpers/dates';
+import dates, { getDayName, stringDateToDate } from 'src/helpers/dates';
 import database from './database';
+
+export const getIntervalByDate = async (branchId, stringDate) => {
+  const branchData = await database.getDocument(`branches/${branchId}`);
+  const dayName = getDayName(stringDateToDate(stringDate));
+  const { interval } = branchData.days[dayName];
+  return interval;
+};
 
 /**
  * get branch list

@@ -3,17 +3,18 @@ import { Check, Phone, WhatsApp } from '@material-ui/icons';
 import { func, string } from 'prop-types';
 import React from 'react';
 import payouIconSrc from 'src/assets/icono_pago.png';
+import ErrorMessage from '../../../../components/errorMessage';
 import Button from '../../../../components/main/button';
 import Input from '../../../../components/main/input';
 import { payoutData } from '../../../../constants';
 import Header from '../header';
 import styles from './styles.module.css';
 
-const Payout = ({ payoutType, getInputProps, onPayouTypeChange, onConfirm }) => (
+const Payout = ({ payoutType, getInputProps, onPayouTypeChange, onConfirm, errorMessage }) => (
   <>
     <Header icon={payouIconSrc} title="Notificación de pago" step={4} />
     <div className={styles.body}>
-
+      <ErrorMessage message={errorMessage} marginBottom="1em" />
       <div className={styles.itemWrapper} onClick={onPayouTypeChange} role="button" id="transfer">
         <div className={`${styles.checkbox} ${payoutType === 'transfer' ? styles.checkboxSelected : ''}`}>
           {payoutType === 'transfer' && <Check />}
@@ -61,6 +62,7 @@ Payout.propTypes = {
   payoutType: string.isRequired,
   onPayouTypeChange: func.isRequired,
   onConfirm: func.isRequired,
+  errorMessage: string.isRequired,
 };
 
 export default Payout;
