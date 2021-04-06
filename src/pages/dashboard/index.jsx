@@ -12,6 +12,7 @@ import StudyEditor from './pages/studyEditor';
 import StudiesForCompany from './pages/studiesForCompany';
 import CompanyEditor from './pages/companyEditor';
 import Appointments from './pages/appointments';
+import BranchSelector from './pages/branchSelector';
 
 const DashBoard = () => (
   <div className={styles.fullWidth}>
@@ -31,6 +32,7 @@ const DashBoard = () => (
             <Route path="/dashboard/company-editor/:companyId?" component={CompanyEditor} />
             <Route path="/dashboard/studies-for-company/:companyId?" component={StudiesForCompany} />
             <Route path="/dashboard/appointments/:branchId" component={Appointments} />
+            <Route path="/dashboard/appointments" component={BranchSelector} />
           </Switch>
         </div>
       </div>
