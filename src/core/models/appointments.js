@@ -87,3 +87,15 @@ export const saveAppointment = async (values) => {
   if (operationResult) return { status: 'success', id: operationResult.id };
   return { status: 'error', errorMessage: 'Error algo salió mal' };
 };
+
+/**
+ * get all apointments
+ * @param {*} currentBranch optional filter
+ */
+export const getAllAppointments = async (currentBranch) => {
+  const startOfDate = new Date(); startOfDate.setHours(0); startOfDate.setMinutes(0); startOfDate.setSeconds(0);
+  const filters = [['appointmentDate', '>=', startOfDate]];
+  if (currentBranch) filters.push(['branch', '==', currentBranch]);
+  const list = await database.getList('appointments', null, null, filters).next();
+  return list;
+};

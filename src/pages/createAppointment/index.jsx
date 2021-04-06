@@ -137,7 +137,10 @@ const NewAppointment = () => {
     const response = await saveAppointment({
       ...values,
       studies: values.studies.filter((std) => std.isSelected),
-      company: session.id,
+      company: {
+        id: session.id,
+        name: session.company.name,
+      },
     });
 
     if (response.status === 'success') {

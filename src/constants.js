@@ -21,3 +21,8 @@ export const payoutData = {
   branch: '7010',
   clabe: '002680701013860051',
 };
+
+export const appointmentStatus = {
+  pending: 'Pendiente',
+  complete: 'Finalizado',
+};
