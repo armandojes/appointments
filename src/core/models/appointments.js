@@ -99,3 +99,8 @@ export const getAllAppointments = async (currentBranch) => {
   const list = await database.getList('appointments', null, null, filters).next();
   return list;
 };
+
+export const getSingleAppointment = async (appointmentId) => {
+  const appointmentData = await database.getDocument(`appointments/${appointmentId}`);
+  return appointmentData;
+};

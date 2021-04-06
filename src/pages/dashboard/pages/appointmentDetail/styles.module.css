@@ -1,0 +1,57 @@
+.wrapperLimiter {
+  width: 80%;
+  margin: auto;
+}
+.card {
+  margin-bottom: 1em;
+  background-color: none!important;
+}
+.cardBody {
+  margin-top: 1em;
+}
+.row {
+  font-weight: bold;
+  padding: .2em;
+  color: var(--blue);
+}
+.row span {
+  color: var(--green);
+}
+.StidoesListWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.studyItemWrapper {
+  width: 50%;
+  padding: 1em;
+  box-sizing: border-box;
+}
+.itemDataWrapper {
+  flex-grow: 1;
+}
+.studyIcon {
+  width: 2em;
+  margin-right: 1em;
+}
+.studyCard {
+  display: flex;
+  align-items: center;
+}
+
+.otherText {
+  color: #ff5722;
+}
+
+@media screen and (max-width:1000px) {
+  .wrapperLimiter {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .studyItemWrapper {
+    padding: .5em;
+    width: 100%;
+  }
+}

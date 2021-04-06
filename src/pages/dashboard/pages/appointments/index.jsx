@@ -1,12 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getAllAppointments } from 'src/core/models/appointments';
 import useFetch from 'src/hooks/useFetch';
 import branchesModel from 'src/core/models/branches';
 import { useHistory, useParams } from 'react-router';
 import View from './view';
-import useSession from '../../../../session/useSession';
 
 const Appointments = () => {
   const { branchId } = useParams();
@@ -40,12 +37,11 @@ const Appointments = () => {
     setState((prevStates) => ({ ...prevStates, ...newState }));
   };
 
-  const makeCompanyOptions = () => {
-    return state.appointments.reduce((acum, current) => {
-      if (acum.some((a) => a.id === current.company.id)) return acum;
-      return [...acum, current.company];
-    }, []);
-  };
+  // make company options
+  const makeCompanyOptions = () => state.appointments.reduce((acum, current) => {
+    if (acum.some((a) => a.id === current.company.id)) return acum;
+    return [...acum, current.company];
+  }, []);
 
   // fetch initial data
   useFetch(async () => {
