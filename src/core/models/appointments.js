@@ -104,3 +104,8 @@ export const getSingleAppointment = async (appointmentId) => {
   const appointmentData = await database.getDocument(`appointments/${appointmentId}`);
   return appointmentData;
 };
+
+export const updateAppointmentStatus = async (appointmentId, newStatus) => {
+  await database.update(`appointments/${appointmentId}`, { status: newStatus });
+  return true;
+};

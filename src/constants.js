@@ -24,5 +24,12 @@ export const payoutData = {
 
 export const appointmentStatus = {
   pending: 'Pendiente',
-  complete: 'Finalizado',
+  complete: 'Completado',
+  outdate: 'vencido',
+};
+
+export const appointmentStatusColors = {
+  pending: 'orange',
+  complete: 'green',
+  outdate: 'red',
 };

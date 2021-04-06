@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { getSingleAppointment } from 'src/core/models/appointments';
+import { getSingleAppointment, updateAppointmentStatus } from 'src/core/models/appointments';
 import { getCompanyWithUser } from 'src/core/models/companies';
 import useFetch from 'src/hooks/useFetch';
+import { stringDateToDate, toStringDate } from '../../../../helpers/dates';
 import View from './view';
 
 const AppointmentDetail = () => {
@@ -25,7 +26,25 @@ const AppointmentDetail = () => {
     }
   };
 
+  const handleStatusChange = async (val) => {
+    await updateAppointmentStatus(params.appointmentId, val);
+    handleFetch();
+  };
+
   useFetch(handleFetch);
+
+  const handleIsOutDateCompute = () => {
+    if (appointment.stringDate) {
+      const appointmentDate = stringDateToDate(appointment.stringDate);
+      const currentDate = stringDateToDate(toStringDate(new Date()));
+      return currentDate > appointmentDate;
+    }
+    return false;
+  };
+
+  const computedStatus = (appointment.status && appointment.status === 'pending' && handleIsOutDateCompute())
+    ? 'outdate'
+    : appointment.status;
 
   return (
     <View
@@ -35,6 +54,9 @@ const AppointmentDetail = () => {
       companyOwner={companyWithOwner}
       studies={appointment.studies || []}
       customStudy={appointment.otherStudy || null}
+      isOutdate={handleIsOutDateCompute()}
+      status={computedStatus}
+      onStatusChange={handleStatusChange}
     />
   );
 };

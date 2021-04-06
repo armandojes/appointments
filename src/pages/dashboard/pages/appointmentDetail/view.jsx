@@ -1,26 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import studyIconSrc from 'src/assets/lab.png';
 import { array, bool, func, object, string } from 'prop-types';
+import { Edit } from '@material-ui/icons';
+import { Menu } from '@material-ui/core';
 import Card from '../../../../components/card';
 import Text from '../../../../components/main/text';
-import { colors } from '../../../../constants';
+import { appointmentStatus, appointmentStatusColors, colors } from '../../../../constants';
 import styles from './styles.module.css';
 import Loading from '../../../../components/loading';
 import { toStringDate } from '../../../../helpers/dates';
 
-const View = ({ loading, company, appointment, companyOwner, studies, customStudy }) => {
+const View = ({ loading, company, appointment, companyOwner, studies, customStudy, status, onStatusChange, isOutdate }) => {
+  const [anchorSelect, setAchorSelect] = useState(null);
+
+  const handleClose = () => setAchorSelect(null);
+  const handleOpen = (e) => setAchorSelect(e.currentTarget);
+
   let studiesNumber = studies.length;
   const tolaPrice = studies.reduce((acc, current) => acc + current.price, 0);
   if (customStudy) studiesNumber += 1;
+
+  const colorStatus = appointmentStatusColors[status];
 
   return (
     <>
       {!!loading && <Loading />}
       {!loading && (
         <div className={styles.wrapperLimiter}>
+          <Menu
+            open={!!anchorSelect}
+            anchorEl={anchorSelect}
+            anchorOrigin={{ horizontal: 'left', vertical: 'center' }}
+            onClose={handleClose}
+            BackdropProps={{ className: styles.backdropSelectOpen }}
+            onClick={handleClose}
+            className={styles.menu}
+          >
+            <div onClick={() => onStatusChange('complete')} role="button" className={styles.option}>Completado</div>
+            <div onClick={() => onStatusChange('pending')} role="button" className={styles.option}>{isOutdate ? 'Vencido' : 'Pendiente'}</div>
+          </Menu>
           <Card className={styles.card}>
             <Text fontSize="1.2em" color={colors.blue} fontWeight="bold">Detalles de cita</Text>
             <div className={styles.cardBody}>
+              <div className={styles.row}>
+                <div style={{ borderColor: colorStatus, color: colorStatus }} className={styles.status} onClick={handleOpen} role="button">
+                  Estado: {appointmentStatus[status] || status}
+                  <Edit />
+                </div>
+              </div>
               <div className={styles.row}>
                 <span className={styles.describe}>Paciente:</span> {appointment.patientName}
               </div>
@@ -133,9 +160,12 @@ View.propTypes = {
   loading: bool.isRequired,
   appointment: object.isRequired,
   company: object.isRequired,
-  companyOwner: func.isRequired,
+  companyOwner: object.isRequired,
   studies: array.isRequired,
   customStudy: string,
+  status: string.isRequired,
+  onStatusChange: func.isRequired,
+  isOutdate: bool.isRequired,
 };
 
 export default View;
