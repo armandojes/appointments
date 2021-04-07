@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Hidden } from '@material-ui/core';
 import { Phone, WhatsApp } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import confirmIconSrc from 'src/assets/icono_confirmacion.png';
 import Loading from '../../components/loading';
 import Button from '../../components/main/button';
@@ -47,12 +48,23 @@ const AppointmentSummary = () => {
       {loading && <Loading />}
       {!loading && (
         <>
-          <Header
-            title="¡Cita agendada!"
-            icon={confirmIconSrc}
-            companyName={companyWithOwner.company.name}
-            companyManager={companyWithOwner.name}
-          />
+          <Hidden xsDown>
+            <Header
+              title="¡Cita agendada!"
+              icon={confirmIconSrc}
+              companyName={companyWithOwner.company.name}
+              companyManager={companyWithOwner.name}
+            />
+          </Hidden>
+
+          <Hidden smUp>
+            <Box marginTop="-2em" marginBottom="2em">
+              <Header
+                title="¡Cita agendada!"
+                icon={confirmIconSrc}
+              />
+            </Box>
+          </Hidden>
 
           <div className={styles.appointmentIdWrapper}>
             <div className={styles.code}>CÓDIGO </div>
@@ -60,48 +72,62 @@ const AppointmentSummary = () => {
           </div>
 
           <div className={styles.bodyLimiter}>
-            <Box marginBottom="2em">
-              <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{appointment.patientName}</Text>
-              <Text color={colors.green} fontSize="1.1em">Paciente</Text>
-            </Box>
+            <div className={styles.centerOnlyMobile}>
+              <Box marginBottom="2em">
+                <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{appointment.patientName}</Text>
+                <Text color={colors.green} fontSize="1.1em">Paciente</Text>
+              </Box>
+            </div>
 
             <div className={styles.studyListWrapper}>
               {appointment.studies.map((study) => (
                 <div className={styles.studyWrapper} id={study.id}>
-                  <Box>
-                    <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{study.title}</Text>
-                    <Text color={colors.green} fontSize="1.1em">Estudio</Text>
+                  <Box flexGrow="1">
+                    <div className={styles.centerOnlyMobile}>
+                      <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{study.title}</Text>
+                      <Text color={colors.green} fontSize="1.1em">Estudio</Text>
+                    </div>
                   </Box>
                 </div>
               ))}
             </div>
 
-            <Box marginBottom="2em">
-              <Text fontWeight="900" color={colors.green} fontSize="1.3em">15 de Marzo 2021</Text>
-              <Text fontWeight="900" color={colors.green} fontSize="1.3em">9:30 AM</Text>
-            </Box>
+            <div className={styles.centerOnlyMobile}>
+              <Box marginBottom="2em">
+                <Text fontWeight="900" color={colors.green} fontSize="1.3em">15 de Marzo 2021</Text>
+                <Text fontWeight="900" color={colors.green} fontSize="1.3em">9:30 AM</Text>
+              </Box>
+            </div>
+
+            <div className={styles.centerOnlyMobile}>
+              <Box marginBottom="2em">
+                <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
+                  Sucursal: <span style={{ color: colors.green }}>{branchData.name}</span>
+                </Text>
+                <Text color={colors.blue} fontSize="1.1em">{branchData.address}</Text>
+              </Box>
+            </div>
+
+            <div className={styles.centerOnlyMobile}>
+              <Box marginBottom="2em">
+                <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
+                  {payoutTypes[appointment.payoutType] || appointment.payoutType}
+                </Text>
+                {appointment.payoutType === 'branch' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio en efectivo</Text>}
+              </Box>
+            </div>
 
             <Box marginBottom="2em">
-              <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
-                Sucursal: <span>{branchData.name}</span>
-              </Text>
-              <Text color={colors.blue} fontSize="1.1em">{branchData.address}</Text>
-            </Box>
-
-            <Box marginBottom="2em">
-              <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
-                {payoutTypes[appointment.payoutType] || appointment.payoutType}
-              </Text>
-              {appointment.payoutType === 'branch' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio en efectivo</Text>}
-            </Box>
-
-            <Box marginBottom="2em">
-              <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
+              <Text fontWeight="900" color={colors.blue} fontSize="1.3em" className={styles.centerOnlyMobile}>
                 INDICACIONES:
               </Text>
-              <Text color={colors.green} fontSize="1.3em" fontWeight="900">
-                Ayuno 8 hrs.
-              </Text>
+              {appointment.studies.map((study) => (
+                <div className={`${styles.indicationsItem} ${styles.centerOnlyMobile}`} key={study.id}>
+                  <Text color={colors.green} fontSize="1.3em" fontWeight="900">
+                    {study.indications}
+                  </Text>
+                </div>
+              ))}
             </Box>
 
             <div className={styles.fotterCard}>
@@ -109,7 +135,9 @@ const AppointmentSummary = () => {
               <div>SE NOTIFICARÁ POR CORREO ELECTRÓNICO CON SU CÓDIGO DE CONFIRMACIÓN.</div>
               <div className={styles.green}>¡GRACIAS POR SU CONFIANZA!</div>
             </div>
-            <Button variant="contained" className={styles.button}>CERRAR</Button>
+            <Link to="/">
+              <Button variant="contained" className={styles.button}>CERRAR</Button>
+            </Link>
           </div>
 
           <Box marginTop="4em" marginBottom="2em">
