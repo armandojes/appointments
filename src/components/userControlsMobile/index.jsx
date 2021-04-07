@@ -28,7 +28,10 @@ const UserControlsMobile = () => {
             <Link className={styles.menuItem} to="/dashboard/appointments">Citas</Link>
           )}
           {session.type === 'companyManager' && (
-            <Link className={styles.menuItem} to="/dashboard/appointments">Mi historial</Link>
+            <>
+              <Link className={styles.menuItem} to="/create-appointment">Nueva cita</Link>
+              <Link className={styles.menuItem} to="/study-history">Mi historial</Link>
+            </>
           )}
           {session.type === 'admin' && (
             <>

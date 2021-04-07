@@ -36,7 +36,10 @@ const UserControls = () => {
             <Link to="/dashboard" className={styles.menuItem}>dashboard</Link>
           )}
           {session.type === 'companyManager' && (
-            <Link to="/study-history" className={styles.menuItem}>Historial</Link>
+            <>
+              <Link to="/create-appointment" className={styles.menuItem}>Nueva cita</Link>
+              <Link to="/study-history" className={styles.menuItem}>Historial</Link>
+            </>
           )}
           <div className={styles.menuItem} onClick={singOut}>Cerrar sesión</div>
         </Box>
