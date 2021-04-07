@@ -14,6 +14,7 @@ import { colors, payoutTypes } from '../../constants';
 import { getSingleAppointment } from '../../core/models/appointments';
 import branches from '../../core/models/branches';
 import { getCompanyWithUser } from '../../core/models/companies';
+import { stringDateToDate, toLargeStringDate } from '../../helpers/dates';
 import useFetch from '../../hooks/useFetch';
 import Header from '../createAppointment/components/header';
 import styles from './styles.module.css';
@@ -58,7 +59,7 @@ const AppointmentSummary = () => {
           </Hidden>
 
           <Hidden smUp>
-            <Box marginTop="-2em" marginBottom="2em">
+            <Box marginTop="-2em" marginBottom="1.5em">
               <Header
                 title="¡Cita agendada!"
                 icon={confirmIconSrc}
@@ -73,8 +74,8 @@ const AppointmentSummary = () => {
 
           <div className={styles.bodyLimiter}>
             <div className={styles.centerOnlyMobile}>
-              <Box marginBottom="2em">
-                <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{appointment.patientName}</Text>
+              <Box marginBottom="1.5em">
+                <Text fontWeight="900" color={colors.blue} fontSize="1.3em" style={{ textTransform: 'capitalize' }}>{appointment.patientName}</Text>
                 <Text color={colors.green} fontSize="1.1em">Paciente</Text>
               </Box>
             </div>
@@ -93,14 +94,14 @@ const AppointmentSummary = () => {
             </div>
 
             <div className={styles.centerOnlyMobile}>
-              <Box marginBottom="2em">
-                <Text fontWeight="900" color={colors.green} fontSize="1.3em">15 de Marzo 2021</Text>
-                <Text fontWeight="900" color={colors.green} fontSize="1.3em">9:30 AM</Text>
+              <Box marginBottom="1.5em">
+                <Text fontWeight="900" color={colors.green} fontSize="1.3em">{toLargeStringDate(stringDateToDate(appointment.stringDate))}</Text>
+                <Text fontWeight="900" color={colors.green} fontSize="1.3em">{appointment.stringTime} Horas</Text>
               </Box>
             </div>
 
             <div className={styles.centerOnlyMobile}>
-              <Box marginBottom="2em">
+              <Box marginBottom="1.5em">
                 <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
                   Sucursal: <span style={{ color: colors.green }}>{branchData.name}</span>
                 </Text>
@@ -109,15 +110,16 @@ const AppointmentSummary = () => {
             </div>
 
             <div className={styles.centerOnlyMobile}>
-              <Box marginBottom="2em">
+              <Box marginBottom="1.5em">
                 <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
                   {payoutTypes[appointment.payoutType] || appointment.payoutType}
                 </Text>
                 {appointment.payoutType === 'branch' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio en efectivo</Text>}
+                {appointment.payoutType === 'transfer' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio con tarjeta o tranferencia</Text>}
               </Box>
             </div>
 
-            <Box marginBottom="2em">
+            <Box marginBottom="1.5em">
               <Text fontWeight="900" color={colors.blue} fontSize="1.3em" className={styles.centerOnlyMobile}>
                 INDICACIONES:
               </Text>
@@ -140,7 +142,7 @@ const AppointmentSummary = () => {
             </Link>
           </div>
 
-          <Box marginTop="4em" marginBottom="2em">
+          <Box marginTop="4em" marginBottom="1.5em">
             <Grid container justify="center" alignItems="center">
               <div className={styles.contactWrapper}>
                 <Phone className={styles.contactIcon} />

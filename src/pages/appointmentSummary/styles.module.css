@@ -26,6 +26,7 @@
   color: var(--blue);
   font-weight: 900;
   border-radius: 1em;
+  margin: 3em 0em;
 }
 .fotterCard .green {
   color: var(--green);
@@ -56,11 +57,12 @@
 .studyListWrapper {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
 }
 .studyWrapper {
   width: 50%;
   padding: 1em;
+  padding-top: 0em;
   padding-left: 0px;
   box-sizing: border-box;
 }
