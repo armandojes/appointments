@@ -10,12 +10,12 @@ import { colors } from 'src/constants';
 import ErrorMessage from '../../../../components/errorMessage';
 import styles from './styles.module.css';
 
-const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading }) => (
+const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading, created }) => (
   <div>
-    {!isLoading && (
+    {!isLoading && !created && (
       <>
         <Text fontSize="2.2em" color={colors.blue} fontWeight="900">Soy nueva Empresa</Text>
-        <Text fontSize="" color={colors.green} fontWeight="bold">No tienes cuenta, da de alta tu empresa llenando los siguientes datos:</Text>
+        <Text fontSize="" color={colors.green} fontWeight="bold">Hemos recibido su solicitud, en breve recibirá un correo electrónico con los datos de acceso a su cuenta.</Text>
         <form className={styles.form} onSubmit={onFormSubmit}>
           <ErrorMessage message={errorMessage} />
           <Box paddingTop=".5em">
@@ -120,6 +120,23 @@ const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading }) 
         </form>
       </>
     )}
+    {!isLoading && created && (
+      <div className={styles.successWrapper}>
+        <Text
+          display="flex"
+          alignItems="center"
+          fontSize="2.2em"
+          color={colors.blue}
+          fontWeight="900"
+          marginBottom="1em"
+        >
+          Registrado correctamente
+        </Text>
+        <Text fontSize="1.5em" color={colors.green} fontWeight="bold">
+          Hemos recibido su solicitud, en breve recibirá un correo electrónico con los datos de acceso a su cuenta.
+        </Text>
+      </div>
+    )}
     {isLoading && (
       <div className={styles.loadingWrapper}>
         <CircularProgress />
@@ -133,6 +150,7 @@ RegisterView.propTypes = {
   onFormSubmit: func.isRequired,
   errorMessage: string.isRequired,
   isLoading: bool.isRequired,
+  created: bool.isRequired,
 };
 
 export default RegisterView;

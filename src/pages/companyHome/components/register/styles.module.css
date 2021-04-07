@@ -28,6 +28,10 @@
   align-items: center;
   min-height: 20em;
 }
+.successWrapper {
+  max-width: 35em;
+}
+
 @media screen and (max-width:700px) {
   .form {
     width: 100%;
@@ -36,5 +40,9 @@
     display: flex;
     justify-content: center;
     font-size: 1.05em;
+  }
+  .successWrapper {
+    max-width: 35em;
+    text-align: center;
   }
 }

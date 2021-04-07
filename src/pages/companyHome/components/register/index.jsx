@@ -1,15 +1,16 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
-import { createRequestForNewCompany } from '../../../../core/models/companies';
-import validators from '../../../../helpers/validators';
-import useErrorMessage from '../../../../hooks/useErrorMessage';
-import useForm from '../../../../hooks/useForm';
+import { createRequestForNewCompany } from 'src/core/models/companies';
+import validators from 'src/helpers/validators';
+import useErrorMessage from 'src/hooks/useErrorMessage';
+import useForm from 'src/hooks/useForm';
 import RegisterView from './view';
 
 const Register = () => {
   const { getInputProps, handleValidateForm, values } = useForm();
   const { errorMessage, setErrorMessage } = useErrorMessage();
   const [isLoading, setIsLoading] = useState(false);
+  const [created, setCreated] = useState(false);
 
   const handleRegister = async (event) => {
     event.preventDefault();
@@ -29,7 +30,7 @@ const Register = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const response = await createRequestForNewCompany(values);
     setIsLoading(false);
-    if (response.status === 'success') alert('registrado correctamente');
+    if (response.status === 'success') setCreated(true);
     else alert(response.errorMessage);
     return null;
   };
@@ -40,6 +41,7 @@ const Register = () => {
       onFormSubmit={handleRegister}
       errorMessage={errorMessage}
       isLoading={isLoading}
+      created={created}
     />
   );
 };
