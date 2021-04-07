@@ -5,7 +5,7 @@ import { Edit } from '@material-ui/icons';
 import { Menu } from '@material-ui/core';
 import Card from '../../../../components/card';
 import Text from '../../../../components/main/text';
-import { appointmentStatus, appointmentStatusColors, colors } from '../../../../constants';
+import { appointmentStatus, appointmentStatusColors, colors, payoutTypes } from '../../../../constants';
 import styles from './styles.module.css';
 import Loading from '../../../../components/loading';
 import { toStringDate } from '../../../../helpers/dates';
@@ -63,6 +63,14 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
               <div className={styles.row}>
                 <span>Fecha de registro:</span> {toStringDate(appointment.createdAt)}
               </div>
+              <div className={styles.row}>
+                <span>Método de pago</span> {payoutTypes[appointment.payoutType] || appointment.payoutType}
+              </div>
+              {appointment.payoutComments && (
+                <div className={styles.row}>
+                  <span>Comentario:</span> {appointment.payoutComments}
+                </div>
+              )}
               <div className={styles.row}>
                 <span>id:</span> {appointment.id}
               </div>

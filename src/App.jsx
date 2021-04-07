@@ -19,8 +19,8 @@ const App = () => (
           <PickersProvider>
             <Header />
             <Switch>
+              <Route path="/" exact component={companyHome} />
               <Route path="/dashboard" component={DashBoard} />
-              <Route path="/company-home" component={companyHome} />
               <Route path="/create-appointment" component={CreateAppointments} />
             </Switch>
           </PickersProvider>

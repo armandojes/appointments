@@ -33,3 +33,8 @@ export const appointmentStatusColors = {
   complete: 'green',
   outdate: 'red',
 };
+
+export const payoutTypes = {
+  branch: 'Pago en Sucursal',
+  transfer: 'Crédito / Transferencia',
+};
