@@ -109,3 +109,9 @@ export const updateAppointmentStatus = async (appointmentId, newStatus) => {
   await database.update(`appointments/${appointmentId}`, { status: newStatus });
   return true;
 };
+export const getCompanyAppointmentsHistory = async (companyId) => {
+  const data = await database.getList('appointments', null, ['createdAt', 'desc'], [['company.id', '==', companyId]]).next();
+  return data;
+};
+
+getCompanyAppointmentsHistory('IzyBtN7UiLcgNVgfxRwspNyh20s1');
