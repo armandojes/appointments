@@ -15,6 +15,7 @@ import { getSingleAppointment } from '../../core/models/appointments';
 import branches from '../../core/models/branches';
 import { getCompanyWithUser } from '../../core/models/companies';
 import { stringDateToDate, toLargeStringDate } from '../../helpers/dates';
+import withAuth from '../../highOrderComponents/withAuth';
 import useFetch from '../../hooks/useFetch';
 import Header from '../createAppointment/components/header';
 import styles from './styles.module.css';
@@ -91,6 +92,16 @@ const AppointmentSummary = () => {
                   </Box>
                 </div>
               ))}
+              <div className={styles.studyWrapper}>
+                {appointment.otherStudy && (
+                  <Box flexGrow="1">
+                    <div className={styles.centerOnlyMobile}>
+                      <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{appointment.otherStudy}</Text>
+                      <Text color={colors.green} fontSize="1.1em">Estudio</Text>
+                    </div>
+                  </Box>
+                )}
+              </div>
             </div>
 
             <div className={styles.centerOnlyMobile}>
@@ -161,4 +172,4 @@ const AppointmentSummary = () => {
   );
 };
 
-export default AppointmentSummary;
+export default withAuth(AppointmentSummary, { companyManager: true });
