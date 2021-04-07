@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { array, number, object, oneOfType, string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { onUserChangeState } from '../core/models/auth';

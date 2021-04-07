@@ -8,21 +8,24 @@ import PickersProvider from './MuiPickersUtilsProvider';
 import Header from './components/header';
 import companyHome from './pages/companyHome';
 import SessionProvider from './session/provider';
-import NewAppointment from './pages/createAppointment';
+import CreateAppointments from './pages/createAppointment';
+import NotificatinProvider from './notifications/provider';
 
 const App = () => (
   <BrowserRouter>
     <SessionProvider>
-      <ThemeProvider>
-        <PickersProvider>
-          <Header />
-          <Switch>
-            <Route path="/dashboard" component={DashBoard} />
-            <Route path="/company-home" component={companyHome} />
-            <Route path="/new-appointment" component={NewAppointment} />
-          </Switch>
-        </PickersProvider>
-      </ThemeProvider>
+      <NotificatinProvider>
+        <ThemeProvider>
+          <PickersProvider>
+            <Header />
+            <Switch>
+              <Route path="/dashboard" component={DashBoard} />
+              <Route path="/company-home" component={companyHome} />
+              <Route path="/create-appointment" component={CreateAppointments} />
+            </Switch>
+          </PickersProvider>
+        </ThemeProvider>
+      </NotificatinProvider>
     </SessionProvider>
   </BrowserRouter>
 );

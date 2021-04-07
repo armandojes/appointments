@@ -1,12 +1,12 @@
-import { func } from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import companyModel from 'src/core/models/companies';
-import withNotifications from '../../../../highOrderComponents/withNotification';
 import useFetch from '../../../../hooks/useFetch';
+import useNotification from '../../../../notifications/useSession';
 import View from './view';
 
-const StudiesForCompany = ({ setNotification }) => {
+const StudiesForCompany = () => {
+  const setNotification = useNotification();
   const { companyId } = useParams();
   const [isLoading, setLoading] = useState(true);
   const [companyData, setCompanyData] = useState({});
@@ -61,8 +61,4 @@ const StudiesForCompany = ({ setNotification }) => {
   );
 };
 
-StudiesForCompany.propTypes = {
-  setNotification: func.isRequired,
-};
-
-export default withNotifications(StudiesForCompany);
+export default StudiesForCompany;

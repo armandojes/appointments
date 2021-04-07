@@ -2,6 +2,7 @@ import { Box, Hidden, Menu } from '@material-ui/core';
 import { ArrowDropDown, Business, Person, PlaylistAddCheck, Today } from '@material-ui/icons';
 import { array, bool, func, string } from 'prop-types';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Card from 'src/components/card';
 import Loading from 'src/components/loading';
 import Input from 'src/components/main/input';
@@ -51,7 +52,7 @@ const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onC
         <div className={styles.listWraper}>
 
           {items.map((item) => (
-            <div key={item.id} className={styles.itemWrapper}>
+            <Link key={item.id} className={styles.itemWrapper} to={`/dashboard/appointment/${item.id}`}>
               <Card className={styles.itemCard}>
                 {item.status === 'complete' && (
                   <div className={styles.captionText}>{appointmentStatus[item.status]}</div>
@@ -74,7 +75,7 @@ const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onC
                 </div>
 
               </Card>
-            </div>
+            </Link>
           ))}
 
         </div>

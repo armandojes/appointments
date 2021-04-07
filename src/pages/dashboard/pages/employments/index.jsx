@@ -10,13 +10,14 @@ import { func } from 'prop-types';
 import NewEmployment from './components/newEmployment';
 import Loading from '../../../../components/loading';
 import EmploymentCard from './components/employmentCard';
-import withNotifications from '../../../../highOrderComponents/withNotification';
 import withAlert from '../../../../highOrderComponents/withAlert';
 import UpdateEmployment from './components/updateEmployment';
 import AddBranchIntoEmployment from './components/addBranch';
 import Empty from '../../../../components/empty';
+import useNotification from '../../../../notifications/useSession';
 
-const Employments = ({ setNotification, setAlert }) => {
+const Employments = ({ setAlert }) => {
+  const setNotification = useNotification()
   const [idUserAdding, setAddingBranch] = useState(null);
   const [isModalNewEmploymentOpen, setModalNewEmployment] = useState(false);
   const [employmentEditing, setEmploymentEditing] = useState(null);
@@ -134,4 +135,4 @@ Employments.propTypes = {
   setAlert: func.isRequired,
 };
 
-export default withAlert(withNotifications(Employments));
+export default withAlert(Employments);

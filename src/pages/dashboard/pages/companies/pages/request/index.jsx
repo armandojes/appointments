@@ -5,10 +5,11 @@ import useFetch from 'src/hooks/useFetch';
 import withAlert from 'src/highOrderComponents/withAlert';
 import { func } from 'prop-types';
 import View from './view';
-import withNotifications from '../../../../../../highOrderComponents/withNotification';
 import AprovingCompanyModal from './components/aprovingModal';
+import useNotification from '../../../../../../notifications/useSession';
 
-const Requests = ({ setAlert, setNotification }) => {
+const Requests = ({ setAlert }) => {
+  const setNotification = useNotification();
   const [state, setState] = useState({ loading: true, items: [] });
   const [currentCompanyAproving, setCompanyAproving] = useState(null);
 
@@ -56,7 +57,6 @@ const Requests = ({ setAlert, setNotification }) => {
 
 Requests.propTypes = {
   setAlert: func.isRequired,
-  setNotification: func.isRequired,
 };
 
-export default withNotifications(withAlert(Requests));
+export default withAlert(Requests);

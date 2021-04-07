@@ -6,6 +6,7 @@ import { createStudy, getStudy, updateStudy } from '../../../../core/models/stud
 import useErrorMessage from '../../../../hooks/useErrorMessage';
 import useFetch from '../../../../hooks/useFetch';
 import useForm from '../../../../hooks/useForm';
+import useNotification from '../../../../notifications/useSession';
 import View from './view';
 
 const validators = {
@@ -14,6 +15,7 @@ const validators = {
 };
 
 const StudyEditor = () => {
+  const setNotification = useNotification();
   const [isLoading, setLoading] = useState(false);
   const { getInputProps, handleValidateForm, values, setValues } = useForm();
   const { errorMessage, setErrorMessage } = useErrorMessage();
@@ -31,6 +33,7 @@ const StudyEditor = () => {
         setLoading(false);
         setErrorMessage(response.errorMessage);
       } else {
+        setNotification({ type: 'success', message: 'El estudio se creó correctamete' });
         setLoading(false);
         history.replace('/dashboard/studies');
       }
@@ -48,6 +51,7 @@ const StudyEditor = () => {
         setLoading(false);
         setErrorMessage(response.errorMessage);
       } else {
+        setNotification({ type: 'success', message: 'El estudio se actializó correctamete' });
         setLoading(false);
         history.replace('/dashboard/studies');
       }

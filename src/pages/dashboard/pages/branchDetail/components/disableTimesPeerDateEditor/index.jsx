@@ -1,25 +1,23 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
-import { bool, func, instanceOf, string } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import React, { useState } from 'react';
 import { Box, CircularProgress, Grid } from '@material-ui/core';
 import Text from 'src/components/main/text';
 import Modal from 'src/components/modal';
-import { colors, days } from 'src/constants';
+import { colors } from 'src/constants';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
-import { stringDateToDate, toStringDate, toStringTime } from 'src/helpers/dates';
+import { stringDateToDate, toStringDate } from 'src/helpers/dates';
 import Button from 'src/components/main/button';
 import styles from './styles.module.css';
 import DisplayScheduleStatus from '../disabledDatesSelector';
-import withNotifications from '../../../../../../highOrderComponents/withNotification';
+import useNotification from '../../../../../../notifications/useSession';
 
-const DisableTimesPerDateEditor = ({ open, stringDate, branchId, onClose, setNotification, onSuccess }) => {
+const DisableTimesPerDateEditor = ({ open, stringDate, branchId, onClose, onSuccess }) => {
   const date = stringDateToDate(stringDate);
   const [times, setTimes] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const setNotification = useNotification();
 
   const handleFetch = async () => {
     if (stringDate) {
@@ -83,8 +81,7 @@ DisableTimesPerDateEditor.propTypes = {
   stringDate: string.isRequired,
   branchId: string.isRequired,
   onClose: func.isRequired,
-  setNotification: func.isRequired,
   onSuccess: func.isRequired,
 };
 
-export default withNotifications(DisableTimesPerDateEditor);
+export default DisableTimesPerDateEditor;

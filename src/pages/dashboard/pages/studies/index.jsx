@@ -6,10 +6,11 @@ import { useHistory } from 'react-router';
 import { deleteStudy, getStudies } from 'src/core/models/studies';
 import withAlert from 'src/highOrderComponents/withAlert';
 import useFetch from 'src/hooks/useFetch';
-import withNotifications from '../../../../highOrderComponents/withNotification';
+import useNotification from '../../../../notifications/useSession';
 import View from './view';
 
-const Studies = ({ setAlert, setNotification }) => {
+const Studies = ({ setAlert }) => {
+  const setNotification = useNotification();
   const [studies, setStudies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
@@ -56,7 +57,6 @@ const Studies = ({ setAlert, setNotification }) => {
 
 Studies.propTypes = {
   setAlert: func.isRequired,
-  setNotification: func.isRequired,
 };
 
-export default withNotifications(withAlert(Studies));
+export default withAlert(Studies);

@@ -34,7 +34,7 @@ const step4Validators = {
   payoutType: (value) => (!value ? 'Seleccina un método de pago' : false),
 };
 
-const NewAppointment = () => {
+const CreateAppointment = () => {
   const history = useHistory();
   const session = useSession();
   const { getInputProps, values, setValues, handleValidateForm } = useForm({
@@ -242,4 +242,4 @@ const NewAppointment = () => {
   );
 };
 
-export default NewAppointment;
+export default CreateAppointment;

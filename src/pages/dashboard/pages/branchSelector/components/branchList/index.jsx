@@ -27,6 +27,7 @@ const BranchList = () => {
       <Card>
         <Text color={colors.blue} fontSize="1.2em" fontWeight="bold">Selecciona una sucursal</Text>
       </Card>
+      {!!isLoading && (<Loading />)}
       {!isLoading && !!branches.length && (
       <div className={styles.listWrapper}>
         {branches.map((branch) => (

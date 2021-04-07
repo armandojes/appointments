@@ -3,7 +3,7 @@ import { func, bool, object } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import useForm from 'src/hooks/useForm';
 import employments from '../../../../../../core/models/employments';
-import withNotifications from '../../../../../../highOrderComponents/withNotification';
+import useNotification from '../../../../../../notifications/useSession';
 import EmploymentForm from '../employmentForm';
 
 const valiodators = {
@@ -13,7 +13,8 @@ const valiodators = {
   password: (val = '') => (val.toString().length < 8 ? 'La contraseña debe tener al menos 8 caracteres' : false),
 };
 
-const UpdateEmployment = ({ onClose, open, onSuccess, setNotification, initialData }) => {
+const UpdateEmployment = ({ onClose, open, onSuccess, initialData }) => {
+  const setNotification = useNotification();
   const { getInputProps, handleValidateForm, values, setValues } = useForm();
   const [isLoading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -59,8 +60,7 @@ UpdateEmployment.propTypes = {
   onClose: func.isRequired,
   open: bool.isRequired,
   onSuccess: func.isRequired,
-  setNotification: func.isRequired,
   initialData: object.isRequired,
 };
 
-export default withNotifications(UpdateEmployment);
+export default UpdateEmployment;

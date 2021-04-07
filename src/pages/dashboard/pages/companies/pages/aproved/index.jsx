@@ -3,11 +3,12 @@ import useFetch from 'src/hooks/useFetch';
 import companies, { getApproveds } from 'src/core/models/companies';
 import { func } from 'prop-types';
 import withAlert from 'src/highOrderComponents/withAlert';
-import withNotifications from 'src/highOrderComponents/withNotification';
 import { useHistory } from 'react-router';
 import View from './view';
+import useNotification from '../../../../../../notifications/useSession';
 
-const CompaniesApproved = ({ setAlert, setNotification }) => {
+const CompaniesApproved = ({ setAlert }) => {
+  const setNotification = useNotification();
   const [state, setState] = useState({ loading: true, items: [] });
   const history = useHistory();
 
@@ -56,8 +57,7 @@ const CompaniesApproved = ({ setAlert, setNotification }) => {
 };
 
 CompaniesApproved.propTypes = {
-  setNotification: func.isRequired,
   setAlert: func.isRequired,
 };
 
-export default withNotifications(withAlert(CompaniesApproved));
+export default withAlert(CompaniesApproved);

@@ -11,12 +11,13 @@ import Button from 'src/components/main/button';
 import Input from 'src/components/main/input';
 import { colors } from 'src/constants';
 import { createNewCompany } from 'src/core/models/companies';
-import withNotifications from 'src/highOrderComponents/withNotification';
 import useErrorMessage from 'src/hooks/useErrorMessage';
 import useForm from 'src/hooks/useForm';
 import ErrorMessage from '../../../../../../../../components/errorMessage';
+import useNotification from '../../../../../../../../notifications/useSession';
 
-const AprovingCompanyModal = ({ open, data, onClose, onSuccess, setNotification }) => {
+const AprovingCompanyModal = ({ open, data, onClose, onSuccess }) => {
+  const setNotification = useNotification();
   const { getInputProps, setValues, values } = useForm();
   const { errorMessage, setErrorMessage } = useErrorMessage();
   const [isLoading, setLoading] = useState(false);
@@ -80,4 +81,4 @@ AprovingCompanyModal.propTypes = {
   setNotification: func.isRequired,
 };
 
-export default withNotifications(AprovingCompanyModal);
+export default AprovingCompanyModal;

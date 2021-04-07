@@ -1,8 +1,4 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import Modal from 'src/components/modal';
 import Text from 'src/components/main/text';
@@ -15,11 +11,12 @@ import Button from 'src/components/main/button';
 import branchesModel from 'src/core/models/branches';
 import { Edit } from '@material-ui/icons';
 import { TimePicker } from '@material-ui/pickers';
-import withNotifications from 'src/highOrderComponents/withNotification';
-import dates, { stringDateToDate } from 'src/helpers/dates';
+import dates from 'src/helpers/dates';
 import styles from './styles.module.css';
+import useNotification from '../../../../../../notifications/useSession';
 
 const ScheduleEditor = (props) => {
+  const setNotification = useNotification();
   const { getInputProps, values, setValues } = useForm();
   const [isLoading, setLoading] = useState(false);
   const [isStartClockActive, setStartClockActive] = useState(false);
@@ -40,11 +37,11 @@ const ScheduleEditor = (props) => {
       setLoading(false);
       props.onSuccess();
       props.onClose();
-      props.setNotification({ message: 'Datos actualizados correctamente', type: 'success' });
+      setNotification({ message: 'Datos actualizados correctamente', type: 'success' });
     } else {
       setLoading(false);
       props.onClose();
-      props.setNotification({ message: 'Error al actializar los datos', type: 'error' });
+      setNotification({ message: 'Error al actializar los datos', type: 'error' });
     }
   };
 
@@ -119,7 +116,6 @@ ScheduleEditor.propTypes = {
   onClose: func.isRequired,
   onSuccess: func.isRequired,
   data: object.isRequired,
-  setNotification: func.isRequired,
 };
 
-export default withNotifications(ScheduleEditor);
+export default ScheduleEditor;

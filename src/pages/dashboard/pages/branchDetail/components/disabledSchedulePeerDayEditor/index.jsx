@@ -1,5 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 import { Box, CircularProgress, Grid } from '@material-ui/core';
 import { bool, func, object } from 'prop-types';
@@ -10,11 +8,12 @@ import Text from 'src/components/main/text';
 import { colors, days } from 'src/constants';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
-import withNotifications from 'src/highOrderComponents/withNotification';
+import useNotification from 'src/notifications/useSession';
 import DisplayScheduleStatus from '../disabledDatesSelector';
 import styles from './styles.module.css';
 
-const DisabledSchedulePerDayEditor = ({ open, data, onClose, setNotification }) => {
+const DisabledSchedulePerDayEditor = ({ open, data, onClose }) => {
+  const setNotification = useNotification();
   const [scheduleList, setScheduleList] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
@@ -76,7 +75,6 @@ DisabledSchedulePerDayEditor.propTypes = {
   data: object.isRequired,
   open: bool.isRequired,
   onClose: func.isRequired,
-  setNotification: func.isRequired,
 };
 
-export default withNotifications(DisabledSchedulePerDayEditor);
+export default DisabledSchedulePerDayEditor;

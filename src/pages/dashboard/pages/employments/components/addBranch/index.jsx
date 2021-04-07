@@ -13,10 +13,11 @@ import { Box, CircularProgress, Grid, IconButton } from '@material-ui/core';
 import Card from 'src/components/card';
 import Button from 'src/components/main/button';
 import { Close } from '@material-ui/icons';
-import withNotifications from 'src/highOrderComponents/withNotification';
 import styles from './styles.module.css';
+import useNotification from '../../../../../../notifications/useSession';
 
-const AddBranchIntoEmployment = ({ open, onClose, employmentId, setNotification, onSuccess }) => {
+const AddBranchIntoEmployment = ({ open, onClose, employmentId, onSuccess }) => {
+  const setNotification = useNotification();
   const [state, setState] = useState({ isLoading: true, branches: [] });
 
   useFetch(async () => {
@@ -90,7 +91,6 @@ AddBranchIntoEmployment.propTypes = {
   onClose: func.isRequired,
   employmentId: string.isRequired,
   onSuccess: func.isRequired,
-  setNotification: func.isRequired,
 };
 
-export default withNotifications(AddBranchIntoEmployment);
+export default AddBranchIntoEmployment;

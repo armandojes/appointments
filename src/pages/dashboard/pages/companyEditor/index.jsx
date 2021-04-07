@@ -6,8 +6,10 @@ import { useHistory, useParams } from 'react-router';
 import View from './view';
 import useFetch from '../../../../hooks/useFetch';
 import validators from '../../../../helpers/validators';
+import useNotification from '../../../../notifications/useSession';
 
 function CompanyEditor() {
+  const setNotification = useNotification();
   const { getInputProps, values, setValues, handleValidateForm } = useForm();
   const { errorMessage, setErrorMessage } = useErrorMessage();
   const [isLoading, setLoading] = useState(false);
@@ -32,6 +34,7 @@ function CompanyEditor() {
     setLoading(true);
     const response = await createNewCompany({ ...values, repassword: values.password });
     if (response.status === 'success') {
+      setNotification({ type: 'success', message: companyId ? 'Datos de la empresa actualizado' : 'Empresa creado correctamente' });
       setLoading(false);
       history.replace('/dashboard/companies');
     } else {
@@ -45,6 +48,7 @@ function CompanyEditor() {
     setLoading(true);
     const response = await updateCompany(companyId, { ...values, repassword: values.password });
     if (response.status === 'success') {
+      setNotification({ type: 'success', message: companyId ? 'Datos de la empresa actualizado' : 'Empresa creado correctamente' });
       history.replace('/dashboard/companies');
     } else {
       setLoading(false);

@@ -10,12 +10,13 @@ import Card from 'src/components/card';
 import { func } from 'prop-types';
 import Day from '../day';
 import mapObjects from '../../../../../../helpers/mapObject';
-import withNotifications from '../../../../../../highOrderComponents/withNotification';
 import orderDays from './orderDays';
 import EditScheduleModal from '../edit_schedule';
 import DisabledSchedulePerDayEditor from '../disabledSchedulePeerDayEditor';
+import useNotification from '../../../../../../notifications/useSession';
 
-const Schedule = ({ setNotification }) => {
+const Schedule = () => {
+  const setNotification = useNotification();
   const [branch, setBranch] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { branchId } = useParams();
@@ -82,4 +83,4 @@ Schedule.propTypes = {
   setNotification: func.isRequired,
 };
 
-export default withNotifications(Schedule);
+export default Schedule;

@@ -1,7 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import branchModel from 'src/core/models/branches';
@@ -9,15 +5,15 @@ import useFetch from 'src/hooks/useFetch';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
 import Card from 'src/components/card';
-import { func } from 'prop-types';
-import withNotifications from 'src/highOrderComponents/withNotification';
 import { Add, Close } from '@material-ui/icons';
 import { toStringDate } from 'src/helpers/dates';
 import { DatePicker } from '@material-ui/pickers';
 import { Box } from '@material-ui/core';
+import useNotification from 'src/notifications/useSession';
 import styles from './styles.module.css';
 
-const DisablesDates = ({ setNotification }) => {
+const DisablesDates = () => {
+  const setNotification = useNotification();
   const [disabledDates, setDisabledDates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDateSelecterOpen, setIsDateSelecterOpen] = useState(false);
@@ -87,7 +83,7 @@ const DisablesDates = ({ setNotification }) => {
                 </div>
               ))}
               <div className={styles.disabledDateWrapper}>
-                <div className={`${styles.disabledDateItem} ${styles.addDateItem}`} onClick={handleModalOpen}>
+                <div className={`${styles.disabledDateItem} ${styles.addDateItem}`} onClick={handleModalOpen} role="button">
                   <Text>Agregar</Text>
                   <Add />
                 </div>
@@ -100,8 +96,4 @@ const DisablesDates = ({ setNotification }) => {
   );
 };
 
-DisablesDates.propTypes = {
-  setNotification: func.isRequired,
-};
-
-export default withNotifications(DisablesDates);
+export default DisablesDates;

@@ -1,17 +1,13 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-alert */
-/* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable arrow-body-style */
 import React, { useEffect, useState } from 'react';
 import useForm from 'src/hooks/useForm';
 import branchesModel from 'src/core/models/branches';
 import { bool, func, object } from 'prop-types';
-import withNotifications from '../../../../../../highOrderComponents/withNotification';
 import BranchGeneralInfoForm from '../../../../components/branchGeneralInfoForm';
+import useNotification from '../../../../../../notifications/useSession';
 
 const EditGeneralInfoModal = (props) => {
+  const setNotification = useNotification();
   const { getInputProps, values, setValues } = useForm();
   const [isLoading, setLoading] = useState(false);
 
@@ -22,11 +18,11 @@ const EditGeneralInfoModal = (props) => {
       setLoading(false);
       props.onSuccess();
       props.onClose();
-      props.setNotification({ message: 'Datos actualizados correctamente', type: 'success' });
+      setNotification({ message: 'Datos actualizados correctamente', type: 'success' });
     } else {
       setLoading(false);
       props.onClose();
-      props.setNotification({ message: 'Error al actializar los datos', type: 'error' });
+      setNotification({ message: 'Error al actializar los datos', type: 'error' });
     }
   };
 
@@ -63,7 +59,6 @@ EditGeneralInfoModal.propTypes = {
   onClose: func.isRequired,
   onSuccess: func.isRequired,
   data: object.isRequired,
-  setNotification: func.isRequired,
 };
 
-export default withNotifications(EditGeneralInfoModal);
+export default EditGeneralInfoModal;
