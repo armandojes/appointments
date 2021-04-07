@@ -44,4 +44,4 @@ const DashBoard = () => (
   </div>
 );
 
-export default DashBoard;
+export default withAuth(DashBoard, { admin: true, employment: true });

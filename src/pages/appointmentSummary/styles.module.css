@@ -1,0 +1,66 @@
+.appointmentIdWrapper {
+  font-size: 2em;
+  margin-top: .5em;
+}
+
+.appointmentIdWrapper .code {
+  color: var(--green);
+  font-weight: 900;
+}
+
+.appointmentIdWrapper .value {
+  color: var(--blue);
+  font-weight: 900;
+  margin-top: -.3em;
+}
+.bodyLimiter {
+  width: 70%;
+  margin: 3em auto;
+}
+
+.fotterCard {
+  font-size: 1.3em;
+  background-color: #e3f7f6;
+  padding: 1em;
+  text-align: center;
+  color: var(--blue);
+  font-weight: 900;
+  border-radius: 1em;
+}
+.fotterCard .green {
+  color: var(--green);
+  font-size: 1.4em;
+}
+.button {
+  display: block!important;
+  margin: 2em auto!important;
+  width: 10em!important;
+  border-radius: 50px!important;
+}
+.contactWrapper {
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  color: var(--blue);
+  font-weight: bold;
+}
+.contactIcon {
+  display: block;
+  font-size: 1em!important;
+  margin-right: .4em;
+  color: #fff;
+  background-color: var(--green);
+  border-radius: 50%;
+  padding: .3em;
+}
+.studyListWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5em;
+}
+.studyWrapper {
+  width: 50%;
+  padding: 1em;
+  padding-left: 0px;
+  box-sizing: border-box;
+}

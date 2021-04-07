@@ -10,6 +10,7 @@ import companyHome from './pages/companyHome';
 import SessionProvider from './session/provider';
 import CreateAppointments from './pages/createAppointment';
 import NotificatinProvider from './notifications/provider';
+import AppointmentSummary from './pages/appointmentSummary';
 
 const App = () => (
   <BrowserRouter>
@@ -22,6 +23,7 @@ const App = () => (
               <Route path="/" exact component={companyHome} />
               <Route path="/dashboard" component={DashBoard} />
               <Route path="/create-appointment" component={CreateAppointments} />
+              <Route path="/appointment/:appointmentId" component={AppointmentSummary} />
             </Switch>
           </PickersProvider>
         </ThemeProvider>

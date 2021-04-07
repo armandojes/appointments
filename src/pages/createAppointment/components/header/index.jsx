@@ -10,7 +10,11 @@ const Header = ({ step, title, icon, companyName, companyManager }) => (
       <img src={icon} alt="icono de registro de pacientes" className={styles.icon} />
       <div>
         <div className={styles.step}>
-          Paso {step}
+          {step && (
+            <>
+              Paso {step}
+            </>
+          )}
         </div>
         <div className={styles.title}>
           {title}
