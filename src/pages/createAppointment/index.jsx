@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { getAvailableStudies } from 'src/core/models/companies';
 import branchesModel from 'src/core/models/branches';
@@ -10,6 +9,7 @@ import NewAppointmentView from './view';
 import validators from '../../helpers/validators';
 import dates, { getDayName, stringDateToDate, toStringDate } from '../../helpers/dates';
 import { getAvailableTimes, saveAppointment } from '../../core/models/appointments';
+import withAuth from '../../highOrderComponents/withAuth';
 
 const step1Validators = {
   patientName: validators.userFullName,
@@ -242,4 +242,4 @@ const CreateAppointment = () => {
   );
 };
 
-export default CreateAppointment;
+export default withAuth(CreateAppointment, { companyManager: true });

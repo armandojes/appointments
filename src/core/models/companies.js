@@ -108,9 +108,13 @@ export const deleteStudy = async (companyId, studyId) => {
 };
 
 export const getAvailableStudies = async (companyId) => {
-  const { studies = [] } = await getCompany(companyId);
-  const allStudies = await studiesModel.getStudies();
-  return allStudies.filter((study) => studies.includes(study.id));
+  try {
+    const { studies = [] } = await getCompany(companyId);
+    const allStudies = await studiesModel.getStudies();
+    return allStudies.filter((study) => studies.includes(study.id));
+  } catch (error) {
+    return [];
+  }
 };
 
 export default {

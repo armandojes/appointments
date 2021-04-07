@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Container from '../../components/main/Container';
 import MenuRight from './components/menu_rigth';
 import Branches from './pages/branches';
@@ -14,6 +14,7 @@ import CompanyEditor from './pages/companyEditor';
 import Appointments from './pages/appointments';
 import BranchSelector from './pages/branchSelector';
 import AppointmentDetail from './pages/appointmentDetail';
+import withAuth from '../../highOrderComponents/withAuth';
 
 const DashBoard = () => (
   <div className={styles.fullWidth}>
@@ -24,17 +25,18 @@ const DashBoard = () => (
         </div>
         <div className={styles.contentContainer}>
           <Switch>
-            <Route path="/dashboard/branches" exact component={Branches} />
-            <Route path="/dashboard/branches/:branchId" component={BranchDetail} />
-            <Route path="/dashboard/employments" component={Employments} />
-            <Route path="/dashboard/companies" component={Companies} />
-            <Route path="/dashboard/studies" component={Studies} />
-            <Route path="/dashboard/study-editor/:studyId?" component={StudyEditor} />
-            <Route path="/dashboard/company-editor/:companyId?" component={CompanyEditor} />
-            <Route path="/dashboard/studies-for-company/:companyId?" component={StudiesForCompany} />
-            <Route path="/dashboard/appointments/:branchId" component={Appointments} />
-            <Route path="/dashboard/appointments" component={BranchSelector} />
-            <Route path="/dashboard/appointment/:appointmentId" component={AppointmentDetail} />
+            <Route path="/dashboard" exact component={() => <Redirect to="/dashboard/branches" />} />
+            <Route path="/dashboard/branches" exact component={withAuth(Branches, { admin: true })} />
+            <Route path="/dashboard/branches/:branchId" component={withAuth(BranchDetail, { admin: true })} />
+            <Route path="/dashboard/employments" component={withAuth(Employments, { admin: true })} />
+            <Route path="/dashboard/companies" component={withAuth(Companies, { admin: true })} />
+            <Route path="/dashboard/studies" component={withAuth(Studies, { admin: true })} />
+            <Route path="/dashboard/study-editor/:studyId?" component={withAuth(StudyEditor, { admin: true })} />
+            <Route path="/dashboard/company-editor/:companyId?" component={withAuth(CompanyEditor, { admin: true })} />
+            <Route path="/dashboard/studies-for-company/:companyId?" component={withAuth(StudiesForCompany, { admin: true })} />
+            <Route path="/dashboard/appointments/:branchId" component={withAuth(Appointments, { admin: true, employment: true })} />
+            <Route path="/dashboard/appointments" component={withAuth(BranchSelector, { admin: true, employment: true })} />
+            <Route path="/dashboard/appointment/:appointmentId" component={withAuth(AppointmentDetail, { admin: true, employment: true })} />
           </Switch>
         </div>
       </div>
