@@ -29,6 +29,7 @@
     "yarn": "^1.22.10"
   },
   "scripts": {
+    "deploy": "npm run build && firebase deploy --only hosting",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
