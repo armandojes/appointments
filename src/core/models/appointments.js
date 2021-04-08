@@ -69,7 +69,7 @@ export const saveAppointment = async (values) => {
   const secureData = {
     status: 'pending',
     branch: values.branch,
-    patientBirthDate: values.patientBirthDate,
+    patientBirthDate: values.patientBirthDate || null,
     patientName: values.patientName,
     payoutType: values.payoutType,
     stringDate: values.stringDate,
