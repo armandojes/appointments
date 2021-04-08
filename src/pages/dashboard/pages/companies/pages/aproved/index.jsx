@@ -30,7 +30,7 @@ const CompaniesApproved = ({ setAlert }) => {
   const handleDeleteWithAlert = (id) => {
     setAlert({
       title: 'Eliminar empresa',
-      message: 'Una vez ejecutada la acción no podras recuperar la información',
+      message: 'Tambien eliminará toda la información de las citas de esta empresa',
       action: async () => {
         const response = await companies.deleteAproved(id);
         if (response.status === 'success') {

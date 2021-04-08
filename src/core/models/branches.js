@@ -74,6 +74,7 @@ export const updateDayStatus = async (branchId, dayName, newValue) => {
 export const updateSchedule = async (branchId, dayName, newValue) => {
   try {
     await database.update(`branches/${branchId}`, {
+      disabledTimes: [],
       days: { [dayName]: {
         start: newValue.start,
         end: newValue.end,
@@ -158,6 +159,8 @@ export const createNewBranch = async (data) => {
 export const deleteBranche = async (branchId) => {
   const status = await database.remove(`branches/${branchId}`);
   await database.updateList('/users', [['type', '==', 'employment'], ['branchId', '==', branchId]], { branchId: null });
+  await database.removeList('appointments', [['branch', '==', branchId]]);
+
   if (status) return { status: 'success' };
   return { status: 'error', errorMessage: 'Error algo salió mal' };
 };
