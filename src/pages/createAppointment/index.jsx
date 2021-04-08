@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { getAvailableStudies } from 'src/core/models/companies';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
@@ -173,10 +173,10 @@ const CreateAppointment = () => {
   }, [values]);
 
   // focus layout when changed current step
-  useEffect(() => {
-    if (values.currentStep === 2) document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
-    if (values.currentStep === 3) document.getElementById('date').scrollIntoView({ behavior: 'smooth' });
-    if (values.currentStep === 4) document.getElementById('payout').scrollIntoView({ behavior: 'smooth' });
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 10);
   }, [values.currentStep]);
 
   // fetch initial data

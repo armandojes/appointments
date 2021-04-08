@@ -35,7 +35,7 @@ const NewAppointmentView = ({ error, errorMessageAtStep1, errorMessageAtStep2, e
         />
 
         {currentStep >= 2 && (
-          <div className={styles.fadeIn} id="register">
+          <div className={styles.fadeIn} id="branch">
             <Hidden xsDown><Box marginBottom="2em" /></Hidden>
             <SelectBranch
               errorMessage={errorMessageAtStep2}

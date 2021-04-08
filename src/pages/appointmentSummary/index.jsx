@@ -148,7 +148,7 @@ const AppointmentSummary = () => {
               <div>SE NOTIFICARÁ POR CORREO ELECTRÓNICO CON SU CÓDIGO DE CONFIRMACIÓN.</div>
               <div className={styles.green}>¡GRACIAS POR SU CONFIANZA!</div>
             </div>
-            <Link to="/">
+            <Link to="/study-history">
               <Button variant="contained" className={styles.button}>CERRAR</Button>
             </Link>
           </div>

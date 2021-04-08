@@ -1,6 +1,6 @@
 .wrapper {
   background-color: var(--green);
-  padding: .5em;
+  padding: .3em .25em;
   border-radius: 12em;
   min-width: 8em;
   display: flex;
