@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import iconSrc from 'src/assets/icono_confirmacion.png';
 import Empty from '../../components/empty';
 import Loading from '../../components/loading';
@@ -66,7 +67,7 @@ const StudyHistory = () => {
                 <div className={styles.cellStatus}>Estado</div>
               </div>
               {items.map((item) => (
-                <div className={styles.row}>
+                <Link className={styles.row} to={`/appointment/${item.id}`}>
                   <div className={styles.cellName}>
                     <div>
                       <div className={`${styles.onlyMobile} ${styles.onlyMobileDescribe}`}>Paciente:</div>
@@ -82,7 +83,7 @@ const StudyHistory = () => {
                   </div>
                   <div className={styles.cellId}>{item.id}</div>
                   <div className={styles.cellStatus} style={{ color: appointmentStatusColors[handleComputeState(item)] === 'green' ? 'var(--blue)' : appointmentStatusColors[handleComputeState(item)] }}>{appointmentStatus[handleComputeState(item)]}</div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
