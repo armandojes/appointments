@@ -47,8 +47,9 @@ const AppointmentSummary = () => {
 
   return (
     <Container>
-      {loading && <Loading />}
-      {!loading && (
+      <div className={styles.fullWrapper}>
+        {loading && <Loading />}
+        {!loading && (
         <>
           <Hidden xsDown>
             <Header
@@ -167,7 +168,8 @@ const AppointmentSummary = () => {
             </Grid>
           </Box>
         </>
-      )}
+        )}
+      </div>
     </Container>
   );
 };

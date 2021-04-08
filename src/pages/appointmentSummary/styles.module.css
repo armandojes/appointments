@@ -68,7 +68,7 @@
 }
 .indicationsItem {
   margin-bottom: 1em;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 @media screen and (max-width:960px) {
   .bodyLimiter {
@@ -93,5 +93,11 @@
   }
   .fotterCard .green {
     margin-top: 1em;
+  }
+  .fullWrapper {
+    font-size: .9em;
+  }
+  .appointmentIdWrapper {
+    font-size: 1.8em;
   }
 }
