@@ -6,25 +6,37 @@ import branchesModel from 'src/core/models/branches';
 import { bool, func } from 'prop-types';
 import BranchGeneralInfoForm from '../../../../components/branchGeneralInfoForm';
 import useNotification from '../../../../../../notifications/useSession';
+import useErrorMessage from '../../../../../../hooks/useErrorMessage';
+
+const validator = (val) => {
+  if (!val) return 'Todos los capos son requeridos';
+  if (val.toString().length < 3) return 'Todos los capos son requeridos';
+  return false;
+};
 
 const newBranch = (props) => {
+  const { errorMessage, setErrorMessage } = useErrorMessage();
   const setNotification = useNotification();
-  const { getInputProps, values, setValues } = useForm();
+  const { getInputProps, values, setValues, handleValidateForm } = useForm();
   const [isLoading, setLoading] = useState(false);
 
-  const handleUpdate = async () => {
+  const handleCreate = async () => {
+    const errors = handleValidateForm({ phonesCrud: validator, address: validator, name: validator });
+    if (Object.values(errors).length) return setErrorMessage(Object.values(errors)[0]);
+
     setLoading(true);
     const { status } = await branchesModel.createNewBranch(values);
     if (status === 'success') {
       setLoading(false);
       props.onSuccess();
       props.onClose();
-      setNotification({ message: 'Datos actualizados correctamente', type: 'success' });
+      setNotification({ message: 'Sucursal creado correcatmente', type: 'success' });
     } else {
       setLoading(false);
       props.onClose();
-      setNotification({ message: 'Error al actializar los datos', type: 'error' });
+      setNotification({ message: 'Error al crear el sucursal', type: 'error' });
     }
+    return null;
   };
 
   // update phones as an array
@@ -41,9 +53,10 @@ const newBranch = (props) => {
       open={props.open}
       getInputProps={getInputProps}
       isLoading={isLoading}
-      onConfirm={handleUpdate}
+      onConfirm={handleCreate}
       onClose={props.onClose}
       headerText="Crear nuevo sucursal"
+      errorMessage={errorMessage}
     />
   );
 };

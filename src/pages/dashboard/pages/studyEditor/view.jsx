@@ -38,7 +38,7 @@ const View = ({ isEditing, getInputProps, errorMessage, isLoading, onSave, onCan
         </Box>
         <Box marginBottom="1em">
           <Text color={colors.blue} fontWeight="bold">Precio</Text>
-          <Input onlyFloat maxLength={10} {...getInputProps('price')} />
+          <Input onlyNumbers maxLength={10} {...getInputProps('price')} />
         </Box>
         <Box marginBottom="1em">
           <Text color={colors.blue} fontWeight="bold">Indicaciones</Text>
