@@ -11,7 +11,7 @@ import RegisterPatient from './components/registerPatient';
 import SelectBranch from './components/selectBranch';
 import styles from './styles.module.css';
 
-const NewAppointmentView = ({ error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, shouldDisableDate }) => (
+const NewAppointmentView = ({ companyManager, companyName, error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, shouldDisableDate }) => (
   <>
     {!isLoading && error && (
       <Container>
@@ -28,6 +28,8 @@ const NewAppointmentView = ({ error, errorMessageAtStep1, errorMessageAtStep2, e
     {!isLoading && !error && (
       <Container>
         <RegisterPatient
+          companyName={companyName}
+          companyManager={companyManager}
           studies={studies}
           onStudyClick={onStudyClick}
           getInputProps={getInputProps}
@@ -35,7 +37,7 @@ const NewAppointmentView = ({ error, errorMessageAtStep1, errorMessageAtStep2, e
         />
 
         {currentStep >= 2 && (
-          <div className={styles.fadeIn} id="branch">
+          <div className={styles.fadeIn} id="register">
             <Hidden xsDown><Box marginBottom="2em" /></Hidden>
             <SelectBranch
               errorMessage={errorMessageAtStep2}
@@ -100,6 +102,8 @@ NewAppointmentView.propTypes = {
   errorMessageAtStep3: string.isRequired,
   errorMessageAtStep4: string.isRequired,
   error: string.isRequired,
+  companyManager: string.isRequired,
+  companyName: string.isRequired,
 };
 
 export default NewAppointmentView;

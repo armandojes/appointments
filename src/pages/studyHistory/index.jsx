@@ -78,7 +78,7 @@ const StudyHistory = () => {
                     </div>
                   </div>
                   <div className={styles.cellStudy}>
-                    {limitText(item.studies.length ? item.studies[0].title : item.otherStudy, 30)}
+                    {limitText(item.studies.length ? item.studies[0].title : item.otherStudy, 25)}
                   </div>
                   <div className={styles.cellId}>{item.id}</div>
                   <div className={styles.cellStatus} style={{ color: appointmentStatusColors[handleComputeState(item)] === 'green' ? 'var(--blue)' : appointmentStatusColors[handleComputeState(item)] }}>{appointmentStatus[handleComputeState(item)]}</div>

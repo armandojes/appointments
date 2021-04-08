@@ -9,15 +9,15 @@ import Input from '../../../../components/main/input';
 import Header from '../header';
 import ErrorMessage from '../../../../components/errorMessage';
 
-const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage }) => (
+const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName }) => (
   <>
     <Box padding="2em 0em">
       <Header
         step={1}
         title="Registro de paciente"
         icon={registerIconSrc}
-        companyName="Asics Space"
-        companyManager="Armando de jesus santiz lopez"
+        companyName={companyName}
+        companyManager={companyManager}
       />
       <div className={styles.body}>
         <ErrorMessage message={errorMessage} marginBottom="1em" />
@@ -49,6 +49,8 @@ RegisterPatient.propTypes = {
   onStudyClick: func.isRequired,
   getInputProps: func.isRequired,
   errorMessage: string.isRequired,
+  companyManager: string.isRequired,
+  companyName: string.isRequired,
 };
 
 export default RegisterPatient;

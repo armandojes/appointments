@@ -35,7 +35,7 @@ export const getStudy = async (studyId) => {
 
 export const deleteStudy = async (studyId) => {
   const status = await database.remove(`studies/${studyId}`);
-  await database.updateList('users', null, {
+  await database.updateList('users', [['type', '==', 'companyManager']], {
     company: {
       studies: firebase.firestore.FieldValue.arrayRemove(studyId),
     },

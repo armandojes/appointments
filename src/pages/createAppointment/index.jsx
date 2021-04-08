@@ -237,6 +237,8 @@ const CreateAppointment = () => {
         date={stringDateToDate(values.stringDate)}
         times={values.times}
         error={values.error}
+        companyManager={session.fullName || session.name}
+        companyName={session.company.name}
       />
     </>
   );
