@@ -6,7 +6,7 @@ import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
 import Card from 'src/components/card';
 import { Add, Close } from '@material-ui/icons';
-import { toStringDate } from 'src/helpers/dates';
+import { stringDateToDate, toLargeStringDate, toStringDate } from 'src/helpers/dates';
 import { DatePicker } from '@material-ui/pickers';
 import { Box } from '@material-ui/core';
 import useNotification from 'src/notifications/useSession';
@@ -77,7 +77,7 @@ const DisablesDates = () => {
               {disabledDates.map((disabledDate) => (
                 <div className={styles.disabledDateWrapper} key={disabledDate.toString()}>
                   <div className={styles.disabledDateItem}>
-                    <Text>{disabledDate}</Text>
+                    <Text>{toLargeStringDate(stringDateToDate(disabledDate))}</Text>
                     <Close onClick={() => handleDeleteStringDate(disabledDate)} />
                   </div>
                 </div>

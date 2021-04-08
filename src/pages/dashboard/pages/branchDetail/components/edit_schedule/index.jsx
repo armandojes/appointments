@@ -14,10 +14,13 @@ import { TimePicker } from '@material-ui/pickers';
 import dates from 'src/helpers/dates';
 import styles from './styles.module.css';
 import useNotification from '../../../../../../notifications/useSession';
+import useErrorMessage from '../../../../../../hooks/useErrorMessage';
+import ErrorMessage from '../../../../../../components/errorMessage';
 
 const ScheduleEditor = (props) => {
+  const { setErrorMessage, errorMessage } = useErrorMessage();
   const setNotification = useNotification();
-  const { getInputProps, values, setValues } = useForm();
+  const { getInputProps, values, setValues, handleValidateForm } = useForm();
   const [isLoading, setLoading] = useState(false);
   const [isStartClockActive, setStartClockActive] = useState(false);
   const [isEndClockActive, setEndClockActive] = useState(false);
@@ -31,6 +34,9 @@ const ScheduleEditor = (props) => {
   };
 
   const handleUpdate = async () => {
+    const erros = handleValidateForm({ interval: (val) => ((!val || parseInt(val, 10) > 60) ? 'El intervalo debe ser un valor entre 1 y 60' : false) });
+    if (Object.values(erros).length) return setErrorMessage(Object.values(erros)[0]);
+
     setLoading(true);
     const { status } = await branchesModel.updateSchedule(props.data.branchId, props.data.day, values);
     if (status === 'success') {
@@ -43,6 +49,7 @@ const ScheduleEditor = (props) => {
       props.onClose();
       setNotification({ message: 'Error al actializar los datos', type: 'error' });
     }
+    return null;
   };
 
   // fill form data
@@ -60,9 +67,10 @@ const ScheduleEditor = (props) => {
           <Box marginBottom="1.5em">
             <Text fontWeight="bold" color={colors.green} fontSize="1.2em">{props.data.day}</Text>
           </Box>
+          <ErrorMessage message={errorMessage} />
           <Box marginBottom=".5em">
             <Text color={colors.blue} mb=".2em">Intervalo (en minutos)</Text>
-            <Input {...getInputProps('interval')} />
+            <Input {...getInputProps('interval')} onlyNumbers maxLength={2} />
           </Box>
 
           <Box marginBottom=".5em">

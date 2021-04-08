@@ -11,7 +11,7 @@ import Card from 'src/components/card';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
 import branches from 'src/core/models/branches';
-import dates from 'src/helpers/dates';
+import dates, { stringDateToDate, toLargeStringDate } from 'src/helpers/dates';
 import useFetch from 'src/hooks/useFetch';
 import DisableTimesPerDateEditor from '../disableTimesPeerDateEditor';
 import styles from './styles.module.css';
@@ -61,7 +61,7 @@ const disableTimesPerDateCard = () => {
         {Object.keys(datesList).map((date) => (
           <div className={styles.disabledDateWrapper} key={date} onClick={() => setStringDateSelected(date)}>
             <div className={styles.disabledDateItem}>
-              <Text>{date}</Text>
+              <Text>{toLargeStringDate(stringDateToDate(date))}</Text>
               <Close />
             </div>
           </div>
