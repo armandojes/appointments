@@ -75,4 +75,7 @@
     margin: auto;
     margin-top: 3em;
   }
+  .contactWrapper {
+    font-size: 1em;
+  }
 }
