@@ -13,9 +13,8 @@ import { colors } from 'src/constants';
 import { createNewCompany } from 'src/core/models/companies';
 import useErrorMessage from 'src/hooks/useErrorMessage';
 import useForm from 'src/hooks/useForm';
-import ErrorMessage from '../../../../../../../../components/errorMessage';
-import useNotification from '../../../../../../../../notifications/useSession';
-import { TrendingUpRounded } from '@material-ui/icons';
+import ErrorMessage from 'src/components/errorMessage';
+import useNotification from 'src/notifications/useSession';
 
 const AprovingCompanyModal = ({ open, data, onClose, onSuccess }) => {
   const setNotification = useNotification();
