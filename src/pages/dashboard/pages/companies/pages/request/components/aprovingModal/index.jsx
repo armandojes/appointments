@@ -15,6 +15,7 @@ import useErrorMessage from 'src/hooks/useErrorMessage';
 import useForm from 'src/hooks/useForm';
 import ErrorMessage from '../../../../../../../../components/errorMessage';
 import useNotification from '../../../../../../../../notifications/useSession';
+import { TrendingUpRounded } from '@material-ui/icons';
 
 const AprovingCompanyModal = ({ open, data, onClose, onSuccess }) => {
   const setNotification = useNotification();
@@ -24,7 +25,7 @@ const AprovingCompanyModal = ({ open, data, onClose, onSuccess }) => {
 
   const handleSave = async () => {
     setLoading(true);
-    const response = await createNewCompany({ ...data, ...values });
+    const response = await createNewCompany({ ...data, ...values, sendEmail: true });
     if (response.status === 'success') {
       onSuccess();
       onClose();
