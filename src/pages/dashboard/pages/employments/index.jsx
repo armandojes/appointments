@@ -1,4 +1,4 @@
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Hidden } from '@material-ui/core';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
 import Button from 'src/components/main/button';
@@ -17,7 +17,7 @@ import Empty from '../../../../components/empty';
 import useNotification from '../../../../notifications/useSession';
 
 const Employments = ({ setAlert }) => {
-  const setNotification = useNotification()
+  const setNotification = useNotification();
   const [idUserAdding, setAddingBranch] = useState(null);
   const [isModalNewEmploymentOpen, setModalNewEmployment] = useState(false);
   const [employmentEditing, setEmploymentEditing] = useState(null);
@@ -36,16 +36,16 @@ const Employments = ({ setAlert }) => {
 
   const handleDelete = async (employmentId) => {
     setAlert({
-      title: '¿Seguro quieres eliminar el empleado?',
+      title: '¿Seguro quieres eliminar el responsable del sucursal?',
       action: async () => {
         const { status } = await emplymentModel.deleteEmployment(employmentId);
         if (status === 'success') {
-          setNotification({ type: 'success', message: 'El empleado se elimino correctamente' });
+          setNotification({ type: 'success', message: 'El responsable del sucursal se elimino correctamente' });
           handleFetch();
         } else {
           setNotification({
             type: 'error',
-            message: 'Error al eliminar el empleado',
+            message: 'Error al eliminar el responsable del sucursal',
           });
         }
       },
@@ -91,17 +91,17 @@ const Employments = ({ setAlert }) => {
       <Card>
         <Grid container justify="space-between" alignItems="center">
           <Text color={colors.blue} fontWeight="bold" fontSize="1.2em">
-            Empleados
+            Resposables de sucursal
           </Text>
           <Button variant="contained" color={colors.green} onClick={handleNewEmploymentModalOpen}>
-            Nuevo empleado
+            Crear <Hidden xsDown>nuevo</Hidden>
           </Button>
         </Grid>
       </Card>
 
       {isLoading && (<Loading />)}
 
-      {!isLoading && !employments.length && (<Empty message="Aún no tienes empleados" />)}
+      {!isLoading && !employments.length && (<Empty message="Aún no tienes resposanles de sucursal" />)}
 
       {!isLoading && !!employments.length && (
         <Box marginTop="2em">
@@ -131,7 +131,6 @@ const Employments = ({ setAlert }) => {
 };
 
 Employments.propTypes = {
-  setNotification: func.isRequired,
   setAlert: func.isRequired,
 };
 

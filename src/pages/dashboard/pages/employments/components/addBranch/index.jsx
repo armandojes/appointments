@@ -31,7 +31,7 @@ const AddBranchIntoEmployment = ({ open, onClose, employmentId, onSuccess }) => 
     setState((currentState) => ({ ...currentState, isLoading: true }));
     const { status } = await employmentsModel.addBranch(employmentId, branchId);
     if (status === 'success') {
-      setNotification({ type: 'success', message: 'Sucursal asignado al empleado correctamente' });
+      setNotification({ type: 'success', message: 'Sucursal asignado al responsable correctamente' });
       if (onSuccess) onSuccess();
       if (onClose) onClose();
     }

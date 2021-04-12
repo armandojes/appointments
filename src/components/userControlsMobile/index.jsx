@@ -37,7 +37,7 @@ const UserControlsMobile = () => {
             <>
               <Link className={styles.menuItem} to="/dashboard/branches">Sucursales</Link>
               <Link className={styles.menuItem} to="/dashboard/companies">Empresas</Link>
-              <Link className={styles.menuItem} to="/dashboard/employments">Empleados</Link>
+              <Link className={styles.menuItem} to="/dashboard/employments">Responsables de sucursal</Link>
               <Link className={styles.menuItem} to="/dashboard/studies">Estudios</Link>
               <Link className={styles.menuItem} to="/dashboard/appointments">Citas</Link>
             </>

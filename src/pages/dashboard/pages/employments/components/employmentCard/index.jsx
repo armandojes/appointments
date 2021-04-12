@@ -41,7 +41,7 @@ const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, bra
           </IconButton>
         </Grid>
       </Box>
-      <Text marginTop="1em" color={colors.green} textAlign="center">Datos del empleado</Text>
+      <Text marginTop="1em" color={colors.green} textAlign="center">Datos del encargado de sucursal</Text>
       <Text color={colors.blue} fontWeight="bold" textAlign="center">{name}</Text>
       <Text color={colors.blue} fontWeight="bold" textAlign="center">{lastName}</Text>
       <Text color={colors.blue} fontWeight="bold" textAlign="center">{email}</Text>

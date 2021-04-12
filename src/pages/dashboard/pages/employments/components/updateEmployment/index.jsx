@@ -29,7 +29,7 @@ const UpdateEmployment = ({ onClose, open, onSuccess, initialData }) => {
     setLoading(true);
     const response = await employments.updateEmployment(initialData.id, values);
     if (response.status === 'success') {
-      setNotification({ type: 'success', message: 'Datos del empleado actualizado correctamente' });
+      setNotification({ type: 'success', message: 'Datos del encargado de sucursal actualizado correctamente' });
       if (onSuccess) onSuccess();
       if (onClose) onClose();
     } else {
@@ -45,7 +45,7 @@ const UpdateEmployment = ({ onClose, open, onSuccess, initialData }) => {
 
   return (
     <EmploymentForm
-      headerText="Actualizar datos de empleado"
+      headerText="Actualizar datos de encargado de sucursal"
       getInputProps={getInputProps}
       onClose={onClose}
       open={open}

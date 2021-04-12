@@ -30,7 +30,7 @@ const NewEmployment = ({ onClose, open, onSuccess }) => {
     setLoading(true);
     const response = await employments.createNewEmployment(values);
     if (response.status === 'success') {
-      setNotification({ type: 'success', message: 'empleado creado correctamente' });
+      setNotification({ type: 'success', message: 'encargado de sucursal creado correctamente' });
       if (onSuccess) onSuccess();
       if (onClose) onClose();
     } else {
@@ -42,7 +42,7 @@ const NewEmployment = ({ onClose, open, onSuccess }) => {
 
   return (
     <EmploymentForm
-      headerText="Nuevo Empleado"
+      headerText="Nuevo encargado de sucursal"
       getInputProps={getInputProps}
       onClose={onClose}
       open={open}
