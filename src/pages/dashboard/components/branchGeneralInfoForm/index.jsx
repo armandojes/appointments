@@ -47,7 +47,7 @@ const BranchGeneralInfoForm = ({ open, getInputProps, onClose, onConfirm, isLoad
 );
 
 BranchGeneralInfoForm.defaultProps = {
-  headerText: 'Informacion general',
+  headerText: 'Información general',
 };
 
 BranchGeneralInfoForm.propTypes = {

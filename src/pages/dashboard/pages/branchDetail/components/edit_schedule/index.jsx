@@ -6,7 +6,7 @@ import useForm from 'src/hooks/useForm';
 import Input from 'src/components/main/input';
 import { Box, CircularProgress, Grid, IconButton } from '@material-ui/core';
 import { bool, func, object } from 'prop-types';
-import { colors } from 'src/constants';
+import { colors, days } from 'src/constants';
 import Button from 'src/components/main/button';
 import branchesModel from 'src/core/models/branches';
 import { Edit } from '@material-ui/icons';
@@ -65,7 +65,7 @@ const ScheduleEditor = (props) => {
       {!isLoading && (
         <>
           <Box marginBottom="1.5em">
-            <Text fontWeight="bold" color={colors.green} fontSize="1.2em">{props.data.day}</Text>
+            <Text fontWeight="bold" color={colors.green} fontSize="1.2em">{days[props.data.day]}</Text>
           </Box>
           <ErrorMessage message={errorMessage} />
           <Box marginBottom=".5em">
@@ -92,7 +92,7 @@ const ScheduleEditor = (props) => {
           </Box>
 
           <Box marginBottom="4em">
-            <Text color={colors.blue} mb=".2em">Hora de finalizacion</Text>
+            <Text color={colors.blue} mb=".2em">Hora de finalización</Text>
             <div className={styles.dateInputWrapper}>
               <IconButton className={styles.clockIcon} onClick={() => setEndClockActive(true)}>
                 <Edit />

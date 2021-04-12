@@ -60,7 +60,7 @@ const View = ({ isLoading, errorMessage, getInputProps, onSave, isEditing }) => 
 
         <Grid item xs={12} sm={6}>
           <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
-            <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Telefono</Text>
+            <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Teléfono</Text>
             <Input placeholder="" {...getInputProps('companyPhone')} maxLength={10} onlyNumbers />
           </Box>
         </Grid>

@@ -46,7 +46,7 @@ const Generalinfo = ({ setAlert }) => {
   const handleDelete = () => {
     setAlert({
       title: '¿Seguro quieres eliminar esta sucursal?',
-      message: 'Tambien eliminara toda la informacion de las citas en esta sucursal',
+      message: 'Tambien eliminara toda la información de las citas en esta sucursal',
       action: async () => {
         await branchModel.deleteBranche(branchId);
         history.replace('/dashboard/branches');
@@ -73,11 +73,11 @@ const Generalinfo = ({ setAlert }) => {
               <Text>Eliminar</Text>
             </Button>
           </div>
-          <Text color={colors.blue} fontWeight="bold" fontSize="1.2em" marginBottom="1em">Informacion general</Text>
+          <Text color={colors.blue} fontWeight="bold" fontSize="1.2em" marginBottom="1em">Información general</Text>
           <Rows name="id" value={branch.id} />
           <Rows name="Nombre" value={branch.name} />
-          <Rows name="Direccion" value={branch.address} />
-          <Rows name="Telefono" value={branch.phones.join(', ')} />
+          <Rows name="Dirección" value={branch.address} />
+          <Rows name="Teléfono" value={branch.phones.join(', ')} />
         </Card>
       )}
     </>
