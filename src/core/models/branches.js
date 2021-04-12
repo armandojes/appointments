@@ -15,7 +15,7 @@ export const getIntervalByDate = async (branchId, stringDate) => {
  * get branch list
  */
 export const list = async () => {
-  const fetcher = database.getList('branches', null, null, []);
+  const fetcher = database.getList('branches', null, ['createdAt', 'asc'], null);
   const branches = await fetcher.next();
   return branches;
 };
