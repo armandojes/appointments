@@ -12,6 +12,8 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [created, setCreated] = useState(false);
 
+  const handleCloseSuccess = () => setCreated(false);
+
   const handleRegister = async (event) => {
     event.preventDefault();
     const errors = handleValidateForm({
@@ -42,6 +44,7 @@ const Register = () => {
       errorMessage={errorMessage}
       isLoading={isLoading}
       created={created}
+      onSuccessClose={handleCloseSuccess}
     />
   );
 };

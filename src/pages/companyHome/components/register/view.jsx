@@ -10,12 +10,12 @@ import { colors } from 'src/constants';
 import ErrorMessage from '../../../../components/errorMessage';
 import styles from './styles.module.css';
 
-const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading, created }) => (
+const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading, created, onSuccessClose }) => (
   <div>
     {!isLoading && !created && (
       <>
         <Text fontSize="2.2em" color={colors.blue} fontWeight="900">Soy nueva Empresa</Text>
-        <Text fontSize="" color={colors.green} fontWeight="bold">Hemos recibido su solicitud, en breve recibirá un correo electrónico con los datos de acceso a su cuenta.</Text>
+        <Text fontSize="" color={colors.green} fontWeight="bold">No tienes cuenta, da de alta tu empresa llenando los siguientes datos:</Text>
         <form className={styles.form} onSubmit={onFormSubmit}>
           <ErrorMessage message={errorMessage} />
           <Box paddingTop=".5em">
@@ -135,6 +135,11 @@ const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading, cr
         <Text fontSize="1.5em" color={colors.green} fontWeight="bold">
           Hemos recibido su solicitud, en breve recibirá un correo electrónico con los datos de acceso a su cuenta.
         </Text>
+        <Box marginTop="2em">
+          <Grid container justify="center">
+            <Button width="9em" borderRadius="50px" variant="contained" onClick={onSuccessClose}>Cerrar</Button>
+          </Grid>
+        </Box>
       </div>
     )}
     {isLoading && (
@@ -151,6 +156,7 @@ RegisterView.propTypes = {
   errorMessage: string.isRequired,
   isLoading: bool.isRequired,
   created: bool.isRequired,
+  onSuccessClose: func.isRequired,
 };
 
 export default RegisterView;
