@@ -174,4 +174,4 @@ const AppointmentSummary = () => {
   );
 };
 
-export default withAuth(AppointmentSummary, { companyManager: true });
+export default AppointmentSummary;
