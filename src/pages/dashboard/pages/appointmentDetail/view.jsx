@@ -53,7 +53,7 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
               </div>
               {appointment.patientBirthDate && (
                 <div className={styles.row}>
-                  <span className={styles.describe}>Fecha de nacimeinto:</span> {appointment.patientBirthDate}
+                  <span className={styles.describe}>Fecha de nacimiento:</span> {appointment.patientBirthDate}
                 </div>
               )}
               <div className={styles.row}>

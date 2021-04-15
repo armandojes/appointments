@@ -63,7 +63,7 @@ const StudyHistory = () => {
                 <div className={styles.cellStudy}>
                   Estudio
                 </div>
-                <div className={styles.cellId}>codigo</div>
+                <div className={styles.cellId}>código</div>
                 <div className={styles.cellStatus}>Estado</div>
               </div>
               {items.map((item) => (
