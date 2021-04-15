@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Box, Hidden } from '@material-ui/core';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import logoSrc from 'src/assets/logo.png';
 import useSession from '../../session/useSession';
 import Container from '../main/Container';
@@ -9,12 +11,16 @@ import styles from './styles.module.css';
 
 const Header = () => {
   const session = useSession();
+  const history = useHistory();
+
+  const handleRedirectToHome = () => history.push('/');
 
   return (
     <header className={styles.header}>
       <Container paddingTopDissabled>
         <div className={styles.headerBody}>
-          <img src={logoSrc} alt="logo iml" className={styles.logo} />
+
+          <img src={logoSrc} alt="logo iml" className={styles.logo} onClick={handleRedirectToHome} />
 
           <div className={styles.right}>
             <Hidden xsDown>

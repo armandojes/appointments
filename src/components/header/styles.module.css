@@ -5,6 +5,10 @@
   z-index: 10;
 }
 
+.logo {
+  cursor: pointer;
+}
+
 .headerBody {
   display: flex;
   justify-content: space-between;
