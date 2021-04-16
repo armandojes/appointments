@@ -1,16 +1,15 @@
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Box, Grid, IconButton } from '@material-ui/core';
-import { AddBox, Delete, Edit, Visibility, VisibilityOff } from '@material-ui/icons';
+import { Delete, Edit, Visibility, VisibilityOff } from '@material-ui/icons';
 import { func, string } from 'prop-types';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
+import branchIconSrc from 'src/assets/branch2.png';
 import styles from './styles.module.css';
 
-const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, branchName, onAdd, onBranchDelete }) => {
+const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, branchName, onAdd }) => {
   const [displayPassword, setDisplayPassword] = useState(false);
 
   const handleShowVisivility = () => setDisplayPassword(true);
@@ -21,7 +20,7 @@ const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, bra
       <Box marginBottom="2em">
         <Grid container wrap="nowrap" justify="space-around">
           <IconButton size="small" className={styles.buttons} width="100%" onClick={onAdd}>
-            <AddBox />
+            <img src={branchIconSrc} alt="icono para agregar empresa" onClick={onAdd} className={styles.iconPng} />
           </IconButton>
           {displayPassword && (
             <IconButton size="small" className={styles.buttons} width="100%" onClick={handleHideVisivility}>
@@ -80,7 +79,6 @@ EmploymentCard.propTypes = {
   onEdit: func.isRequired,
   branchName: string,
   onAdd: func.isRequired,
-  onBranchDelete: func.isRequired,
 };
 
 export default EmploymentCard;

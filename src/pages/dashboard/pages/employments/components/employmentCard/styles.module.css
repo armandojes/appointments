@@ -5,9 +5,13 @@
   padding: 2em!important;
 }
 .buttons {
-  font-size: 1.2em;
-  padding: .3em!important;
+  font-size: 1.2em!important;
+  width: 2.2em!important;
+  height: 2.2em!important;
   border: 1px solid var(--blue)!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .buttons svg {
   color: var(--blue);
@@ -26,4 +30,11 @@
   right: .5em;
   color: var(--green)!important;
   padding: 0em!important;
+}
+.iconPng {
+  width: 1.5em!important;
+  display: block;
+  margin: auto;
+  margin-right: .1em;
+  margin-bottom: .1em;
 }
