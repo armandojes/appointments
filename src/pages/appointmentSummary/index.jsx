@@ -137,7 +137,7 @@ const AppointmentSummary = () => {
               </Text>
               {appointment.studies.map((study) => (
                 <div className={`${styles.indicationsItem} ${styles.centerOnlyMobile}`} key={study.id}>
-                  <Text color={colors.green} fontSize="1.3em" fontWeight="900">
+                  <Text color={colors.green} fontSize="1.2em">
                     {study.indications}
                   </Text>
                 </div>
