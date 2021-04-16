@@ -9,6 +9,7 @@ import View from './view';
 
 const validators = {
   title: (val) => (!val || val.toString().length < 2 ? 'El titulo es requerido' : false),
+  code: (val) => (!val || val.toString().length < 2 ? 'El código es requerido' : false),
 };
 
 const StudyEditor = () => {
@@ -68,6 +69,7 @@ const StudyEditor = () => {
         setValues({
           title: stdudyData.title,
           indications: stdudyData.indications,
+          code: stdudyData.code || '',
         });
         setLoading(false);
       }
