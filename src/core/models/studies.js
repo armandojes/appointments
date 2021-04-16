@@ -10,7 +10,6 @@ export const createStudy = async (data) => {
   const securedata = {
     title: data.title,
     indications: data.indications || '',
-    price: parseFloat(data.price),
   };
   const status = await database.create('studies', securedata);
   if (status) return { status: 'success' };
@@ -21,7 +20,6 @@ export const updateStudy = async (stidyId, data) => {
   const securedata = {
     title: data.title,
     indications: data.indications || '',
-    price: parseFloat(data.price),
   };
   const status = await database.update(`studies/${stidyId}`, securedata);
   if (status) return { status: 'success' };

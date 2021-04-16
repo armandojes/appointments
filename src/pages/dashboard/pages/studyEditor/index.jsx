@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { createStudy, getStudy, updateStudy } from '../../../../core/models/studies';
@@ -11,7 +9,6 @@ import View from './view';
 
 const validators = {
   title: (val) => (!val || val.toString().length < 2 ? 'El titulo es requerido' : false),
-  price: (val) => (!val || val.toString().length < 1 ? 'El precio es requerido' : false),
 };
 
 const StudyEditor = () => {
@@ -70,7 +67,6 @@ const StudyEditor = () => {
       else {
         setValues({
           title: stdudyData.title,
-          price: stdudyData.price,
           indications: stdudyData.indications,
         });
         setLoading(false);

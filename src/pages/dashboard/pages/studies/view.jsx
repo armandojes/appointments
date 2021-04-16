@@ -52,14 +52,6 @@ const View = ({ items, isLoading, onDeleteItem, onEditItem }) => (
                 >
                   {item.title}
                 </Text>
-                <Text
-                  textAlign="center"
-                  fontSize="1.2em"
-                  color={colors.green}
-                  fontWeight="bold"
-                >
-                  $ {item.price}.00
-                </Text>
               </Card>
             </Box>
           </Grid>

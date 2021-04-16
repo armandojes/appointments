@@ -17,7 +17,6 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
   const handleOpen = (e) => setAchorSelect(e.currentTarget);
 
   let studiesNumber = studies.length;
-  const tolaPrice = studies.reduce((acc, current) => acc + current.price, 0);
   if (customStudy) studiesNumber += 1;
 
   const colorStatus = appointmentStatusColors[status];
@@ -119,7 +118,7 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
           </Card>
 
           <Card className={styles.card}>
-            <Text fontSize="1.2em" color={colors.blue} fontWeight="bold">Estudios {studiesNumber} (total ${tolaPrice}.00)</Text>
+            <Text fontSize="1.2em" color={colors.blue} fontWeight="bold">Estudios {studiesNumber} </Text>
             <div className={styles.cardBody}>
               <div className={styles.StidoesListWrapper}>
 
@@ -130,7 +129,6 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
                       <div className={styles.itemDataWrapper}>
                         <div className={styles.row}>
                           <div>{study.title}</div>
-                          <div><span>$ {study.price}.00 MXN</span></div>
                         </div>
                       </div>
                     </div>
@@ -145,7 +143,6 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
                         <div className={styles.row}>
                           <div className={styles.otherText}>Personalizado</div>
                           <div>{customStudy}</div>
-                          <div><span>$ 0.00 MXN</span></div>
                         </div>
                       </div>
                     </div>

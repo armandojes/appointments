@@ -37,10 +37,6 @@ const View = ({ isEditing, getInputProps, errorMessage, isLoading, onSave, onCan
           <Input maxLength={100} {...getInputProps('title')} />
         </Box>
         <Box marginBottom="1em">
-          <Text color={colors.blue} fontWeight="bold">Precio</Text>
-          <Input onlyNumbers maxLength={10} {...getInputProps('price')} />
-        </Box>
-        <Box marginBottom="1em">
           <Text color={colors.blue} fontWeight="bold">Indicaciones</Text>
           <TextArea {...getInputProps('indications')} className={styles.textArea} />
         </Box>
