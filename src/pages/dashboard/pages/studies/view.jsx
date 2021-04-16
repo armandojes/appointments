@@ -1,4 +1,5 @@
-import { Box, Grid, Hidden } from '@material-ui/core';
+/* eslint-disable no-unused-vars */
+import { Box, Grid, Hidden, styled } from '@material-ui/core';
 import { array, bool, func, string } from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -36,36 +37,30 @@ const View = ({ items, isLoading, onDeleteItem, onEditItem, keywords, onKeywordC
     </Box>
 
     {(!items || !items.length) && !isLoading && (
-      <Empty message="Aún no tienes estudios" />
+      <Empty message={keywords ? 'No encontramos resultados' : 'Aún no tienes estudios'} />
     )}
     {isLoading && (
       <Loading message="Aún no tienes estudios" />
     )}
     {!!items && !!items.length && !isLoading && (
-      <Grid container>
+    <Box marginTop="2em">
+      <div>
+        <div className={styles.rowHeader}>
+          <div className={styles.code}>CÓDIGO</div>
+          <div className={styles.title}>ESTUDIO</div>
+        </div>
         {items.map((item) => (
-          <Grid item xs={12} sm={4} key={item.id}>
-            <Box padding=".5em" display="flex" height="100%" boxSizing="border-box">
-              <Card className={styles.studyCard}>
-                <div className={styles.actionContainer}>
-                  <Edit className={styles.iconAction} onClick={() => onEditItem(item)} />
-                  <Box mr="1em" />
-                  <Delete className={styles.iconAction} onClick={() => onDeleteItem(item)} />
-                </div>
-                <img src={labIconSrc} alt="icono de laboratorio" className={styles.iconLab} />
-                <Text
-                  textAlign="center"
-                  fontSize="1.2em"
-                  color={colors.blue}
-                  fontWeight="bold"
-                >
-                  {item.title}
-                </Text>
-              </Card>
-            </Box>
-          </Grid>
+          <div className={styles.row} key={item.id}>
+            <div className={styles.code}>{item.code || 'withoutCode'}</div>
+            <div className={styles.title}>{item.title}</div>
+            <div className={styles.actionsContainer}>
+              <Edit className={styles.icons} onClick={() => onEditItem(item)} />
+              <Delete className={styles.icons} onClick={() => onDeleteItem(item)} />
+            </div>
+          </div>
         ))}
-      </Grid>
+      </div>
+    </Box>
     )}
   </>
 );
