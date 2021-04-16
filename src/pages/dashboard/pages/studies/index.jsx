@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import { func } from 'prop-types';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
@@ -13,7 +11,15 @@ const Studies = ({ setAlert }) => {
   const setNotification = useNotification();
   const [studies, setStudies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [keywords, setKeywords] = useState('');
   const history = useHistory();
+
+  let studiesFiletered = studies;
+  if (keywords && keywords.toString().length) {
+    studiesFiletered = studiesFiletered.filter((study) => study.title.toLowerCase().includes(keywords.toString().toLowerCase()));
+  }
+
+  const handleKeywordChange = (e) => setKeywords(e.target.value);
 
   const handleFetch = async () => {
     setIsLoading(true);
@@ -47,10 +53,12 @@ const Studies = ({ setAlert }) => {
 
   return (
     <View
-      items={studies}
+      items={studiesFiletered}
       isLoading={isLoading}
       onDeleteItem={handleDeleteItemWithAlert}
       onEditItem={handleEditItem}
+      keywords={keywords}
+      onKeywordChange={handleKeywordChange}
     />
   );
 };
