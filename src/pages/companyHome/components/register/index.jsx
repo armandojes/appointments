@@ -33,7 +33,7 @@ const Register = () => {
     const response = await createRequestForNewCompany(values);
     setIsLoading(false);
     if (response.status === 'success') setCreated(true);
-    else alert(response.errorMessage);
+    else setErrorMessage(response.errorMessage);
     return null;
   };
 

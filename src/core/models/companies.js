@@ -2,13 +2,14 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import firebase from 'firebase';
+import { loginWithEmailAndPAssword } from './auth';
 import database from './database';
 import { callable } from './firebase';
 import studiesModel from './studies';
 
 export const createRequestForNewCompany = async (data) => {
-  const isEmailUsed = await database.getList('users', false, false, [['email', '==', data.userEmail.toString().toLowerCase()]]).next();
-  if (isEmailUsed && isEmailUsed.length) return { status: 'error', errorMessage: 'El correo ya se encuentra registrado' };
+  const loginRes = await loginWithEmailAndPAssword({ email: data.userEmail, password: 'xxxxxxxxxx' });
+  if (loginRes.firebaseMessage === 'auth/wrong-password') return { status: 'error', errorMessage: 'El correo ya se encuentra registrado' };
 
   const isEmailUsedAtRequest = await database.getList('requestNewCompanies', false, false, [['userEmail', '==', data.userEmail.toString().toLowerCase()]]).next();
   if (isEmailUsedAtRequest && isEmailUsedAtRequest.length) return { status: 'error', errorMessage: 'El correo ya se encuentra registrado' };

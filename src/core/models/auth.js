@@ -21,7 +21,7 @@ export const loginWithEmailAndPAssword = async ({ email, password }) => {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
     return { status: 'success', id: user.uid };
   } catch (error) {
-    return { status: 'error', errorMessage: errorTranslator(error.code) };
+    return { status: 'error', errorMessage: errorTranslator(error.code), firebaseMessage: error.code };
   }
 };
 
