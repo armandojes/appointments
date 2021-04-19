@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import Modal from 'src/components/modal';
 import React, { useEffect, useState } from 'react';
 import { bool, func, string } from 'prop-types';
@@ -22,9 +19,7 @@ const AddBranchIntoEmployment = ({ open, onClose, employmentId, onSuccess }) => 
 
   useFetch(async () => {
     const allBranches = await branchesModel.list();
-    const { branches = [] } = await employmentsModel.getSingle(employmentId);
-    const branchesFiltered = allBranches.filter((currentBranch) => !branches.includes(currentBranch.id));
-    setState({ isLoading: false, branches: branchesFiltered });
+    setState({ isLoading: false, branches: allBranches });
   }, [employmentId]);
 
   const handleAdd = async (branchId) => {
