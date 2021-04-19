@@ -1,10 +1,11 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { getAvailableStudies } from 'src/core/models/companies';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
 import useForm from 'src/hooks/useForm';
 import useSession from 'src/session/useSession';
 import { useHistory } from 'react-router';
+import debounce from 'debounce';
 import NewAppointmentView from './view';
 import validators from '../../helpers/validators';
 import dates, { getDayName, stringDateToDate, toStringDate } from '../../helpers/dates';
@@ -155,11 +156,14 @@ const CreateAppointment = () => {
     return null;
   };
 
+  // setStep debounced
+  const setCurrentStepDebounced = useCallback(debounce((newStep) => setCurrentStep(newStep), 700), []);
+
   // set current step when required entries from previous steps are filled
   useEffect(() => {
     if (values.currentStep === 1) {
       const errors = handleValidateForm(step1Validators, true);
-      if (!Object.values(errors).length) return setCurrentStep(2);
+      if (!Object.values(errors).length) return setCurrentStepDebounced(2);
     }
     if (values.currentStep === 2) {
       const errors = handleValidateForm(step2Validators, true);
