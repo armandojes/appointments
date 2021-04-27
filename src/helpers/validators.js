@@ -53,6 +53,13 @@ export const password = (value) => {
   return null;
 };
 
+export const patientNameValidator = (values) => {
+  const message = 'El nombre del paciente no es válido';
+  if (!values) return message;
+  if (values.toString().length < 3) return message;
+  return null;
+};
+
 export default {
   companyName,
   userFullName,
@@ -62,4 +69,5 @@ export default {
   address,
   rfc,
   password,
+  patientNameValidator,
 };

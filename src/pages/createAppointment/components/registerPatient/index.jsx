@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import registerIconSrc from 'src/assets/icono_registro.png';
-import { Box } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { array, func, string } from 'prop-types';
 import { Check } from '@material-ui/icons';
 import styles from './styles.module.css';
@@ -21,7 +21,15 @@ const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage, c
       />
       <div className={styles.body}>
         <ErrorMessage message={errorMessage} marginBottom="1em" />
-        <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre del paciente" />
+
+        <Grid container wrap="nowrap">
+          <Input className={styles.inputText} {...getInputProps('patientPlastName')} variant="underline" placeholder="Apellido paterno" />
+          <Box paddingRight="1em" />
+          <Input className={styles.inputText} {...getInputProps('patientMlastName')} variant="underline" placeholder="Apellido materno" />
+          <Box paddingRight="1em" />
+          <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre(s)" />
+        </Grid>
+
         <Input className={styles.inputText} {...getInputProps('patientBirthDate')} variant="underline" placeholder="Fecha de nacimiento DD/MM/AAAA (opcional)" />
         <div className={styles.textBold}>Estudios a realizarse*:</div>
 

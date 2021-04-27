@@ -9,7 +9,7 @@ import ErrorMessage from 'src/components/errorMessage';
 import styles from './styles.module.css';
 import Header from '../header';
 
-const DateSelector = ({ onTimeSelect, stringTime, onDateSelect, date, times, errorMessage, shouldDisableDate }) => {
+const DateSelector = ({ onTimeSelect, stringTime, onDateSelect, date, times, errorMessage, shouldDisableDate, branchName }) => {
   const [anchorSelect, setAnchorSelect] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -34,7 +34,7 @@ const DateSelector = ({ onTimeSelect, stringTime, onDateSelect, date, times, err
       <Header title="Registra tu cita" icon={caldendarIconSrc} step={3} />
       <div className={styles.body}>
         <ErrorMessage message={errorMessage} marginBottom="1em" />
-        <div className={styles.subtitle}>Sucursal: Unidad Arcos</div>
+        <div className={styles.subtitle}>Sucursal: {branchName}</div>
         <div className={styles.title}>Elige el día y la hora de tu cita</div>
         <div className={styles.wrapperFlex}>
 
@@ -54,12 +54,12 @@ const DateSelector = ({ onTimeSelect, stringTime, onDateSelect, date, times, err
 
           </div>
           <div className={styles.sectionWrapper}>
-            <div className={styles.titleSection}>Día</div>
+            <div className={styles.titleSection}>Hora</div>
             <div role="button" className={styles.selectShaddow} onClick={handleOpenMenu}>
               {stringTime}
               <ArrowDropDown className={styles.arrow} />
             </div>
-            <Box color="#fff">16:10 Hrs.</Box>
+            <Box color="#fff">only for shadow</Box>
           </div>
 
         </div>
@@ -76,6 +76,7 @@ DateSelector.propTypes = {
   date: instanceOf(Date).isRequired,
   times: array.isRequired,
   errorMessage: string.isRequired,
+  branchName: string.isRequired,
 };
 
 export default DateSelector;

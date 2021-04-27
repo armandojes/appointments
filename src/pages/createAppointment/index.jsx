@@ -13,7 +13,9 @@ import { getAvailableTimes, saveAppointment } from '../../core/models/appointmen
 import withAuth from '../../highOrderComponents/withAuth';
 
 const step1Validators = {
-  patientName: validators.userFullName,
+  patientName: validators.patientNameValidator,
+  patientPlastName: validators.patientNameValidator,
+  patientMlastName: validators.patientNameValidator,
   studies: (studies, otherValues) => {
     const someStudySelected = studies.some((currentStudy) => currentStudy.isSelected);
     if (someStudySelected) return false;
@@ -219,6 +221,7 @@ const CreateAppointment = () => {
   return (
     <>
       <NewAppointmentView
+        branchNameSelected={currentBranchSelect ? currentBranchSelect.name : ''}
         errorMessageAtStep1={values.errorMessageAtStep1}
         errorMessageAtStep2={values.errorMessageAtStep2}
         errorMessageAtStep3={values.errorMessageAtStep3}

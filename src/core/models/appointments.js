@@ -70,7 +70,7 @@ export const saveAppointment = async (values) => {
     status: 'pending',
     branch: values.branch,
     patientBirthDate: values.patientBirthDate || null,
-    patientName: values.patientName,
+    patientName: `${values.patientName} ${values.patientPlastName} ${values.patientMlastName}`,
     payoutType: values.payoutType,
     stringDate: values.stringDate,
     stringTime: values.stringTime,
@@ -111,6 +111,12 @@ export const updateAppointmentStatus = async (appointmentId, newStatus) => {
 export const getCompanyAppointmentsHistory = async (companyId) => {
   const data = await database.getList('appointments', null, ['createdAt', 'desc'], [['company.id', '==', companyId]]).next();
   return data;
+};
+
+export const deleteAppointment = async (appointmentId) => {
+  const status = await database.remove(`/appointments/${appointmentId}`);
+  if (status) return { status: 'success' };
+  return { status: 'error', errorMessage: 'Error, algo salió mal' };
 };
 
 getCompanyAppointmentsHistory('IzyBtN7UiLcgNVgfxRwspNyh20s1');

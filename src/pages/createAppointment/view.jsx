@@ -11,7 +11,7 @@ import RegisterPatient from './components/registerPatient';
 import SelectBranch from './components/selectBranch';
 import styles from './styles.module.css';
 
-const NewAppointmentView = ({ companyManager, companyName, error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, shouldDisableDate }) => (
+const NewAppointmentView = ({ branchNameSelected, companyManager, companyName, error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, shouldDisableDate }) => (
   <>
     {!isLoading && error && (
       <Container>
@@ -52,6 +52,7 @@ const NewAppointmentView = ({ companyManager, companyName, error, errorMessageAt
           <div className={styles.fadeIn} id="date">
             <Hidden xsDown><Box marginBottom="5em" /></Hidden>
             <DateSelector
+              branchName={branchNameSelected}
               errorMessage={errorMessageAtStep3}
               times={times}
               onTimeSelect={onTimeSelect}
@@ -104,6 +105,7 @@ NewAppointmentView.propTypes = {
   error: string.isRequired,
   companyManager: string.isRequired,
   companyName: string.isRequired,
+  branchNameSelected: string.isRequired,
 };
 
 export default NewAppointmentView;

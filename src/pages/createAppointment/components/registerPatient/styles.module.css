@@ -50,10 +50,6 @@
   color: var(--blue);
 }
 
-.inputText {
-  width: 95%;
-}
-
 @media screen and (max-width:1000px) {
   .body {
     width: 100%;
