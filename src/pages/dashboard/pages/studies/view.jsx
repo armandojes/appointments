@@ -13,6 +13,7 @@ import labIconSrc from 'src/assets/lab.png';
 import { Delete, Edit } from '@material-ui/icons';
 import styles from './styles.module.css';
 import Input from '../../../../components/main/input';
+import Caption from '../../../../components/caption';
 
 const View = ({ items, isLoading, onDeleteItem, onEditItem, keywords, onKeywordChange }) => (
   <>
@@ -54,8 +55,12 @@ const View = ({ items, isLoading, onDeleteItem, onEditItem, keywords, onKeywordC
             <div className={styles.code}>{item.code || 'withoutCode'}</div>
             <div className={styles.title}>{item.title}</div>
             <div className={styles.actionsContainer}>
-              <Edit className={styles.icons} onClick={() => onEditItem(item)} />
-              <Delete className={styles.icons} onClick={() => onDeleteItem(item)} />
+              <Caption message="Editar">
+                <Edit className={styles.icons} onClick={() => onEditItem(item)} />
+              </Caption>
+              <Caption message="Eliminar">
+                <Delete className={styles.icons} onClick={() => onDeleteItem(item)} />
+              </Caption>
             </div>
           </div>
         ))}

@@ -2,10 +2,7 @@
   font-size: 1em!important;
   border: 1px solid var(--blue)!important;
   padding: .3em!important;
-  margin-right: 2em!important;
-}
-.iconWrapper:last-of-type {
-  margin-right: 0em!important;
+  display: block!important;
 }
 .iconWrapper svg {
   color: var(--blue)!important;
@@ -13,7 +10,10 @@
 }
 .iconWrapper img {
   color: var(--blue)!important;
-  font-size: 1.5em!important;
+  font-size: 1.4em!important;
   width: .9em;
   height: .9em;
+}
+.caption {
+  margin: 0em .7em!important;
 }

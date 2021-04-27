@@ -1,0 +1,19 @@
+.wrapper {
+  position: relative;
+}
+.messageWrapper {
+  position: absolute;
+  right: -20px;
+  left: -20px;
+  margin: auto;
+  text-align: center;
+  font-size: .8em;
+  z-index: 2;
+}
+.message {
+  background-color: var(--blue);
+  margin-top: .3em;
+  color: #fff;
+  padding: .3em;
+  border-radius: .4em;
+}

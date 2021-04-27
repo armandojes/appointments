@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/forbid-prop-types */
-/* eslint-disable arrow-body-style */
 import { Box, CircularProgress, Grid } from '@material-ui/core';
 import { bool, func, object } from 'prop-types';
 import React, { useEffect, useState } from 'react';

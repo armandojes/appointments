@@ -8,36 +8,39 @@ import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
 import branchIconSrc from 'src/assets/branch2.png';
 import styles from './styles.module.css';
+import Caption from '../../../../../../components/caption';
 
 const EmploymentCard = ({ name, lastName, email, password, onDelete, onEdit, branchName, onAdd }) => {
   const [displayPassword, setDisplayPassword] = useState(false);
 
-  const handleShowVisivility = () => setDisplayPassword(true);
-  const handleHideVisivility = () => setDisplayPassword(false);
+  const toggleVisivilityPassword = () => setDisplayPassword((prevState) => !prevState);
 
   return (
     <Card className={styles.card}>
       <Box marginBottom="2em">
         <Grid container wrap="nowrap" justify="space-around">
-          <IconButton size="small" className={styles.buttons} width="100%" onClick={onAdd}>
-            <img src={branchIconSrc} alt="icono para agregar empresa" onClick={onAdd} className={styles.iconPng} />
-          </IconButton>
-          {displayPassword && (
-            <IconButton size="small" className={styles.buttons} width="100%" onClick={handleHideVisivility}>
-              <VisibilityOff />
+          <Caption message="Sucursal">
+            <IconButton size="small" className={styles.buttons} width="100%" onClick={onAdd}>
+              <img src={branchIconSrc} alt="icono para agregar empresa" onClick={onAdd} className={styles.iconPng} />
             </IconButton>
-          )}
-          {!displayPassword && (
-            <IconButton size="small" className={styles.buttons} width="100%" onClick={handleShowVisivility}>
-              <Visibility />
+          </Caption>
+
+          <Caption message={displayPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>
+            <IconButton size="small" className={styles.buttons} width="100%" onClick={toggleVisivilityPassword}>
+              {displayPassword && <VisibilityOff />}
+              {!displayPassword && <Visibility />}
             </IconButton>
-          )}
-          <IconButton size="small" className={styles.buttons} width="100%" onClick={onEdit}>
-            <Edit />
-          </IconButton>
-          <IconButton size="small" className={styles.buttons} width="100%" onClick={onDelete}>
-            <Delete />
-          </IconButton>
+          </Caption>
+          <Caption message="Editar">
+            <IconButton size="small" className={styles.buttons} width="100%" onClick={onEdit}>
+              <Edit />
+            </IconButton>
+          </Caption>
+          <Caption message="Eliminar">
+            <IconButton size="small" className={styles.buttons} width="100%" onClick={onDelete}>
+              <Delete />
+            </IconButton>
+          </Caption>
         </Grid>
       </Box>
       <Text marginTop="1em" color={colors.green} textAlign="center">Datos del encargado de sucursal</Text>

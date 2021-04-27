@@ -5,8 +5,10 @@ import { Box, CircularProgress, Grid } from '@material-ui/core';
 import { Check } from '@material-ui/icons';
 import { array, bool, func, string } from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Card from '../../../../components/card';
 import Loading from '../../../../components/loading';
+import Button from '../../../../components/main/button';
 import Text from '../../../../components/main/text';
 import { colors } from '../../../../constants';
 import styles from './styles.module.css';
@@ -39,6 +41,11 @@ const View = ({ companyName, isLoading, items, onItemStatusToggle }) => (
             </Grid>
           ))}
         </Grid>
+        <Box paddingLeft=".5em" marginTop="2em">
+          <Link to="/dashboard/companies">
+            <Button padding=".6em 2em" variant="contained" color={colors.green}>Regresar</Button>
+          </Link>
+        </Box>
       </>
     )}
   </>

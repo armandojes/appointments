@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
 import { Box, Grid, IconButton } from '@material-ui/core';
-import { Delete, Edit, Visi, Visibility, VisibilitybilityVisibility, VisibilityOff } from '@material-ui/icons';
+import { Delete, Edit, Visibility, VisibilityOff } from '@material-ui/icons';
 import { func, number, string } from 'prop-types';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
@@ -9,6 +7,7 @@ import Text from 'src/components/main/text';
 import { colors } from 'src/constants';
 import labBlueSrc from 'src/assets/lab_blue.png';
 import { Link } from 'react-router-dom';
+import Caption from 'src/components/caption';
 import styles from './styles.module.css';
 
 const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, userEmail, userFullName, onDelete, onEdit, userPassword }) => {
@@ -22,22 +21,30 @@ const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPh
     <Card>
       <Box textAlign="center">
         <Box marginBottom="2em" marginTop="1em">
-          <Grid container justify="center">
-            <IconButton className={styles.iconWrapper} onClick={handleToggleVisivility}>
-              {!showPassword && <Visibility />}
-              {showPassword && <VisibilityOff />}
-            </IconButton>
-            <IconButton className={styles.iconWrapper} onClick={onDelete}>
-              <Delete />
-            </IconButton>
-            <IconButton className={styles.iconWrapper} onClick={onEdit}>
-              <Edit />
-            </IconButton>
-            <IconButton className={styles.iconWrapper}>
-              <Link to={`/dashboard/studies-for-company/${id}`}>
-                <img src={labBlueSrc} alt="icono de laboratorio" />
-              </Link>
-            </IconButton>
+          <Grid container justify="center" alignItems="center">
+            <Caption message={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'} className={styles.caption}>
+              <IconButton className={styles.iconWrapper} onClick={handleToggleVisivility}>
+                {!showPassword && <Visibility />}
+                {showPassword && <VisibilityOff />}
+              </IconButton>
+            </Caption>
+            <Caption message="Eliminar" className={styles.caption}>
+              <IconButton className={styles.iconWrapper} onClick={onDelete}>
+                <Delete />
+              </IconButton>
+            </Caption>
+            <Caption message="Editar" className={styles.caption}>
+              <IconButton className={styles.iconWrapper} onClick={onEdit}>
+                <Edit />
+              </IconButton>
+            </Caption>
+            <Caption message="Estudios" className={styles.caption}>
+              <IconButton className={styles.iconWrapper}>
+                <Link to={`/dashboard/studies-for-company/${id}`}>
+                  <img src={labBlueSrc} alt="icono de laboratorio" />
+                </Link>
+              </IconButton>
+            </Caption>
           </Grid>
         </Box>
         <Text lineHeight="1.4em" color={colors.green}>Datos del usuario</Text>
