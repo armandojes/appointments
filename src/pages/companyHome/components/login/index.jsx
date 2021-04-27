@@ -10,6 +10,9 @@ const Login = () => {
   const { getInputProps, handleValidateForm, values } = useForm();
   const { errorMessage, setErrorMessage } = useErrorMessage();
   const [isLoading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState();
+
+  const handleTogglePasswordVisivility = () => setShowPassword((prevState) => !prevState);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -33,6 +36,8 @@ const Login = () => {
       onLogin={handleLogin}
       errorMessage={errorMessage}
       isLoading={isLoading}
+      onTogglePasswordVisivility={handleTogglePasswordVisivility}
+      showPassword={showPassword}
     />
   );
 };

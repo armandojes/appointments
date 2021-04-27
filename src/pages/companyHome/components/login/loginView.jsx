@@ -1,4 +1,5 @@
 import { Box, CircularProgress, Grid } from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { bool, func, string } from 'prop-types';
 import React from 'react';
 import Button from 'src/components/main/button';
@@ -8,7 +9,7 @@ import { colors } from 'src/constants';
 import ErrorMessage from '../../../../components/errorMessage';
 import styles from './styles.module.css';
 
-const LoginView = ({ getInputProps, onLogin, errorMessage, isLoading }) => (
+const LoginView = ({ getInputProps, onLogin, errorMessage, isLoading, onTogglePasswordVisivility, showPassword }) => (
   <div>
     {!isLoading && (
       <>
@@ -17,7 +18,11 @@ const LoginView = ({ getInputProps, onLogin, errorMessage, isLoading }) => (
           <ErrorMessage message={errorMessage} />
           <Input variant="underline" type="text" placeholder="Email" {...getInputProps('email')} maxLength={50} />
           <Box paddingTop=".5em" />
-          <Input variant="underline" type="password" placeholder="Password" {...getInputProps('password')} maxLength={50} />
+          <Box position="relative">
+            <Input variant="underline" type={showPassword ? 'text' : 'password'} placeholder="Password" {...getInputProps('password')} maxLength={50} />
+            {showPassword && <Visibility className={styles.visisvilityIcon} onClick={onTogglePasswordVisivility} />}
+            {!showPassword && <VisibilityOff className={styles.visisvilityIcon} onClick={onTogglePasswordVisivility} />}
+          </Box>
           <Box paddingTop="1.5em" />
           <div className={styles.buttonWrapper}>
             <Button width="10em" variant="contained" color={colors.blue} borderRadius="2em" type="submit">Entrar</Button>
@@ -42,6 +47,8 @@ LoginView.propTypes = {
   onLogin: func.isRequired,
   errorMessage: string.isRequired,
   isLoading: bool.isRequired,
+  onTogglePasswordVisivility: func.isRequired,
+  showPassword: bool.isRequired,
 };
 
 export default LoginView;
