@@ -9,7 +9,7 @@ import HeaderCompanies from '../../components/headerPage';
 
 const View = ({ loading, items, onDelete, onAprov }) => (
   <>
-    <HeaderCompanies />
+    <HeaderCompanies counter={items.length} />
     {!loading && !!items.length && (
     <Grid container>
       {items.map((item) => (

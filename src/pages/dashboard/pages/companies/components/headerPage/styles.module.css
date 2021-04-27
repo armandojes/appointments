@@ -8,3 +8,15 @@
   font-size: 1.2em;
   font-weight: bold;
 }
+.counter {
+  display: inline-flex;
+  margin-left: .5em;
+  background-color: var(--green);
+  border-radius: 50%;
+  width: 1.3em;
+  height: 1.3em;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-size: .8em;
+}

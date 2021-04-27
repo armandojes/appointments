@@ -129,4 +129,5 @@ export default {
   addNewStudy,
   deleteStudy,
   getAvailableStudies,
+  getRequests,
 };
