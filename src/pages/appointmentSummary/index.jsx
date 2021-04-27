@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 import { Box, Grid, Hidden } from '@material-ui/core';
@@ -10,7 +11,7 @@ import Loading from '../../components/loading';
 import Button from '../../components/main/button';
 import Container from '../../components/main/Container';
 import Text from '../../components/main/text';
-import { colors, payoutTypes } from '../../constants';
+import { colors, contact, payoutTypes } from '../../constants';
 import { getSingleAppointment } from '../../core/models/appointments';
 import branches from '../../core/models/branches';
 import { getCompanyWithUser } from '../../core/models/companies';
@@ -149,22 +150,32 @@ const AppointmentSummary = () => {
               <div>SE NOTIFICARÁ POR CORREO ELECTRÓNICO CON SU CÓDIGO DE CONFIRMACIÓN.</div>
               <div className={styles.green}>¡GRACIAS POR SU CONFIANZA!</div>
             </div>
-            <Link to="/study-history">
-              <Button variant="contained" className={styles.button}>CERRAR</Button>
-            </Link>
+            <Grid container justify="center">
+              <Link to="/study-history">
+                <Button variant="contained" className={styles.button}>CERRAR</Button>
+              </Link>
+              <Box paddingLeft="1em" />
+              <Link to="/create-appointment">
+                <Button variant="contained" className={styles.button}>NUEVA CITA</Button>
+              </Link>
+            </Grid>
           </div>
 
           <Box marginTop="4em" marginBottom="1.5em">
             <Grid container justify="center" alignItems="center">
-              <div className={styles.contactWrapper}>
-                <Phone className={styles.contactIcon} />
-                Tel. 442 213 0898
-              </div>
+              <a href="tel:4422130898" target="_blank">
+                <div className={styles.contactWrapper}>
+                  <Phone className={styles.contactIcon} />
+                  Tel. 442 213 0898
+                </div>
+              </a>
               <Box marginRight="2em" />
-              <div className={styles.contactWrapper}>
-                <WhatsApp className={styles.contactIcon} />
-                WhatsApp
-              </div>
+              <a href={contact.whatsappLink} target="_blank">
+                <div className={styles.contactWrapper}>
+                  <WhatsApp className={styles.contactIcon} />
+                  WhatsApp
+                </div>
+              </a>
             </Grid>
           </Box>
         </>

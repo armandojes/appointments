@@ -26,7 +26,7 @@
   color: var(--blue);
   font-weight: 900;
   border-radius: 1em;
-  margin: 3em 0em;
+  margin: 3em 0em 1em 0em;
 }
 .fotterCard .green {
   color: var(--green);

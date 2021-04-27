@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { Box, Grid } from '@material-ui/core';
 import { Check, Phone, WhatsApp } from '@material-ui/icons';
 import { func, string } from 'prop-types';
@@ -6,7 +7,7 @@ import payouIconSrc from 'src/assets/icono_pago.png';
 import ErrorMessage from '../../../../components/errorMessage';
 import Button from '../../../../components/main/button';
 import Input from '../../../../components/main/input';
-import { payoutData } from '../../../../constants';
+import { contact, payoutData } from '../../../../constants';
 import Header from '../header';
 import styles from './styles.module.css';
 
@@ -41,15 +42,19 @@ const Payout = ({ payoutType, getInputProps, onPayouTypeChange, onConfirm, error
 
       <Box marginTop="4em" marginBottom="2em">
         <Grid container justify="center" alignItems="center">
-          <div className={styles.contactWrapper}>
-            <Phone className={styles.contactIcon} />
-            Tel. 442 213 0898
-          </div>
+          <a href="tel:4422130898" target="_blank" rel="nofollow">
+            <div className={styles.contactWrapper}>
+              <Phone className={styles.contactIcon} />
+              Tel. 442 213 0898
+            </div>
+          </a>
           <Box marginRight="2em" />
-          <div className={styles.contactWrapper}>
-            <WhatsApp className={styles.contactIcon} />
-            WhatsApp
-          </div>
+          <a href={contact.whatsappLink} target="_blank" rel="nofollow">
+            <div className={styles.contactWrapper}>
+              <WhatsApp className={styles.contactIcon} />
+              WhatsApp
+            </div>
+          </a>
         </Grid>
       </Box>
 

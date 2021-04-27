@@ -38,3 +38,7 @@ export const payoutTypes = {
   branch: 'Pago en Sucursal',
   transfer: 'Crédito / Transferencia',
 };
+
+export const contact = {
+  whatsappLink: 'https://api.whatsapp.com/send?phone=5214426137391',
+};
