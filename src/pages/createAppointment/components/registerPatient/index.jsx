@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import registerIconSrc from 'src/assets/icono_registro.png';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Hidden } from '@material-ui/core';
 import { array, func, string } from 'prop-types';
 import { Check } from '@material-ui/icons';
 import styles from './styles.module.css';
 import Input from '../../../../components/main/input';
 import Header from '../header';
 import ErrorMessage from '../../../../components/errorMessage';
+import Text from '../../../../components/main/text';
 
 const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName }) => (
   <>
@@ -22,14 +23,25 @@ const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage, c
       <div className={styles.body}>
         <ErrorMessage message={errorMessage} marginBottom="1em" />
 
-        <Grid container wrap="nowrap">
-          <Input className={styles.inputText} {...getInputProps('patientPlastName')} variant="underline" placeholder="Apellido paterno" />
-          <Box paddingRight="1em" />
-          <Input className={styles.inputText} {...getInputProps('patientMlastName')} variant="underline" placeholder="Apellido materno" />
-          <Box paddingRight="1em" />
-          <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre(s)" />
-        </Grid>
+        <Hidden xsDown>
+          <Grid container wrap="nowrap">
+            <Input className={styles.inputText} {...getInputProps('patientPlastName')} variant="underline" placeholder="Apellido paterno" />
+            <Box paddingRight="1em" />
+            <Input className={styles.inputText} {...getInputProps('patientMlastName')} variant="underline" placeholder="Apellido materno" />
+            <Box paddingRight="1em" />
+            <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre(s)" />
+          </Grid>
+        </Hidden>
 
+        <Hidden smUp>
+          <div>
+            <Input className={styles.inputText} {...getInputProps('patientPlastName')} variant="underline" placeholder="Apellido paterno" />
+            <Box paddingRight="1em" />
+            <Input className={styles.inputText} {...getInputProps('patientMlastName')} variant="underline" placeholder="Apellido materno" />
+            <Box paddingRight="1em" />
+            <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre(s)" />
+          </div>
+        </Hidden>
         <Input className={styles.inputText} {...getInputProps('patientBirthDate')} variant="underline" placeholder="Fecha de nacimiento DD/MM/AAAA (opcional)" />
         <div className={styles.textBold}>Estudios a realizarse*:</div>
 

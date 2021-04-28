@@ -185,4 +185,4 @@ const AppointmentSummary = () => {
   );
 };
 
-export default AppointmentSummary;
+export default withAuth(AppointmentSummary, { admin: true, companyManager: true, employment: true });

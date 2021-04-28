@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton } from '@material-ui/core';
-import { Delete, Edit, Visibility, VisibilityOff } from '@material-ui/icons';
+import { AttachMoney, Delete, Edit, Visibility, VisibilityOff } from '@material-ui/icons';
 import { func, number, string } from 'prop-types';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
@@ -36,6 +36,11 @@ const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPh
             <Caption message="Editar" className={styles.caption}>
               <IconButton className={styles.iconWrapper} onClick={onEdit}>
                 <Edit />
+              </IconButton>
+            </Caption>
+            <Caption message="Formas de pago" className={styles.caption}>
+              <IconButton className={styles.iconWrapper} onClick={onEdit}>
+                <AttachMoney />
               </IconButton>
             </Caption>
             <Caption message="Estudios" className={styles.caption}>
