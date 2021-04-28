@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import dates, { composeDatebyStrings, fillTime, getDayName, stringDateToDate } from '../../helpers/dates';
 import { getIntervalByDate } from './branches';
 import database from './database';
-
+import { getAppointmentCounters } from './counters';
 /**
  * get appointmnts list at specific date
  * @param {string} branchId
@@ -60,6 +59,7 @@ export const getAvailableTimes = async (branchId, stringDate) => {
  * @param {object} values
  */
 export const saveAppointment = async (values) => {
+  const appointmentId = await getAppointmentCounters();
   const availableTimes = await getAvailableTimes(values.branch, values.stringDate);
   if (!availableTimes.includes(values.stringTime)) return { status: 'error', errorMessage: 'La hora seleccionada ya no esta disponible, porfavor elija otro horario' };
 
@@ -82,7 +82,7 @@ export const saveAppointment = async (values) => {
     company: values.company,
   };
 
-  const operationResult = await database.create('appointments', secureData);
+  const operationResult = await database.create('appointments', secureData, appointmentId);
   if (operationResult) return { status: 'success', id: operationResult.id };
   return { status: 'error', errorMessage: 'Error algo salió mal' };
 };
