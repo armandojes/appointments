@@ -42,4 +42,5 @@ export const payoutTypes = {
 
 export const contact = {
   whatsappLink: 'https://api.whatsapp.com/send?phone=5214426137391',
+  email: 'empresas@laboratoriosiml.com',
 };

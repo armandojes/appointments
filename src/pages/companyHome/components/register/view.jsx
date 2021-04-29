@@ -1,12 +1,13 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/jsx-props-no-spreading */
 import { Box, CircularProgress, Grid } from '@material-ui/core';
-import { Phone, WhatsApp } from '@material-ui/icons';
+import { Email, Phone, WhatsApp } from '@material-ui/icons';
 import { bool, func, string } from 'prop-types';
 import React from 'react';
 import Button from 'src/components/main/button';
 import Input from 'src/components/main/input';
 import Text from 'src/components/main/text';
-import { colors } from 'src/constants';
+import { colors, contact } from 'src/constants';
 import ErrorMessage from '../../../../components/errorMessage';
 import styles from './styles.module.css';
 
@@ -106,15 +107,27 @@ const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading, cr
           </Box>
           <Box marginTop="4em" marginBottom="2em">
             <Grid container justify="center" alignItems="center">
-              <div className={styles.contactWrapper}>
-                <Phone className={styles.contactIcon} />
-                Tel. 442 213 0898
-              </div>
+              <a href="tel:4422130898">
+                <div className={styles.contactWrapper}>
+                  <Phone className={styles.contactIcon} />
+                  Tel. 442 213 0898
+                </div>
+              </a>
               <Box marginRight="2em" />
-              <div className={styles.contactWrapper}>
-                <WhatsApp className={styles.contactIcon} />
-                WhatsApp
-              </div>
+              <a href={contact.whatsappLink} target="_blank">
+                <div className={styles.contactWrapper}>
+                  <WhatsApp className={styles.contactIcon} />
+                  WhatsApp
+                </div>
+              </a>
+              <Box marginTop=".7em">
+                <a href={`mailto:${contact.email}`}>
+                  <div className={styles.contactWrapper}>
+                    <Email className={styles.contactIcon} />
+                    {contact.email}
+                  </div>
+                </a>
+              </Box>
             </Grid>
           </Box>
         </form>

@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 import { Box, Grid, Hidden } from '@material-ui/core';
-import { Phone, WhatsApp } from '@material-ui/icons';
+import { Email, Phone, WhatsApp } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -163,7 +163,7 @@ const AppointmentSummary = () => {
 
           <Box marginTop="4em" marginBottom="1.5em">
             <Grid container justify="center" alignItems="center">
-              <a href="tel:4422130898" target="_blank">
+              <a href="tel:4422130898">
                 <div className={styles.contactWrapper}>
                   <Phone className={styles.contactIcon} />
                   Tel. 442 213 0898
@@ -176,6 +176,25 @@ const AppointmentSummary = () => {
                   WhatsApp
                 </div>
               </a>
+              <Hidden xsDown>
+                <div>
+                  <Box marginRight="2em" />
+                  <a href={`mailto:${contact.email}`}>
+                    <div className={styles.contactWrapper}>
+                      <Email className={styles.contactIcon} />
+                      {contact.email}
+                    </div>
+                  </a>
+                </div>
+              </Hidden>
+              <Box marginTop="1em">
+                <a href={`mailto:${contact.email}`}>
+                  <div className={styles.contactWrapper}>
+                    <Email className={styles.contactIcon} />
+                    {contact.email}
+                  </div>
+                </a>
+              </Box>
             </Grid>
           </Box>
         </>
