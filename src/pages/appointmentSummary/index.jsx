@@ -1,6 +1,4 @@
 /* eslint-disable react/jsx-no-target-blank */
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
 import { Box, Grid, Hidden } from '@material-ui/core';
 import { Email, Phone, WhatsApp } from '@material-ui/icons';
 import React, { useState } from 'react';
