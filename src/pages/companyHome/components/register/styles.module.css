@@ -9,14 +9,14 @@
 .contactWrapper {
   display: flex;
   align-items: center;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color: var(--blue);
   font-weight: bold;
 }
 .contactIcon {
   display: block;
   font-size: 1em!important;
-  margin-right: .4em;
+  margin-right: .3em;
   color: #fff;
   background-color: var(--green);
   border-radius: 50%;

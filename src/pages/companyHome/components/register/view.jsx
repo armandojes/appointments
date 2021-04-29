@@ -113,7 +113,7 @@ const RegisterView = ({ getInputProps, onFormSubmit, errorMessage, isLoading, cr
                   Tel. 442 213 0898
                 </div>
               </a>
-              <Box marginRight="2em" />
+              <Box marginRight="1em" />
               <a href={contact.whatsappLink} target="_blank">
                 <div className={styles.contactWrapper}>
                   <WhatsApp className={styles.contactIcon} />

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
-import { Box, Grid } from '@material-ui/core';
-import { Check, Phone, WhatsApp } from '@material-ui/icons';
+import { Box, Grid, Hidden } from '@material-ui/core';
+import { Check, Email, Phone, WhatsApp } from '@material-ui/icons';
 import { array, func, string } from 'prop-types';
 import React from 'react';
 import payouIconSrc from 'src/assets/icono_pago.png';
@@ -69,7 +69,7 @@ const Payout = ({ payoutType, getInputProps, onPayouTypeChange, onConfirm, error
 
       <Box marginTop="4em" marginBottom="2em">
         <Grid container justify="center" alignItems="center">
-          <a href="tel:4422130898" target="_blank" rel="nofollow">
+          <a href="tel:4422130898" rel="nofollow">
             <div className={styles.contactWrapper}>
               <Phone className={styles.contactIcon} />
               Tel. 442 213 0898
@@ -82,6 +82,27 @@ const Payout = ({ payoutType, getInputProps, onPayouTypeChange, onConfirm, error
               WhatsApp
             </div>
           </a>
+          <Hidden mdDown>
+            <>
+              <Box marginRight="2em" />
+              <a href={`mailto:${contact.email}`} rel="nofollow">
+                <div className={styles.contactWrapper}>
+                  <Email className={styles.contactIcon} />
+                  {contact.email}
+                </div>
+              </a>
+            </>
+          </Hidden>
+          <Hidden lgUp>
+            <Box marginTop="1em" width="100%" display="flex" justifyContent="center">
+              <a href={`mailto:${contact.email}`} rel="nofollow">
+                <div className={styles.contactWrapper}>
+                  <Email className={styles.contactIcon} />
+                  {contact.email}
+                </div>
+              </a>
+            </Box>
+          </Hidden>
         </Grid>
       </Box>
 
