@@ -100,7 +100,7 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
                 <span>Dirección:</span> {company.address}
               </div>
               <div className={styles.row}>
-                <span>id:</span> {companyOwner.id}
+                <span>id:</span> {company.customId || companyOwner.id}
               </div>
             </div>
           </Card>

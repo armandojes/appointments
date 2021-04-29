@@ -3,6 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 import firebase from 'firebase';
 import { loginWithEmailAndPAssword } from './auth';
+import { getAppointmentCounters, getCompanyCounter } from './counters';
 import database from './database';
 import { callable } from './firebase';
 import studiesModel from './studies';
@@ -41,7 +42,8 @@ export const deleteRequestCompany = async (compnyId) => {
 
 // validating on server
 export const createNewCompany = async (data) => {
-  const response = await callable.httpsCallable('createNewCompany')(data);
+  const companyCustomId = await getCompanyCounter(data.companyName);
+  const response = await callable.httpsCallable('createNewCompany')({ ...data, companyCustomId });
   return response.data;
 };
 
