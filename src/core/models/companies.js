@@ -66,6 +66,14 @@ export const getCompany = async (companyId) => {
   return null;
 };
 
+export const updateMethosPay = async (companyId, methodsPay) => {
+  const status = await database.update(`users/${companyId}`, {
+    company: { methodsPay },
+  });
+  if (status) return { status: 'success' };
+  return { status: 'error', errorMessage: 'Error, Algo salio mal' };
+};
+
 export const getCompanyWithUser = async (companyId) => {
   const data = await database.getDocument(`users/${companyId}`);
   if (data) return data;

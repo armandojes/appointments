@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Hidden } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import Card from 'src/components/card';
 import Button from 'src/components/main/button';
@@ -32,7 +32,7 @@ const HeaderCompanies = ({ onCreate, counter }) => {
             </NavLink>
           </Box>
           {onCreate && (
-            <Button onClick={onCreate} variant="contained" color={colors.green}>Crear empresa</Button>
+            <Button onClick={onCreate} variant="contained" color={colors.green}>Crear <Hidden xsDown>empresa</Hidden></Button>
           )}
         </Grid>
       </Card>

@@ -30,6 +30,7 @@ const View = ({ items, loading, onDelete, onEdit, onCreate }) => (
                 onDelete={() => onDelete(item.id)}
                 onEdit={() => onEdit(item)}
                 id={item.id}
+                methodsPay={item.company.methodsPay || []}
               />
             </Box>
           </Grid>

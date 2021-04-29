@@ -17,3 +17,8 @@
 .caption {
   margin: 0em .7em!important;
 }
+@media screen and (max-width:600px) {
+  .caption {
+    margin: 0em .5em!important;
+  }
+}

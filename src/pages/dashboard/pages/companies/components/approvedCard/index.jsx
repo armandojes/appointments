@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { Box, Grid, IconButton } from '@material-ui/core';
 import { AttachMoney, Delete, Edit, Visibility, VisibilityOff } from '@material-ui/icons';
-import { func, number, string } from 'prop-types';
+import { array, func, number, string } from 'prop-types';
 import React, { useState } from 'react';
 import Card from 'src/components/card';
 import Text from 'src/components/main/text';
@@ -9,63 +10,77 @@ import labBlueSrc from 'src/assets/lab_blue.png';
 import { Link } from 'react-router-dom';
 import Caption from 'src/components/caption';
 import styles from './styles.module.css';
+import MethodsPayModal from '../methodsPayModal';
 
-const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, userEmail, userFullName, onDelete, onEdit, userPassword }) => {
+const ApprovedCard = ({ id, companyAddress, companyEmail, companyName, companyPhone, companyRFC, companyRazonSocial, userEmail, userFullName, onDelete, onEdit, userPassword, methodsPay }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState();
 
   const handleToggleVisivility = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
+
   return (
-    <Card>
-      <Box textAlign="center">
-        <Box marginBottom="2em" marginTop="1em">
-          <Grid container justify="center" alignItems="center">
-            <Caption message={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'} className={styles.caption}>
-              <IconButton className={styles.iconWrapper} onClick={handleToggleVisivility}>
-                {!showPassword && <Visibility />}
-                {showPassword && <VisibilityOff />}
-              </IconButton>
-            </Caption>
-            <Caption message="Eliminar" className={styles.caption}>
-              <IconButton className={styles.iconWrapper} onClick={onDelete}>
-                <Delete />
-              </IconButton>
-            </Caption>
-            <Caption message="Editar" className={styles.caption}>
-              <IconButton className={styles.iconWrapper} onClick={onEdit}>
-                <Edit />
-              </IconButton>
-            </Caption>
-            <Caption message="Formas de pago" className={styles.caption}>
-              <IconButton className={styles.iconWrapper} onClick={onEdit}>
-                <AttachMoney />
-              </IconButton>
-            </Caption>
-            <Caption message="Estudios" className={styles.caption}>
-              <IconButton className={styles.iconWrapper}>
-                <Link to={`/dashboard/studies-for-company/${id}`}>
-                  <img src={labBlueSrc} alt="icono de laboratorio" />
-                </Link>
-              </IconButton>
-            </Caption>
-          </Grid>
+    <>
+      <MethodsPayModal
+        open={isModalOpen}
+        onClose={handleModalClose}
+        id={id}
+        name={companyName}
+        methodsPay={methodsPay}
+      />
+      <Card>
+        <Box textAlign="center">
+          <Box marginBottom="2em" marginTop="1em">
+            <Grid container justify="center" alignItems="center">
+              <Caption message={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'} className={styles.caption}>
+                <IconButton className={styles.iconWrapper} onClick={handleToggleVisivility}>
+                  {!showPassword && <Visibility />}
+                  {showPassword && <VisibilityOff />}
+                </IconButton>
+              </Caption>
+              <Caption message="Eliminar" className={styles.caption}>
+                <IconButton className={styles.iconWrapper} onClick={onDelete}>
+                  <Delete />
+                </IconButton>
+              </Caption>
+              <Caption message="Editar" className={styles.caption}>
+                <IconButton className={styles.iconWrapper} onClick={onEdit}>
+                  <Edit />
+                </IconButton>
+              </Caption>
+              <Caption message="Formas de pago" className={styles.caption}>
+                <IconButton className={styles.iconWrapper} onClick={handleModalOpen}>
+                  <AttachMoney />
+                </IconButton>
+              </Caption>
+              <Caption message="Estudios" className={styles.caption}>
+                <IconButton className={styles.iconWrapper}>
+                  <Link to={`/dashboard/studies-for-company/${id}`}>
+                    <img src={labBlueSrc} alt="icono de laboratorio" />
+                  </Link>
+                </IconButton>
+              </Caption>
+            </Grid>
+          </Box>
+          <Text lineHeight="1.4em" color={colors.green}>Datos del usuario</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userFullName}</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userEmail}</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{showPassword ? userPassword : '•••••••••••'}</Text>
+          <Box marginBottom="1.5em" />
+          <Text lineHeight="1.4em" color={colors.green}>Datos de la empresa</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyName}</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyEmail}</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyPhone}</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyAddress}</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRFC}</Text>
+          <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRazonSocial}</Text>
         </Box>
-        <Text lineHeight="1.4em" color={colors.green}>Datos del usuario</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userFullName}</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{userEmail}</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{showPassword ? userPassword : '•••••••••••'}</Text>
-        <Box marginBottom="1.5em" />
-        <Text lineHeight="1.4em" color={colors.green}>Datos de la empresa</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyName}</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyEmail}</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyPhone}</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyAddress}</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRFC}</Text>
-        <Text lineHeight="1.4em" fontSize="1.1em" color={colors.blue}>{companyRazonSocial}</Text>
-      </Box>
-    </Card>
+      </Card>
+    </>
   );
 };
 
@@ -82,6 +97,7 @@ ApprovedCard.propTypes = {
   onEdit: func.isRequired,
   id: string.isRequired,
   userPassword: string.isRequired,
+  methodsPay: array.isRequired,
 };
 
 export default ApprovedCard;

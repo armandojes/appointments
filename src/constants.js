@@ -35,8 +35,9 @@ export const appointmentStatusColors = {
 };
 
 export const payoutTypes = {
-  branch: 'Pago en Sucursal',
-  transfer: 'Crédito / Transferencia',
+  branch: 'Pago en efectivo',
+  transfer: 'Pago por transferencia',
+  credit: 'Crédito',
 };
 
 export const contact = {
