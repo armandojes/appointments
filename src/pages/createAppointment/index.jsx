@@ -246,6 +246,7 @@ const CreateAppointment = () => {
         error={values.error}
         companyManager={session.fullName || session.name}
         companyName={session.company.name}
+        methodsPay={!!session && !!session.company && !!session.company.methodsPay ? session.company.methodsPay : []}
       />
     </>
   );
