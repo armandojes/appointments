@@ -1,5 +1,5 @@
 import { Box, Hidden, Menu } from '@material-ui/core';
-import { ArrowDropDown, Business, Person, PlaylistAddCheck, Today } from '@material-ui/icons';
+import { ArrowDropDown, Business, Person, PlaylistAddCheck, StoreMallDirectory, Today } from '@material-ui/icons';
 import { array, bool, func, string } from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -95,6 +95,10 @@ const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onC
                   {item.company.name}
                 </div>
                 <div className={styles.row}>
+                  <StoreMallDirectory className={styles.icon} />
+                  {branchOptions.find((el) => el.id === item.branch).name}
+                </div>
+                <div className={styles.row}>
                   <Person className={styles.icon} />
                   {item.patientName}
                 </div>
@@ -106,7 +110,9 @@ const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onC
         </div>
       )}
       {!isLoading && !items.length && (
-        <Empty message={keyWords ? 'No se encontraron resultados' : 'Aún no hay citas registradas'} />
+        <Empty
+          message={keyWords ? 'No se encontraron resultados' : 'Aún no hay citas registradas'}
+        />
       )}
     </>
   );
