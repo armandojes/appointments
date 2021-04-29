@@ -177,7 +177,7 @@ const AppointmentSummary = () => {
                 </div>
               </a>
               <Hidden xsDown>
-                <div>
+                <>
                   <Box marginRight="2em" />
                   <a href={`mailto:${contact.email}`}>
                     <div className={styles.contactWrapper}>
@@ -185,16 +185,18 @@ const AppointmentSummary = () => {
                       {contact.email}
                     </div>
                   </a>
-                </div>
+                </>
               </Hidden>
-              <Box marginTop="1em">
-                <a href={`mailto:${contact.email}`}>
-                  <div className={styles.contactWrapper}>
-                    <Email className={styles.contactIcon} />
-                    {contact.email}
-                  </div>
-                </a>
-              </Box>
+              <Hidden smUp>
+                <Box marginTop="1em">
+                  <a href={`mailto:${contact.email}`}>
+                    <div className={styles.contactWrapper}>
+                      <Email className={styles.contactIcon} />
+                      {contact.email}
+                    </div>
+                  </a>
+                </Box>
+              </Hidden>
             </Grid>
           </Box>
         </>
