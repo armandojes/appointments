@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { getAllAppointments } from 'src/core/models/appointments';
 import useFetch from 'src/hooks/useFetch';
-import branchesModel from 'src/core/models/branches';
-import { useHistory, useParams } from 'react-router';
+import branches from '../../../../core/models/branches';
+import useSession from '../../../../session/useSession';
 import View from './view';
 
 const Appointments = () => {
-  const { branchId } = useParams();
-  const history = useHistory();
+  const session = useSession();
   const [state, setState] = useState({
-    appointmentName: '',
+    branchesList: [],
     isLoading: true,
     appointments: [],
     keywords: '',
     filterCompany: null,
     keyWords: '',
+    branchId: session.branchId,
   });
 
   let appointmentsFiltered = state.appointments;
@@ -33,6 +33,11 @@ const Appointments = () => {
     });
   }
 
+  // filter branchid
+  if (state.branchId) {
+    appointmentsFiltered = appointmentsFiltered.filter((item) => item.branch === state.branchId);
+  }
+
   const setComposeState = (newState) => {
     setState((prevStates) => ({ ...prevStates, ...newState }));
   };
@@ -45,25 +50,25 @@ const Appointments = () => {
 
   // fetch initial data
   useFetch(async () => {
-    const items = await getAllAppointments(branchId);
-    const branchData = await branchesModel.getSingle(branchId);
-    if (!branchData) {
-      history.push('/dashboard/select-branch');
-    } else {
-      setComposeState({
-        appointments: items,
-        isLoading: false,
-        appointmentName: branchData.name,
-      });
-    }
+    const items = await getAllAppointments();
+    const branchesFetched = await branches.list();
+    setComposeState({
+      appointments: items,
+      isLoading: false,
+      branchesList: branchesFetched,
+    });
   });
 
   const handleCompanyChange = (val) => {
-    setComposeState({ filterCompany: val, keyWords: '' });
+    setComposeState({ filterCompany: val, keyWords: '', branchId: null });
   };
 
   const handleKeyWordChange = (e) => {
-    setComposeState({ filterCompany: null, keyWords: e.target.value });
+    setComposeState({ filterCompany: null, keyWords: e.target.value, branchId: null });
+  };
+
+  const handleBranchChange = (branchId) => {
+    setComposeState({ branchId, keyWords: '', filterCompany: null });
   };
 
   return (
@@ -74,6 +79,8 @@ const Appointments = () => {
       onCompanyChange={handleCompanyChange}
       onChangeKeywords={handleKeyWordChange}
       keyWords={state.keyWords}
+      onBranchChange={handleBranchChange}
+      branchOptions={state.branchesList}
     />
   );
 };

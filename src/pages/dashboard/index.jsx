@@ -12,7 +12,6 @@ import StudyEditor from './pages/studyEditor';
 import StudiesForCompany from './pages/studiesForCompany';
 import CompanyEditor from './pages/companyEditor';
 import Appointments from './pages/appointments';
-import BranchSelector from './pages/branchSelector';
 import AppointmentDetail from './pages/appointmentDetail';
 import withAuth from '../../highOrderComponents/withAuth';
 
@@ -34,8 +33,7 @@ const DashBoard = () => (
             <Route path="/dashboard/study-editor/:studyId?" component={withAuth(StudyEditor, { admin: true })} />
             <Route path="/dashboard/company-editor/:companyId?" component={withAuth(CompanyEditor, { admin: true })} />
             <Route path="/dashboard/studies-for-company/:companyId?" component={withAuth(StudiesForCompany, { admin: true })} />
-            <Route path="/dashboard/appointments/:branchId" component={withAuth(Appointments, { admin: true, employment: true })} />
-            <Route path="/dashboard/appointments" component={withAuth(BranchSelector, { admin: true, employment: true })} />
+            <Route path="/dashboard/appointments" component={withAuth(Appointments, { admin: true, employment: true })} />
             <Route path="/dashboard/appointment/:appointmentId" component={withAuth(AppointmentDetail, { admin: true, employment: true })} />
           </Switch>
         </div>

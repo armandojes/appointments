@@ -11,8 +11,9 @@ import { appointmentStatus, colors } from 'src/constants';
 import Empty from '../../../../components/empty';
 import styles from './styles.module.css';
 
-const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onChangeKeywords }) => {
+const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onChangeKeywords, onBranchChange, branchOptions }) => {
   const [menuAnchorElCompany, setAnchorElCompany] = useState(null);
+  const [menuAnchorElBranch, setMenuAnchorElBranch] = useState(null);
 
   return (
     <>
@@ -35,6 +36,27 @@ const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onC
           ))}
         </Box>
       </Menu>
+
+      <Menu
+        open={!!menuAnchorElBranch}
+        anchorEl={menuAnchorElBranch}
+        onClose={() => setMenuAnchorElBranch(null)}
+        onClick={() => setMenuAnchorElBranch(null)}
+        className={styles.menu}
+        anchorOrigin={{ vertical: 'top' }}
+      >
+        <Box padding="1em">
+          <div onClick={() => onBranchChange(null)} role="button" className={styles.menuItem}>
+            Todos
+          </div>
+          {branchOptions.map((branch) => (
+            <div onClick={() => onBranchChange(branch.id)} role="button" className={styles.menuItem} key={branch.id}>
+              {branch.name}
+            </div>
+          ))}
+        </Box>
+      </Menu>
+
       <Card className={styles.headerCard}>
         <Text fontSize="1.2em" fontWeight="bold" color={colors.blue}>Citas</Text>
         <div className={styles.filtersWrapper}>
@@ -43,6 +65,9 @@ const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onC
           </Hidden>
           <div className={styles.filter} onClick={(e) => setAnchorElCompany(e.currentTarget)} role="button">
             Empresa <ArrowDropDown />
+          </div>
+          <div className={styles.filter} onClick={(e) => setMenuAnchorElBranch(e.currentTarget)} role="button">
+            Sucursal <ArrowDropDown />
           </div>
         </div>
       </Card>
@@ -94,6 +119,8 @@ View.propTypes = {
   onCompanyChange: func.isRequired,
   keyWords: string.isRequired,
   onChangeKeywords: func.isRequired,
+  onBranchChange: func.isRequired,
+  branchOptions: array.isRequired,
 };
 
 export default View;
