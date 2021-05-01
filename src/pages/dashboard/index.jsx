@@ -14,6 +14,8 @@ import CompanyEditor from './pages/companyEditor';
 import Appointments from './pages/appointments';
 import AppointmentDetail from './pages/appointmentDetail';
 import withAuth from '../../highOrderComponents/withAuth';
+import Profiles from './pages/profiles';
+import ProfileEditor from './pages/profileEditor';
 
 const DashBoard = () => (
   <div className={styles.fullWidth}>
@@ -30,6 +32,8 @@ const DashBoard = () => (
             <Route path="/dashboard/employments" component={withAuth(Employments, { admin: true })} />
             <Route path="/dashboard/companies" component={withAuth(Companies, { admin: true })} />
             <Route path="/dashboard/studies" component={withAuth(Studies, { admin: true })} />
+            <Route path="/dashboard/profiles" exact component={withAuth(Profiles, { admin: true })} />
+            <Route path="/dashboard/profiles/editor/:profileId?" exact component={withAuth(ProfileEditor, { admin: true })} />
             <Route path="/dashboard/study-editor/:studyId?" component={withAuth(StudyEditor, { admin: true })} />
             <Route path="/dashboard/company-editor/:companyId?" component={withAuth(CompanyEditor, { admin: true })} />
             <Route path="/dashboard/studies-for-company/:companyId?" component={withAuth(StudiesForCompany, { admin: true })} />

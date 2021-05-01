@@ -1,0 +1,17 @@
+.card {
+  width: 70%;
+  box-sizing: border-box;
+  padding: 2em;
+  margin: auto;
+}
+.button {
+  width: 48%!important;
+  max-width: 12em!important;
+}
+
+@media screen and (max-width:1200px) {
+  .card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
