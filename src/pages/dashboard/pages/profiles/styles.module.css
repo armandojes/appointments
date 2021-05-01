@@ -1,0 +1,55 @@
+.studyCard {
+  min-height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2em;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+.row {
+  display: flex;
+  border-bottom: 1px solid var(--green);
+  margin-bottom: .3em;
+  padding-bottom: .3em;
+  align-items: center;
+  color: var(--blue);
+}
+.rowHeader {
+  display: flex;
+  margin-bottom: .3em;
+  padding-bottom: .3em;
+  align-items: center;
+  color: var(--green);
+  font-weight: bold;
+}
+
+
+.code {
+  min-width: 9em;
+}
+.title {
+  flex-grow: 1;
+}
+.actionsContainer {
+  display: flex;
+  margin-left: 1em;
+}
+.icons {
+  font-size: 1.3em!important;
+  border: 1px solid var(--blue)!important;
+  padding: .2em!important;
+  border-radius: 50%!important;
+  margin-left: .4em!important;
+  color: var(--blue)!important;
+  cursor: pointer;
+}
+@media screen and (max-width:600px) {
+  .code {
+    min-width: 8em;
+  }
+}
