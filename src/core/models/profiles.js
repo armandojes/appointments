@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
+import firebase from 'firebase';
 import database from 'src/core/models/database';
 
 export const create = async (data) => {
@@ -21,6 +21,11 @@ export const getList = async () => {
 
 export const remove = async (profileId) => {
   const status = await database.remove(`profiles/${profileId}`);
+  database.updateList('users', [['type', '==', 'companyManager']], {
+    company: {
+      profiles: firebase.firestore.FieldValue.arrayRemove(profileId),
+    },
+  });
   if (status) return { status: 'success' };
   return { status: 'error', errorMessage: 'Error, algo salió mal' };
 };
@@ -43,10 +48,17 @@ export const update = async (profileId, data) => {
     : { status: 'error', errorMessage: 'Error algo salio mal' };
 };
 
+export const deleteStudyContained = async (studyId) => {
+  await database.updateList('profiles', null, {
+    studies: firebase.firestore.FieldValue.arrayRemove(studyId),
+  });
+};
+
 export default {
   create,
   getList,
   remove,
   getSingle,
   update,
+  deleteStudyContained,
 };

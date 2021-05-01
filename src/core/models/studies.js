@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import database from './database';
+import profilesModel from './profiles';
 
 export const getStudies = async () => {
   const stidiesList = await database.getList('studies', null, null, null).next();
@@ -35,6 +36,7 @@ export const getStudy = async (studyId) => {
 
 export const deleteStudy = async (studyId) => {
   const status = await database.remove(`studies/${studyId}`);
+  profilesModel.deleteStudyContained(studyId);
   await database.updateList('users', [['type', '==', 'companyManager']], {
     company: {
       studies: firebase.firestore.FieldValue.arrayRemove(studyId),
