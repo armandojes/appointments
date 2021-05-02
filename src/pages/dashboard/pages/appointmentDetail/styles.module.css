@@ -16,6 +16,8 @@
 }
 .row span {
   color: var(--green);
+  min-width: 20%;
+  display: inline-block;
 }
 .StidoesListWrapper {
   display: flex;

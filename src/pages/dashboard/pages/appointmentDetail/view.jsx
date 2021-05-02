@@ -10,7 +10,7 @@ import styles from './styles.module.css';
 import Loading from '../../../../components/loading';
 import { toStringDate } from '../../../../helpers/dates';
 
-const View = ({ loading, company, appointment, companyOwner, studies, customStudy, status, onStatusChange, isOutdate }) => {
+const View = ({ loading, company, appointment, companyOwner, studies, customStudy, status, onStatusChange, isOutdate, profiles }) => {
   const [anchorSelect, setAchorSelect] = useState(null);
 
   const handleClose = () => setAchorSelect(null);
@@ -153,6 +153,32 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
             </div>
           </Card>
 
+          {!!profiles.length && (
+            <Card className={styles.card}>
+              <Text fontSize="1.2em" color={colors.blue} fontWeight="bold">Perfiles {profiles.length} </Text>
+              <div className={styles.cardBody}>
+                <div className={styles.StidoesListWrapper}>
+
+                  {profiles.map((profile) => (
+                    <div className={styles.studyItemWrapper}>
+                      <div className={styles.studyCard}>
+                        <img src={studyIconSrc} alt="icono de laboratorio" className={styles.studyIcon} />
+                        <div className={styles.itemDataWrapper}>
+                          <div className={styles.row}>
+                            <div>{profile.title}</div>
+                            {profile.studiesWithData && profile.studiesWithData.map((std) => (
+                              <Text fontWeight="normal" lineHeight="1.3em"> - {std.title}</Text>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          )}
+
         </div>
       )}
     </>
@@ -173,6 +199,7 @@ View.propTypes = {
   status: string.isRequired,
   onStatusChange: func.isRequired,
   isOutdate: bool.isRequired,
+  profiles: array.isRequired,
 };
 
 export default View;

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 import { Delete } from '@material-ui/icons';
@@ -104,7 +105,7 @@ const StudyHistory = ({ setAlert }) => {
                     </div>
                   </div>
                   <div className={styles.cellStudy}>
-                    {limitText(item.studies.length ? item.studies[0].title : item.otherStudy, 25)}
+                    {limitText(item.studies.length ? item.studies[0].title : item.profiles.length ? item.profiles[0].title : item.otherStudy, 25)}
                   </div>
                   <div className={styles.cellId}>{item.id}</div>
                   <div

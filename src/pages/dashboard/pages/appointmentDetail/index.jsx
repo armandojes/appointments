@@ -53,6 +53,7 @@ const AppointmentDetail = () => {
       company={companyWithOwner.company || {}}
       companyOwner={companyWithOwner}
       studies={appointment.studies || []}
+      profiles={appointment.profiles || []}
       customStudy={appointment.otherStudy || null}
       isOutdate={handleIsOutDateCompute()}
       status={computedStatus}
