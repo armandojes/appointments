@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect } from 'react';
-import { getAvailableStudies } from 'src/core/models/companies';
+import { getAvailableProfiles, getAvailableStudies } from 'src/core/models/companies';
 import branchesModel from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
 import useForm from 'src/hooks/useForm';
@@ -16,11 +16,12 @@ const step1Validators = {
   patientName: validators.patientNameValidator,
   patientPlastName: validators.patientNameValidator,
   patientMlastName: validators.patientNameValidator,
-  studies: (studies, otherValues) => {
-    const someStudySelected = studies.some((currentStudy) => currentStudy.isSelected);
-    if (someStudySelected) return false;
+  studies: (_studies, otherValues) => {
+    const someStudySelected = otherValues.studies.some((currentStudy) => currentStudy.isSelected);
+    const someProfileSelected = otherValues.profiles.some((currentProfile) => currentProfile.isSelected);
+    if (someStudySelected || someProfileSelected) return false;
     if (otherValues.otherStudy) return false;
-    return 'Selecciona almenos un estudio';
+    return 'Selecciona al menos un estudio';
   },
 };
 
@@ -42,6 +43,7 @@ const CreateAppointment = () => {
   const session = useSession();
   const { getInputProps, values, setValues, handleValidateForm } = useForm({
     studies: [],
+    profiles: [],
     isLoading: true,
     branches: [],
     branch: null,
@@ -62,6 +64,17 @@ const CreateAppointment = () => {
       studies: prevVals.studies.map((currentStudy) => {
         if (currentStudy.id === idClicked) return { ...currentStudy, isSelected: !currentStudy.isSelected };
         return currentStudy;
+      }),
+    }));
+  };
+
+  const handleProfileClick = (event) => {
+    const idClicked = event.currentTarget.id;
+    setValues((prevVals) => ({
+      ...prevVals,
+      profiles: prevVals.profiles.map((currentProfile) => {
+        if (currentProfile.id === idClicked) return { ...currentProfile, isSelected: !currentProfile.isSelected };
+        return currentProfile;
       }),
     }));
   };
@@ -140,6 +153,7 @@ const CreateAppointment = () => {
     const response = await saveAppointment({
       ...values,
       studies: values.studies.filter((std) => std.isSelected),
+      profiles: values.profiles.filter((prof) => prof.isSelected),
       company: {
         id: session.id,
         name: session.company.name,
@@ -188,12 +202,14 @@ const CreateAppointment = () => {
   // fetch initial data
   useFetch(async () => {
     const studies = await getAvailableStudies(session.id);
+    const profiles = await getAvailableProfiles(session.id);
     const branches = await branchesModel.list();
     setValues((prev) => ({
       ...prev,
       branches,
       isLoading: false,
       studies: studies.map((std) => ({ ...std, isSelected: false })),
+      profiles: profiles.map((profile) => ({ ...profile, isSelected: false })),
     }));
   });
 
@@ -230,7 +246,9 @@ const CreateAppointment = () => {
         payoutType={values.payoutType || ''}
         isLoading={values.isLoading}
         studies={values.studies}
+        profiles={values.profiles}
         onStudyClick={handleStudyClick}
+        onProfileClick={handleProfileClick}
         getInputProps={getInputProps}
         branches={values.branches}
         onBranchClick={handleBranchClick}

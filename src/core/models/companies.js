@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import firebase from 'firebase';
 import { loginWithEmailAndPAssword } from './auth';
 import { getCompanyCounter } from './counters';
@@ -162,6 +164,21 @@ export const getAvailableStudies = async (companyId) => {
   }
 };
 
+export const getAvailableProfiles = async (companyId) => {
+  try {
+    const { profiles = [] } = await getCompany(companyId);
+    const allProfiles = await profilesModel.getList();
+    const profilesFiltered = allProfiles.filter((profile) => profiles.includes(profile.id));
+    for (const profile of profilesFiltered) {
+      const studiesWithData = await Promise.all(profile.studies.map((std) => studiesModel.getStudy(std)));
+      profile.studiesWithData = studiesWithData;
+    }
+    return profilesFiltered;
+  } catch (error) {
+    return [];
+  }
+};
+
 export default {
   createRequestForNewCompany,
   deleteRequestCompany,
@@ -177,4 +194,5 @@ export default {
   getProfilesWithStatus,
   addNewProfile,
   deleteProfile,
+  getAvailableProfiles,
 };

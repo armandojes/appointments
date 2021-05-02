@@ -47,7 +47,11 @@
   color: gray;
 }
 .itemTitleSlected {
-  color: var(--blue);
+  color: var(--blue)!important;
+}
+.itemsInsideProfileWrapper {
+  color: gray;
+  margin-left: 2em;
 }
 
 @media screen and (max-width:1000px) {

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import registerIconSrc from 'src/assets/icono_registro.png';
 import { Box, Grid, Hidden } from '@material-ui/core';
@@ -8,9 +7,8 @@ import styles from './styles.module.css';
 import Input from '../../../../components/main/input';
 import Header from '../header';
 import ErrorMessage from '../../../../components/errorMessage';
-import Text from '../../../../components/main/text';
 
-const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName }) => (
+const RegisterPatient = ({ profiles, studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName, onProfileClick }) => (
   <>
     <Box padding="2em 0em">
       <Header
@@ -56,6 +54,23 @@ const RegisterPatient = ({ studies, onStudyClick, getInputProps, errorMessage, c
               </div>
             </div>
           ))}
+          {profiles.map((currentProfile) => (
+            <div className={styles.itemWrapper} key={currentProfile.id}>
+              <div role="button" className={styles.item} id={currentProfile.id} onClick={onProfileClick} name={currentProfile.id}>
+                <div className={`${styles.checkbox} ${currentProfile.isSelected ? styles.checkboxSelected : ''}`}>
+                  {currentProfile.isSelected && <Check />}
+                </div>
+                <div className={`${styles.itemTitle} ${currentProfile.isSelected ? styles.itemTitleSlected : ''}`}>
+                  {currentProfile.title}
+                </div>
+              </div>
+              <div className={`${styles.itemsInsideProfileWrapper} ${currentProfile.isSelected ? styles.itemTitleSlected : ''}`}>
+                {currentProfile.studiesWithData.map((std) => (
+                  <div> - {std.title} </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
         <Input className={styles.inputText} {...getInputProps('otherStudy')} variant="underline" placeholder="Otro especificar" />
@@ -71,6 +86,8 @@ RegisterPatient.propTypes = {
   errorMessage: string.isRequired,
   companyManager: string.isRequired,
   companyName: string.isRequired,
+  profiles: array.isRequired,
+  onProfileClick: func.isRequired,
 };
 
 export default RegisterPatient;

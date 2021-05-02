@@ -11,7 +11,7 @@ import RegisterPatient from './components/registerPatient';
 import SelectBranch from './components/selectBranch';
 import styles from './styles.module.css';
 
-const NewAppointmentView = ({ methodsPay, branchNameSelected, companyManager, companyName, error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, shouldDisableDate }) => (
+const NewAppointmentView = ({ onProfileClick, profiles, methodsPay, branchNameSelected, companyManager, companyName, error, errorMessageAtStep1, errorMessageAtStep2, errorMessageAtStep3, errorMessageAtStep4, times, date, onDateSelect, studies, isLoading, onStudyClick, getInputProps, branches, onBranchClick, branch, onTimeSelect, stringTime, payoutType, onPayouTypeChange, onConfirm, currentStep, shouldDisableDate }) => (
   <>
     {!isLoading && error && (
       <Container>
@@ -31,7 +31,9 @@ const NewAppointmentView = ({ methodsPay, branchNameSelected, companyManager, co
           companyName={companyName}
           companyManager={companyManager}
           studies={studies}
+          profiles={profiles}
           onStudyClick={onStudyClick}
+          onProfileClick={onProfileClick}
           getInputProps={getInputProps}
           errorMessage={errorMessageAtStep1}
         />
@@ -108,6 +110,8 @@ NewAppointmentView.propTypes = {
   companyName: string.isRequired,
   branchNameSelected: string.isRequired,
   methodsPay: array.isRequired,
+  profiles: array.isRequired,
+  onProfileClick: func.isRequired,
 };
 
 export default NewAppointmentView;

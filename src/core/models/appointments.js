@@ -77,6 +77,7 @@ export const saveAppointment = async (values) => {
     otherStudy: values.otherStudy || null,
     payoutComments: values.payoutComments || null,
     studies: studiesParsed,
+    profiles: values.profiles,
     appointmentDate: composeDatebyStrings(values.stringDate, values.stringTime),
     interval,
     company: values.company,

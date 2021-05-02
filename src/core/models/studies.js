@@ -50,4 +50,5 @@ export default {
   getStudies,
   createStudy,
   updateStudy,
+  getStudy,
 };
