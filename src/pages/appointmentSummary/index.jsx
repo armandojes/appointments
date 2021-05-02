@@ -76,8 +76,34 @@ const AppointmentSummary = () => {
           <div className={styles.bodyLimiter}>
             <div className={styles.centerOnlyMobile}>
               <Box marginBottom="1.5em">
-                <Text fontWeight="900" color={colors.blue} fontSize="1.3em" style={{ textTransform: 'capitalize' }}>{appointment.patientName}</Text>
+                <Text fontWeight="900" color={colors.blue} fontSize="1.4em" style={{ textTransform: 'capitalize' }}>{appointment.patientName}</Text>
                 <Text color={colors.green} fontSize="1.1em">Paciente</Text>
+              </Box>
+            </div>
+
+            <div className={styles.centerOnlyMobile}>
+              <Box marginBottom="1.5em">
+                <Text fontWeight="900" color={colors.green} fontSize="1.4em">{toLargeStringDate(stringDateToDate(appointment.stringDate))}</Text>
+                <Text fontWeight="900" color={colors.green} fontSize="1.4em">{appointment.stringTime} Horas</Text>
+              </Box>
+            </div>
+
+            <div className={styles.centerOnlyMobile}>
+              <Box marginBottom="1.5em">
+                <Text fontWeight="900" color={colors.blue} fontSize="1.4em">
+                  Sucursal: <span style={{ color: colors.green }}>{branchData.name}</span>
+                </Text>
+                <Text color={colors.blue} fontSize="1.1em">{branchData.address}</Text>
+              </Box>
+            </div>
+
+            <div className={styles.centerOnlyMobile}>
+              <Box marginBottom="3em">
+                <Text fontWeight="900" color={colors.blue} fontSize="1.4em">
+                  {payoutTypes[appointment.payoutType] || appointment.payoutType}
+                </Text>
+                {appointment.payoutType === 'branch' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio en efectivo</Text>}
+                {appointment.payoutType === 'transfer' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio con tarjeta o tranferencia</Text>}
               </Box>
             </div>
 
@@ -86,62 +112,40 @@ const AppointmentSummary = () => {
                 <div className={styles.studyWrapper} id={study.id}>
                   <Box flexGrow="1">
                     <div className={styles.centerOnlyMobile}>
-                      <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{study.title}</Text>
                       <Text color={colors.green} fontSize="1.1em">Estudio</Text>
+                      <Text fontWeight="900" color={colors.blue} fontSize="1.4em">{study.title}</Text>
+                      <Text marginTop=".3em" color={colors.green} fontSize="1.1em">Indicaciones:</Text>
+                      {study.indications && <Text fontSize="1.1em" lineHeight="1.3em" color={colors.blue} whiteSpace="pre-wrap">{study.indications}</Text>}
                     </div>
                   </Box>
                 </div>
               ))}
-              <div className={styles.studyWrapper}>
-                {appointment.otherStudy && (
+              {appointment.otherStudy && (
+                <div className={styles.studyWrapper}>
                   <Box flexGrow="1">
                     <div className={styles.centerOnlyMobile}>
-                      <Text fontWeight="900" color={colors.blue} fontSize="1.3em">{appointment.otherStudy}</Text>
                       <Text color={colors.green} fontSize="1.1em">Estudio</Text>
+                      <Text fontWeight="900" color={colors.blue} fontSize="1.4em">{appointment.otherStudy}</Text>
                     </div>
                   </Box>
-                )}
-              </div>
-            </div>
-
-            <div className={styles.centerOnlyMobile}>
-              <Box marginBottom="1.5em">
-                <Text fontWeight="900" color={colors.green} fontSize="1.3em">{toLargeStringDate(stringDateToDate(appointment.stringDate))}</Text>
-                <Text fontWeight="900" color={colors.green} fontSize="1.3em">{appointment.stringTime} Horas</Text>
-              </Box>
-            </div>
-
-            <div className={styles.centerOnlyMobile}>
-              <Box marginBottom="1.5em">
-                <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
-                  Sucursal: <span style={{ color: colors.green }}>{branchData.name}</span>
-                </Text>
-                <Text color={colors.blue} fontSize="1.1em">{branchData.address}</Text>
-              </Box>
-            </div>
-
-            <div className={styles.centerOnlyMobile}>
-              <Box marginBottom="1.5em">
-                <Text fontWeight="900" color={colors.blue} fontSize="1.3em">
-                  {payoutTypes[appointment.payoutType] || appointment.payoutType}
-                </Text>
-                {appointment.payoutType === 'branch' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio en efectivo</Text>}
-                {appointment.payoutType === 'transfer' && <Text color={colors.blue} fontSize="1.1em">Paga su estudio con tarjeta o tranferencia</Text>}
-              </Box>
-            </div>
-
-            <Box marginBottom="1.5em">
-              <Text fontWeight="900" color={colors.blue} fontSize="1.3em" className={styles.centerOnlyMobile}>
-                INDICACIONES:
-              </Text>
-              {appointment.studies.map((study) => (
-                <div className={`${styles.indicationsItem} ${styles.centerOnlyMobile}`} key={study.id}>
-                  <Text color={colors.green} fontSize="1.2em">
-                    {study.indications}
-                  </Text>
+                </div>
+              )}
+              {appointment.profiles.map((profile) => (
+                <div className={styles.studyWrapper} id={profile.id}>
+                  <Box flexGrow="1">
+                    <div className={styles.centerOnlyMobile}>
+                      <Text color={colors.green} fontSize="1.1em">Perfil</Text>
+                      <Text fontWeight="900" color={colors.blue} fontSize="1.4em">{profile.title}</Text>
+                      {profile.studiesWithData.map((std) => (
+                        <Text fontWeight="900" color={colors.blue} fontSize="1.1em">- {std.title}</Text>
+                      ))}
+                      <Text marginTop=".3em" color={colors.green} fontSize="1.1em">Indicaciones:</Text>
+                      <Text fontSize="1.1em" lineHeight="1.3em" color={colors.blue} whiteSpace="pre-wrap">{profile.indications}</Text>
+                    </div>
+                  </Box>
                 </div>
               ))}
-            </Box>
+            </div>
 
             <div className={styles.fotterCard}>
               <div>SU CITA HA SIDO GENERADA EXITOSAMENTE.</div>
