@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/forbid-prop-types */
 import { Box, CircularProgress, Grid } from '@material-ui/core';
 import { Check } from '@material-ui/icons';
 import { array, bool, func, string } from 'prop-types';
@@ -13,26 +10,51 @@ import Text from '../../../../components/main/text';
 import { colors } from '../../../../constants';
 import styles from './styles.module.css';
 
-const View = ({ companyName, isLoading, items, onItemStatusToggle }) => (
+const View = ({ companyName, isLoading, studies, onStudyToogleStatus, profiles, onProfileToggleStatus }) => (
   <>
     {isLoading && (
       <Loading />
     )}
-    {!isLoading && items && items.length && (
+    {!isLoading && studies && studies.length && (
       <>
         <Card>
           <Text fontSize="1.2em" fontWeight="bold" color={colors.blue}>{companyName}</Text>
         </Card>
         <Box paddingTop="2em" />
+        <Grid container alignItems="center">
+          <Text color={colors.green} fontWeight="bold">Estudios</Text>
+          <Box flexGrow="1" borderBottom="1px solid #0fafab4f" marginLeft="1em" />
+        </Grid>
         <Grid container>
-          {items.map((item) => (
+          {studies.map((item) => (
             <Grid item xs={12} sm={6} key={item.id}>
               <Box padding=".5em" minHeight="100%" display="flex" boxSizing="border-box">
                 <Card className={styles.studyCard}>
                   <Text fontWeight="bold" color={colors.blue}>{item.title}</Text>
                   {item.isLoading && (<CircularProgress className={styles.iconLoader} />)}
                   {!item.isLoading && (
-                    <div className={`${styles.checkbox} ${item.isAvailable ? styles.checkboxActive : ''}`} onClick={() => onItemStatusToggle(item)}>
+                    <div className={`${styles.checkbox} ${item.isAvailable ? styles.checkboxActive : ''}`} onClick={() => onStudyToogleStatus(item)} role="button">
+                      {item.isAvailable && <Check />}
+                    </div>
+                  )}
+                </Card>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+        <Grid container alignItems="center">
+          <Text color={colors.green} fontWeight="bold">Perfiles</Text>
+          <Box flexGrow="1" borderBottom="1px solid #0fafab4f" marginLeft="1em" />
+        </Grid>
+        <Grid container>
+          {profiles.map((item) => (
+            <Grid item xs={12} sm={6} key={item.id}>
+              <Box padding=".5em" minHeight="100%" display="flex" boxSizing="border-box">
+                <Card className={styles.studyCard}>
+                  <Text fontWeight="bold" color={colors.blue}>{item.title}</Text>
+                  {item.isLoading && (<CircularProgress className={styles.iconLoader} />)}
+                  {!item.isLoading && (
+                    <div className={`${styles.checkbox} ${item.isAvailable ? styles.checkboxActive : ''}`} onClick={() => onProfileToggleStatus(item)} role="button">
                       {item.isAvailable && <Check />}
                     </div>
                   )}
@@ -54,8 +76,10 @@ const View = ({ companyName, isLoading, items, onItemStatusToggle }) => (
 View.propTypes = {
   companyName: string.isRequired,
   isLoading: bool.isRequired,
-  items: array.isRequired,
-  onItemStatusToggle: func.isRequired,
+  studies: array.isRequired,
+  onStudyToogleStatus: func.isRequired,
+  profiles: array.isRequired,
+  onProfileToggleStatus: func.isRequired,
 };
 
 export default View;

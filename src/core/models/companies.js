@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-restricted-syntax */
 import firebase from 'firebase';
 import { loginWithEmailAndPAssword } from './auth';
-import { getAppointmentCounters, getCompanyCounter } from './counters';
+import { getCompanyCounter } from './counters';
 import database from './database';
 import { callable } from './firebase';
 import studiesModel from './studies';
+import profilesModel from './profiles';
 
 export const createRequestForNewCompany = async (data) => {
   const loginRes = await loginWithEmailAndPAssword({ email: data.userEmail, password: 'xxxxxxxxxx' });
@@ -98,6 +96,22 @@ export const getStudiesWithStatus = async (companyId) => {
   });
 };
 
+/**
+ * get all profiles with company association status
+ * @param {String} companyId
+ */
+export const getProfilesWithStatus = async (companyId) => {
+  const { profiles = [] } = await getCompany(companyId);
+  const allProfiles = await profilesModel.getList();
+  return allProfiles.map((profile) => {
+    const studyParsed = {
+      ...profile,
+      isAvailable: profiles.includes(profile.id),
+    };
+    return studyParsed;
+  });
+};
+
 export const addNewStudy = async (companyId, studyId) => {
   const status = await database.update(`users/${companyId}`, {
     company: {
@@ -112,6 +126,26 @@ export const deleteStudy = async (companyId, studyId) => {
   const status = await database.update(`users/${companyId}`, {
     company: {
       studies: firebase.firestore.FieldValue.arrayRemove(studyId),
+    },
+  });
+  if (status) return { status: 'success' };
+  return { status: 'error', errorMessage: 'Error, Algo salio mal' };
+};
+
+export const addNewProfile = async (companyId, profileId) => {
+  const status = await database.update(`users/${companyId}`, {
+    company: {
+      profiles: firebase.firestore.FieldValue.arrayUnion(profileId),
+    },
+  });
+  if (status) return { status: 'success' };
+  return { status: 'error', errorMessage: 'Error, Algo salio mal' };
+};
+
+export const deleteProfile = async (companyId, profileId) => {
+  const status = await database.update(`users/${companyId}`, {
+    company: {
+      profiles: firebase.firestore.FieldValue.arrayRemove(profileId),
     },
   });
   if (status) return { status: 'success' };
@@ -140,4 +174,7 @@ export default {
   deleteStudy,
   getAvailableStudies,
   getRequests,
+  getProfilesWithStatus,
+  addNewProfile,
+  deleteProfile,
 };
