@@ -32,9 +32,13 @@ const BranchGeneralInfoForm = ({ open, getInputProps, onClose, onConfirm, isLoad
         <Text color={colors.blue} mb=".2em">Dirección</Text>
         <Input {...getInputProps('address')} maxLength={100} />
       </Box>
-      <Box marginBottom="2em">
+      <Box marginBottom=".5em">
         <Text color={colors.blue} mb=".2em">Teléfonos (separadas por coma)</Text>
         <Input {...getInputProps('phonesCrud')} placeholder="111111, 222222, 333333" maxLength={50} />
+      </Box>
+      <Box marginBottom="2em">
+        <Text color={colors.blue} mb=".2em">Link de google maps</Text>
+        <Input {...getInputProps('maps')} />
       </Box>
       <Grid container wrap="nowrap">
         <Button color={colors.blue} width="50%" onClick={onClose}>Cancelar</Button>

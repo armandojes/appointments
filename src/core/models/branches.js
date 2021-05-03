@@ -40,6 +40,7 @@ export const UpdateGeneralInfo = async (branchId, data) => {
       name: data.name,
       address: data.address,
       phones: data.phones,
+      maps: data.maps,
     };
     await database.update(`branches/${branchId}`, secureData);
     return { status: 'success' };
@@ -136,6 +137,7 @@ export const createNewBranch = async (data) => {
   const date = '9:00';
   const success = await database.create('branches', {
     phones: data.phones,
+    maps: data.maps || null,
     name: data.name,
     address: data.address,
     days: {
