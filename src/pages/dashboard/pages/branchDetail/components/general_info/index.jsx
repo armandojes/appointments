@@ -14,6 +14,7 @@ import Button from 'src/components/main/button';
 import styles from './styles.module.css';
 import EditGeneralInfoModal from '../edit_general_info';
 import withAlert from '../../../../../../highOrderComponents/withAlert';
+import limitText from '../../../../../../helpers/limitText';
 
 const Generalinfo = ({ setAlert }) => {
   const [branch, setBranch] = useState(null);
@@ -78,6 +79,7 @@ const Generalinfo = ({ setAlert }) => {
           <Rows name="Nombre" value={branch.name} />
           <Rows name="Dirección" value={branch.address} />
           <Rows name="Teléfono" value={branch.phones.join(', ')} />
+          {branch.maps && <Rows name="Link de google maps" value={limitText(branch.maps || '', 50)} />}
         </Card>
       )}
     </>
