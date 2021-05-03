@@ -1,0 +1,29 @@
+.inputFile {
+  max-width: 600px;
+  height: 4em;
+  border: 1px dashed var(--green);
+  margin: 2em auto;
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.map {
+  max-width: 400px;
+  max-height: 300px;
+  display: block;
+  margin: 1em auto;
+}
+.button {
+  display: block!important;
+  padding: .5em 2em!important;
+  margin: auto!important;
+  margin-top: 2em!important;
+}
+@media screen and (max-width:700px) {
+  .map {
+    max-width: 100%;
+    max-height: 300px;
+  }
+}

@@ -250,6 +250,25 @@ export const updateTimesStatusPerDate = async (branchId, date, times) => {
   return status ? { status: 'success' } : { status: 'error', errorMessage: 'Error, algo salió mal' };
 };
 
+export const uploadPictureMap = async (branchId, picture) => {
+  const storageRef = firebase.storage().ref();
+  const { name } = picture;
+  const { ref } = await storageRef.child(`maps/${branchId}.png`).put(picture);
+  const url = await ref.getDownloadURL();
+  const urlTransformed = url.split('&token')[0];
+  return urlTransformed;
+};
+
+export const updateMapUrl = async (branchId, mapPicture) => {
+  try {
+    const secureData = { mapPicture };
+    await database.update(`branches/${branchId}`, secureData);
+    return { status: 'success' };
+  } catch (error) {
+    return { status: 'error', errorMessage: 'Error, algo salio mal' };
+  }
+};
+
 export default {
   list,
   getSingle,
@@ -265,4 +284,5 @@ export default {
   updateTimesStatusPerDay,
   getTimesStatusPerDate,
   updateTimesStatusPerDate,
+  uploadPictureMap,
 };
