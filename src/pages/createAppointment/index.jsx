@@ -14,9 +14,9 @@ import withAuth from '../../highOrderComponents/withAuth';
 
 const step1Validators = {
   patientName: validators.patientNameValidator,
-  patientBirthDate: validators.patientBirthDate,
   patientPlastName: validators.patientNameValidator,
   patientMlastName: validators.patientNameValidator,
+  patientBirthDate: validators.patientBirthDate,
   studies: (_studies, otherValues) => {
     const someStudySelected = otherValues.studies.some((currentStudy) => currentStudy.isSelected);
     const someProfileSelected = otherValues.profiles.some((currentProfile) => currentProfile.isSelected);
@@ -115,6 +115,14 @@ const CreateAppointment = () => {
 
   const setCurrentStep = (step) => {
     setValues((preValues) => ({ ...preValues, currentStep: step }));
+  };
+
+  const handlePatientBirthDateBlur = () => {
+    const error = handleValidateForm({ patientBirthDate: validators.patientBirthDate });
+    if (Object.values(error).length) {
+      setValues((prevValues) => ({ ...prevValues, errorMessageAtStep1: Object.values(error)[0], currentStep: 1 }));
+      setTimeout(() => setValues((prevValues) => ({ ...prevValues, errorMessageAtStep1: '' })), 7000);
+    }
   };
 
   const handleShouldDisableDate = (date) => {
@@ -266,6 +274,7 @@ const CreateAppointment = () => {
         companyManager={session.fullName || session.name}
         companyName={session.company.name}
         methodsPay={!!session && !!session.company && !!session.company.methodsPay ? session.company.methodsPay : []}
+        onPatientBirthDateBlur={handlePatientBirthDateBlur}
       />
     </>
   );

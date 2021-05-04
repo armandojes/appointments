@@ -8,7 +8,7 @@ import Input from '../../../../components/main/input';
 import Header from '../header';
 import ErrorMessage from '../../../../components/errorMessage';
 
-const RegisterPatient = ({ profiles, studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName, onProfileClick }) => (
+const RegisterPatient = ({ onPatientBirthDateBlur, profiles, studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName, onProfileClick }) => (
   <>
     <Box padding="2em 0em">
       <Header
@@ -40,7 +40,7 @@ const RegisterPatient = ({ profiles, studies, onStudyClick, getInputProps, error
             <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre(s)" />
           </div>
         </Hidden>
-        <Input className={styles.inputText} {...getInputProps('patientBirthDate')} variant="underline" placeholder="Fecha de nacimiento DD/MM/AAAA (opcional)" />
+        <Input className={styles.inputText} {...getInputProps('patientBirthDate')} variant="underline" placeholder="Fecha de nacimiento DD/MM/AAAA (opcional)" onBlur={onPatientBirthDateBlur} />
         <div className={styles.textBold}>Estudios a realizarse*:</div>
 
         <div className={styles.studyWrapper}>
@@ -88,6 +88,7 @@ RegisterPatient.propTypes = {
   companyName: string.isRequired,
   profiles: array.isRequired,
   onProfileClick: func.isRequired,
+  onPatientBirthDateBlur: func.isRequired,
 };
 
 export default RegisterPatient;
