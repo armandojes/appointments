@@ -14,6 +14,7 @@ import withAuth from '../../highOrderComponents/withAuth';
 
 const step1Validators = {
   patientName: validators.patientNameValidator,
+  patientBirthDate: validators.patientBirthDate,
   patientPlastName: validators.patientNameValidator,
   patientMlastName: validators.patientNameValidator,
   studies: (_studies, otherValues) => {
@@ -173,7 +174,7 @@ const CreateAppointment = () => {
   };
 
   // setStep debounced
-  const setCurrentStepDebounced = useCallback(debounce((newStep) => setCurrentStep(newStep), 700), []);
+  const setCurrentStepDebounced = useCallback(debounce((newStep) => setCurrentStep(newStep), 1000), []);
 
   // set current step when required entries from previous steps are filled
   useEffect(() => {
