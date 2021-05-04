@@ -8,6 +8,8 @@ import Loading from 'src/components/loading';
 import studies from 'src/core/models/studies';
 import useFetch from 'src/hooks/useFetch';
 import ErrorMessage from '../../../../../../components/errorMessage';
+import Text from '../../../../../../components/main/text';
+import { colors } from '../../../../../../constants';
 import styles from './styles.module.css';
 
 const StudiesSelector = ({ itemsSelected, onItemToggle, errorMessage }) => {
@@ -31,6 +33,7 @@ const StudiesSelector = ({ itemsSelected, onItemToggle, errorMessage }) => {
       )}
       {!loading && items && !!items.length && (
         <>
+          <Text textAlign="center" marginBottom="2em" fontSize="1em" fontWeight="bold" color={colors.blue}>Estudios</Text>
           <ErrorMessage message={errorMessage} />
           <div className={styles.listWrapper}>
             {items.map((item) => (

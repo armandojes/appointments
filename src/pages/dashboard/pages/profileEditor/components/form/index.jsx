@@ -19,6 +19,7 @@ TextArea.propTypes = {
 const Form = ({ title, getInputProps, errorMessage }) => {
   return (
     <>
+      <Text textAlign="center" marginBottom="2em" fontSize="1em" fontWeight="bold" color={colors.blue}>Información general</Text>
       <ErrorMessage message={errorMessage} />
       <Text fontSize="1.2em" color={colors.blue} fontWeight="bold" marginBottom="1em">{title}</Text>
       <Box marginBottom="1em">
