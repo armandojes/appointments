@@ -1,16 +1,18 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import studyIconSrc from 'src/assets/lab.png';
 import { array, bool, func, object, string } from 'prop-types';
-import { Edit } from '@material-ui/icons';
-import { Menu } from '@material-ui/core';
-import Card from '../../../../components/card';
-import Text from '../../../../components/main/text';
-import { appointmentStatus, appointmentStatusColors, colors, payoutTypes } from '../../../../constants';
+import { Delete, Edit } from '@material-ui/icons';
+import { Box, Grid, Menu } from '@material-ui/core';
+import Card from 'src/components/card';
+import Text from 'src/components/main/text';
+import { appointmentStatus, appointmentStatusColors, colors, payoutTypes } from 'src/constants';
+import Loading from 'src/components/loading';
+import { toStringDate } from 'src/helpers/dates';
 import styles from './styles.module.css';
-import Loading from '../../../../components/loading';
-import { toStringDate } from '../../../../helpers/dates';
+import Caption from '../../../../components/caption';
 
-const View = ({ loading, company, appointment, companyOwner, studies, customStudy, status, onStatusChange, isOutdate, profiles }) => {
+const View = ({ loading, company, appointment, companyOwner, studies, customStudy, status, onStatusChange, isOutdate, profiles, onDelete }) => {
   const [anchorSelect, setAchorSelect] = useState(null);
 
   const handleClose = () => setAchorSelect(null);
@@ -41,12 +43,19 @@ const View = ({ loading, company, appointment, companyOwner, studies, customStud
           <Card className={styles.card}>
             <Text fontSize="1.2em" color={colors.blue} fontWeight="bold">Detalles de cita</Text>
             <div className={styles.cardBody}>
-              <div className={styles.row}>
-                <div style={{ borderColor: colorStatus, color: colorStatus }} className={styles.status} onClick={handleOpen} role="button">
-                  Estado: {appointmentStatus[status] || status}
-                  <Edit />
-                </div>
-              </div>
+
+              <Box marginBottom="1em">
+                <Grid container alignItems="center">
+                  <div style={{ borderColor: colorStatus, color: colorStatus }} className={styles.status} onClick={handleOpen} role="button">
+                    Estado: {appointmentStatus[status] || status}
+                    <Edit />
+                  </div>
+                  <Caption message="Eliminar" className={styles.caption}>
+                    <Delete className={styles.delete} onClick={onDelete} />
+                  </Caption>
+                </Grid>
+              </Box>
+
               <div className={styles.row}>
                 <span className={styles.describe}>Paciente:</span> {appointment.patientName}
               </div>
@@ -200,6 +209,7 @@ View.propTypes = {
   onStatusChange: func.isRequired,
   isOutdate: bool.isRequired,
   profiles: array.isRequired,
+  onDelete: func.isRequired,
 };
 
 export default View;

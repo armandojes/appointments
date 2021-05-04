@@ -68,6 +68,15 @@
 .backdropSelectOpen {
   background-color: #00000040;
 }
+.delete {
+  font-size: 1.6em!important;
+  margin-left: .5em!important;
+  color: var(--blue);
+  cursor: pointer;
+}
+.caption {
+  margin-top: .3em;
+}
 
 @media screen and (max-width:1000px) {
   .wrapperLimiter {
