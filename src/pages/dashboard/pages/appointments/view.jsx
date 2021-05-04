@@ -11,9 +11,15 @@ import { appointmentStatus, colors } from 'src/constants';
 import Empty from '../../../../components/empty';
 import styles from './styles.module.css';
 
-const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onChangeKeywords, onBranchChange, branchOptions }) => {
+const View = ({ isLoading, items, companyOptions, onCompanyChange, keyWords, onChangeKeywords, onBranchChange, branchOptions, disableShow }) => {
   const [menuAnchorElCompany, setAnchorElCompany] = useState(null);
   const [menuAnchorElBranch, setMenuAnchorElBranch] = useState(null);
+
+  if (disableShow) {
+    return (
+      <Empty message="Aún no tienes ninguna sucursal asignado!" />
+    );
+  }
 
   return (
     <>
@@ -127,6 +133,7 @@ View.propTypes = {
   onChangeKeywords: func.isRequired,
   onBranchChange: func.isRequired,
   branchOptions: array.isRequired,
+  disableShow: bool.isRequired,
 };
 
 export default View;

@@ -18,6 +18,7 @@ const Appointments = () => {
   });
 
   let appointmentsFiltered = state.appointments;
+  const disableShow = !session.branchId && session.type !== 'admin';
 
   // filter by company
   if (state.filterCompany) {
@@ -81,6 +82,7 @@ const Appointments = () => {
       keyWords={state.keyWords}
       onBranchChange={handleBranchChange}
       branchOptions={state.branchesList}
+      disableShow={disableShow}
     />
   );
 };
