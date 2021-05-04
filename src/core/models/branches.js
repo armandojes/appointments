@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import firebase from 'firebase';
 import dates, { getDayName, stringDateToDate } from 'src/helpers/dates';
 import sortItems from '../../helpers/sortItems';
@@ -251,7 +252,7 @@ export const updateTimesStatusPerDate = async (branchId, date, times) => {
 
 export const uploadPictureMap = async (branchId, picture) => {
   const storageRef = firebase.storage().ref();
-  const { ref } = await storageRef.child(`maps/${branchId}.png`).put(picture);
+  const { ref } = await storageRef.child(`maps/${branchId}_${Date.now()}.png`).put(picture);
   const url = await ref.getDownloadURL();
   const urlTransformed = url.split('&token')[0];
   return urlTransformed;
@@ -264,6 +265,23 @@ export const updateMapUrl = async (branchId, mapPicture) => {
     return { status: 'success' };
   } catch (error) {
     return { status: 'error', errorMessage: 'Error, algo salio mal' };
+  }
+};
+
+export const deletePicture = async (id, url) => {
+  try {
+    const storageRef = firebase.storage().ref();
+    const urlDecoded = decodeURIComponent(url);
+    let urlToDelete = urlDecoded.split(id)[1];
+    urlToDelete = urlToDelete.split('?')[0];
+    urlToDelete = `${id}${urlToDelete}`;
+    const urlfinal = `maps/${urlToDelete}`;
+    console.log('urlfinal', urlfinal);
+    await storageRef.child(urlfinal).delete();
+    return true;
+  } catch (error) {
+    console.log('error_description:', error);
+    return false;
   }
 };
 

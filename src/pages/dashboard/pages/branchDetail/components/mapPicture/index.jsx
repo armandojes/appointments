@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import branchModel, { updateMapUrl, uploadPictureMap } from 'src/core/models/branches';
+import branchModel, { deletePicture, updateMapUrl, uploadPictureMap } from 'src/core/models/branches';
 import useFetch from 'src/hooks/useFetch';
 import Card from 'src/components/card';
 import { useDropzone } from 'react-dropzone';
@@ -34,6 +34,7 @@ const MapPicture = ({ setAlert }) => {
       title: '¿Seguro quieres eliminar el mapa de la sucursal?',
       action: async () => {
         const response = await updateMapUrl(branchId, null);
+        deletePicture(branchId, currentImage);
         await handlefetch();
         if (response.status === 'success') setNotification({ type: 'success', message: 'Imagen actualizado correctamente' });
         else setNotification({ type: 'error', message: response.errorMessage });
