@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import database from 'src/core/models/database';
+import sortItems from '../../helpers/sortItems';
 
 export const create = async (data) => {
   const secureData = {
@@ -16,7 +17,7 @@ export const create = async (data) => {
 
 export const getList = async () => {
   const list = await database.getList('profiles', null, null, null).next();
-  return list;
+  return sortItems(list, 'title', 'ASC');
 };
 
 export const remove = async (profileId) => {

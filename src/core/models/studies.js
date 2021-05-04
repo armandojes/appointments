@@ -1,10 +1,11 @@
 import firebase from 'firebase';
+import sortItems from '../../helpers/sortItems';
 import database from './database';
 import profilesModel from './profiles';
 
 export const getStudies = async () => {
   const stidiesList = await database.getList('studies', null, null, null).next();
-  return stidiesList;
+  return sortItems(stidiesList, 'title', 'ASC');
 };
 
 export const createStudy = async (data) => {
