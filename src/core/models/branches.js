@@ -1,7 +1,6 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
 import firebase from 'firebase';
 import dates, { getDayName, stringDateToDate } from 'src/helpers/dates';
+import sortItems from '../../helpers/sortItems';
 import database from './database';
 
 export const getIntervalByDate = async (branchId, stringDate) => {
@@ -15,9 +14,9 @@ export const getIntervalByDate = async (branchId, stringDate) => {
  * get branch list
  */
 export const list = async () => {
-  const fetcher = database.getList('branches', null, ['createdAt', 'asc'], null);
+  const fetcher = database.getList('branches', null, null, null);
   const branches = await fetcher.next();
-  return branches;
+  return sortItems(branches, 'name', 'ASC');
 };
 
 /**
@@ -252,7 +251,6 @@ export const updateTimesStatusPerDate = async (branchId, date, times) => {
 
 export const uploadPictureMap = async (branchId, picture) => {
   const storageRef = firebase.storage().ref();
-  const { name } = picture;
   const { ref } = await storageRef.child(`maps/${branchId}.png`).put(picture);
   const url = await ref.getDownloadURL();
   const urlTransformed = url.split('&token')[0];

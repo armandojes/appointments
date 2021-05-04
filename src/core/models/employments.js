@@ -3,6 +3,7 @@
 import database from './database';
 import branchesModel from './branches';
 import { callable } from './firebase';
+import sortItems from '../../helpers/sortItems';
 
 export const deleteEmployment = async (employmentId) => {
   await new Promise((r) => setTimeout(r, 1000));
@@ -24,7 +25,7 @@ export const getEmploymentList = async () => {
     if (singleEmployment.branchId) singleEmployment.branch = await branchesModel.getSingle(singleEmployment.branchId);
     return singleEmployment;
   }));
-  return dataParsed;
+  return sortItems(dataParsed, 'name', 'ASC');
 };
 
 export const updateEmployment = async (userId, data) => {

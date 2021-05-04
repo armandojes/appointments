@@ -7,6 +7,7 @@ import database from './database';
 import { callable } from './firebase';
 import studiesModel from './studies';
 import profilesModel from './profiles';
+import sortItems from '../../helpers/sortItems';
 
 export const createRequestForNewCompany = async (data) => {
   const loginRes = await loginWithEmailAndPAssword({ email: data.userEmail, password: 'xxxxxxxxxx' });
@@ -49,7 +50,7 @@ export const createNewCompany = async (data) => {
 
 export const getApproveds = async () => {
   const list = await database.getList('users', false, false, [['type', '==', 'companyManager']]).next();
-  return list;
+  return sortItems(list, 'company.name', 'ASC');
 };
 
 export const deleteAproved = async (companyId) => {
