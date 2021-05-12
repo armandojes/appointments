@@ -40,7 +40,7 @@ export const UpdateGeneralInfo = async (branchId, data) => {
       name: data.name,
       address: data.address,
       phones: data.phones,
-      maps: data.maps,
+      maps: data.maps || null,
     };
     await database.update(`branches/${branchId}`, secureData);
     return { status: 'success' };
