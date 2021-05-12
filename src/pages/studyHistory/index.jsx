@@ -114,9 +114,9 @@ const StudyHistory = ({ setAlert }) => {
                   >
                     {appointmentStatus[handleComputeState(item)]}
                   </div>
-                  <div onClick={(e) => handleDelete(item.id, e)} role="button">
+                  {/* <div onClick={(e) => handleDelete(item.id, e)} role="button">
                     <Delete />
-                  </div>
+                  </div> */}
                 </Link>
               ))}
             </div>
