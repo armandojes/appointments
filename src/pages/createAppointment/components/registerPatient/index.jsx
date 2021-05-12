@@ -8,7 +8,7 @@ import Input from '../../../../components/main/input';
 import Header from '../header';
 import ErrorMessage from '../../../../components/errorMessage';
 
-const RegisterPatient = ({ onPatientBirthDateBlur, profiles, studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName, onProfileClick }) => (
+const RegisterPatient = ({ onPatientBirthDateChange, onPatientBirthDateBlur, profiles, studies, onStudyClick, getInputProps, errorMessage, companyManager, companyName, onProfileClick }) => (
   <>
     <Box padding="2em 0em">
       <Header
@@ -40,7 +40,15 @@ const RegisterPatient = ({ onPatientBirthDateBlur, profiles, studies, onStudyCli
             <Input className={styles.inputText} {...getInputProps('patientName')} variant="underline" placeholder="Nombre(s)" />
           </div>
         </Hidden>
-        <Input className={styles.inputText} {...getInputProps('patientBirthDate')} variant="underline" placeholder="Fecha de nacimiento DD/MM/AAAA (opcional)" onBlur={onPatientBirthDateBlur} />
+        <Input
+          maxLength={10}
+          {...getInputProps('patientBirthDate')}
+          className={styles.inputText}
+          variant="underline"
+          placeholder="Fecha de nacimiento DD/MM/AAAA (opcional)"
+          onBlur={onPatientBirthDateBlur}
+          onChange={onPatientBirthDateChange}
+        />
         <div className={styles.textBold}>Estudios a realizarse*:</div>
 
         <div className={styles.studyWrapper}>
@@ -89,6 +97,7 @@ RegisterPatient.propTypes = {
   profiles: array.isRequired,
   onProfileClick: func.isRequired,
   onPatientBirthDateBlur: func.isRequired,
+  onPatientBirthDateChange: func.isRequired,
 };
 
 export default RegisterPatient;

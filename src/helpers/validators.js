@@ -60,14 +60,15 @@ export const patientNameValidator = (values) => {
   return null;
 };
 
-export const patientBirthDate = (val) => {
+export const patientBirthDate = (val = '') => {
   const errorMessage = 'La fecha de nacimiento debe tener el siguente formato DD/MM/AAAA';
-  if (!val) return false;
-  const dateSplited = val.split('/');
+  if (!val) return 'La fecha de nacimiento es requerido';
+
+  const dateSplited = val.toString().split('/');
   if (dateSplited.length !== 3) return errorMessage;
-  const day = dateSplited[0].replace(/[^\d.-]/g, '');
-  const month = dateSplited[1].replace(/[^\d.-]/g, '');
-  const year = dateSplited[2].replace(/[^\d.-]/g, '');
+  const day = dateSplited[0];
+  const month = dateSplited[1];
+  const year = dateSplited[2];
   if ((day.length !== 1 && day.length !== 2) || (month.length !== 1 && month.length !== 2) || (year.length !== 4)) return errorMessage;
   return null;
 };

@@ -132,6 +132,15 @@ const CreateAppointment = () => {
     return false;
   };
 
+  const handlePatientBithDateChange = (e) => {
+    const { value = '', name } = e.target;
+    const beforePatientBirthdate = values.patientBirthDate || '';
+    let valueStrign = value.toString();
+    valueStrign = valueStrign.replace(/[^\d.-/]/g, '');
+    if ((valueStrign.length === 2 || valueStrign.length === 5) && valueStrign.length > beforePatientBirthdate.length) valueStrign = `${valueStrign}/`;
+    setValues((prevValues) => ({ ...prevValues, [name]: valueStrign }));
+  };
+
   const handleConfirm = async () => {
     const errorsStep1 = handleValidateForm(step1Validators);
     if (Object.values(errorsStep1).length) {
@@ -278,6 +287,7 @@ const CreateAppointment = () => {
         companyName={session.company.name}
         methodsPay={!!session && !!session.company && !!session.company.methodsPay ? session.company.methodsPay : []}
         onPatientBirthDateBlur={handlePatientBirthDateBlur}
+        onPatientBirthDateChange={handlePatientBithDateChange}
       />
     </>
   );
