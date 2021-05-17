@@ -62,7 +62,7 @@ export const patientNameValidator = (values) => {
 
 export const patientBirthDate = (val = '') => {
   const errorMessage = 'La fecha de nacimiento debe tener el siguente formato DD/MM/AAAA';
-  if (!val) return 'La fecha de nacimiento es requerido';
+  if (!val) return false;
 
   const dateSplited = val.toString().split('/');
   if (dateSplited.length !== 3) return errorMessage;

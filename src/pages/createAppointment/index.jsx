@@ -14,7 +14,7 @@ import withAuth from '../../highOrderComponents/withAuth';
 const step1Validators = {
   patientName: validators.patientNameValidator,
   patientPlastName: validators.patientNameValidator,
-  patientMlastName: validators.patientNameValidator,
+  // patientMlastName: validators.patientNameValidator,
   patientBirthDate: validators.patientBirthDate,
   studies: (_studies, otherValues) => {
     const someStudySelected = otherValues.studies.some((currentStudy) => currentStudy.isSelected);
