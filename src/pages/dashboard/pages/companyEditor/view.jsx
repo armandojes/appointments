@@ -27,28 +27,28 @@ const View = ({ isLoading, errorMessage, getInputProps, onSave, isEditing }) => 
         <Grid item xs={12} sm={6}>
           <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
             <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Nombre de la empresa</Text>
-            <Input {...getInputProps('companyName')} maxLength={50} />
+            <Input {...getInputProps('companyName')} maxLength={150} />
           </Box>
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
             <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Nombre del responsable</Text>
-            <Input {...getInputProps('userFullName')} maxLength={50} />
+            <Input {...getInputProps('userFullName')} maxLength={150} />
           </Box>
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
             <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Email</Text>
-            <Input placeholder="" {...getInputProps('userEmail')} maxLength={50} />
+            <Input placeholder="" {...getInputProps('userEmail')} maxLength={150} />
           </Box>
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <Box marginBottom=".2em" paddingRight=".5em" paddingLeft=".5em">
             <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Contraseña</Text>
-            <Input placeholder="" {...getInputProps('password')} maxLength={30} />
+            <Input placeholder="" {...getInputProps('password')} maxLength={150} />
           </Box>
         </Grid>
 
@@ -67,29 +67,29 @@ const View = ({ isLoading, errorMessage, getInputProps, onSave, isEditing }) => 
 
         <Grid item xs={12} sm={6}>
           <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
-            <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Razón social</Text>
-            <Input placeholder="" {...getInputProps('companyRazonSocial')} maxLength={50} />
+            <Text fontWeight="bold" fontSize="1em" color={colors.blue}>RFC</Text>
+            <Input placeholder="" {...getInputProps('companyRFC')} maxLength={150} />
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
+          <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
+            <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Razón social</Text>
+            <Input placeholder="" {...getInputProps('companyRazonSocial')} maxLength={500} />
+          </Box>
+        </Grid>
+
+        <Grid item xs={12}>
           <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
             <Text fontWeight="bold" fontSize="1em" color={colors.blue}>Dirección fiscal completa</Text>
-            <Input placeholder="" {...getInputProps('companyAddress')} maxLength={50} />
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
-            <Text fontWeight="bold" fontSize="1em" color={colors.blue}>RFC</Text>
-            <Input placeholder="" {...getInputProps('companyRFC')} maxLength={50} />
+            <Input placeholder="" {...getInputProps('companyAddress')} maxLength={500} />
           </Box>
         </Grid>
 
         <Grid item xs={12}>
           <Box marginBottom=".5em" paddingRight=".5em" paddingLeft=".5em">
             <Text fontWeight="bold" fontSize="1em" color={colors.blue}>E-mail</Text>
-            <Input placeholder="" {...getInputProps('companyEmail')} maxLength={50} />
+            <Input placeholder="" {...getInputProps('companyEmail')} maxLength={150} />
           </Box>
         </Grid>
 
