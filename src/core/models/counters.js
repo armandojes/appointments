@@ -18,33 +18,19 @@ export const createInitialCounters = async () => {
 };
 
 export const getAppointmentCounters = async () => {
-  const status = await database.update('info/counters', {
+  await database.update('info/counters', {
     appointments: firebase.firestore.FieldValue.increment(1),
   });
 
-  if (!status) {
-    console.log('creating...');
-    await createInitialCounters();
-    await database.update('info/counters', {
-      appointments: firebase.firestore.FieldValue.increment(1),
-    });
-  }
   const counters = await database.getDocument('info/counters');
   return `IML-EMP-${addZero(counters.appointments)}`;
 };
 
 export const getCompanyCounter = async (name) => {
-  const status = await database.update('info/counters', {
+  await database.update('info/counters', {
     companies: firebase.firestore.FieldValue.increment(1),
   });
 
-  if (!status) {
-    console.log('creating...');
-    await createInitialCounters();
-    await database.update('info/counters', {
-      companies: firebase.firestore.FieldValue.increment(1),
-    });
-  }
   let nameParsed = slug(limitText(name, 30));
   nameParsed = nameParsed.toUpperCase();
   const counters = await database.getDocument('info/counters');
