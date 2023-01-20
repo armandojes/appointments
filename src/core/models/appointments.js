@@ -1,4 +1,4 @@
-import dates, { composeDatebyStrings, fillTime, getDayName, stringDateToDate } from '../../helpers/dates';
+import dates, { composeDatebyStrings, fillTime, getDayName, stringDateToDate, toStringDate } from '../../helpers/dates';
 import { getIntervalByDate } from './branches';
 import database from './database';
 import { getAppointmentCounters } from './counters';
@@ -51,7 +51,15 @@ export const getAvailableTimes = async (branchId, stringDate) => {
     return isAllMinutesFree;
   });
 
-  return times.map((t) => t.stringTime);
+  // filter by past time in the same day
+  if (stringDate === toStringDate(new Date())) {
+    times = times.filter((time) => {
+      const timeParsed = composeDatebyStrings(toStringDate(new Date()), time.stringTime);
+      return timeParsed.getTime() >= new Date().getTime();
+    });
+  }
+
+  return times.map((time) => time.stringTime);
 };
 
 /**
