@@ -12,6 +12,7 @@ import CreateAppointments from './pages/createAppointment';
 import NotificatinProvider from './notifications/provider';
 import AppointmentSummary from './pages/appointmentSummary';
 import StudyHistory from './pages/studyHistory';
+import FloatingAds from './components/floatingAds';
 
 const App = () => (
   <BrowserRouter>
@@ -19,6 +20,7 @@ const App = () => (
       <NotificatinProvider>
         <ThemeProvider>
           <PickersProvider>
+            <FloatingAds />
             <Header />
             <Switch>
               <Route path="/" exact component={companyHome} />
